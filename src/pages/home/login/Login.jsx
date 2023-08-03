@@ -116,27 +116,20 @@ const Login = ({setVisible}) => {
           
             {screen == 1 ? <PhoneNumberInput
              onChange={(e)=>{
-                if(!e.target.value){
-                    setOtp(e.target.value)
-                  }
-                if (!/[0-9]/.test(e.target.value)) {
-                    e.preventDefault();
-                    return;
-                  }
-                setPhoneNumber(e.target.value)}}
+                const re = /^[0-9\b]+$/;
+                if (e.target.value === '' || re.test(e.target.value)) {
+                    setPhoneNumber(e.target.value)
+                }
+             }}
              value={phoneNumber}
              placeholder="phonenumber"
             /> : <PhoneNumberInput
             onChange={(e)=>{
-                if(!e.target.value){
+                const re = /^[0-9\b]+$/;
+                if (e.target.value === '' || re.test(e.target.value)) {
                     setOtp(e.target.value)
-                  }
-                else  if (!/[0-9]/.test(e.target.value)) {
-                    e.preventDefault();
-                    return;
-                  }
-                   
-                setOtp(e.target.value)}}
+                }
+             }}
             value={otp}
             placeholder="OTP"
             type="number"
