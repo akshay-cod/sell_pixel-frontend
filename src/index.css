@@ -1,0 +1,20 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap');
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #3B3B3B;
+  min-height: 100%;
+  color: white;
+}
+
+code {
+  /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace; */
+}
+/* .react-player > video {
+  position: absolute;
+  object-fit: fill;
+} */
