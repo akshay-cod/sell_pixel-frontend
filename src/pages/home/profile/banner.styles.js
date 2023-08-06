@@ -54,7 +54,7 @@ export const BioDescr = styled.div`
 margin-top:4px;
 font-size:12px;
 font-weight:200;
-white-space: pre;
+white-space: pre-line;
 `;
 
 export const LinkHeading = styled.div`

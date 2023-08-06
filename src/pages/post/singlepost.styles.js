@@ -23,7 +23,7 @@ export const Descr = styled.div`
 margin-top:4px;
 font-size:12px;
 font-weight:200;
-white-space: pre-wrap; 
+white-space: pre-line; 
 `;
 
 export const TitleHeading = styled.div`
