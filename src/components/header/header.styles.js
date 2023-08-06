@@ -65,6 +65,14 @@ top: 0;
  justify-content:space-between;
  align-items:center;
  padding:10px 55px;
+ @media (max-width: 700px) {
+  padding-left:10%;
+  padding-right:10%;
+}
+@media (max-width: 500px) {
+  padding-left:5%;
+  padding-right:5%
+}
 `
 
 export const StickyHeaderLeft = styled.div`

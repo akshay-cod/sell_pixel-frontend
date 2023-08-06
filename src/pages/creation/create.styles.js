@@ -5,6 +5,14 @@ display:flex;
 justify-content:center;
 margin:20px 30%;
 flex-direction:column;
+@media (max-width: 700px) {
+  margin-left:10%;
+  margin-right:10%;
+}
+@media (max-width: 500px) {
+  margin-left:5%;
+  margin-right:5%
+}
 `
 
 

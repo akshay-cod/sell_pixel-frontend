@@ -1,7 +1,7 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { BannerImage, BannerImageWrapper, BannerWrapper, BioDescr, BioHeading, IconsWrapper, LinkHeading, Nametext, ProfileImage, TextWrapper } from "./banner.styles";
 import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe } from "react-icons/bs";
-
+import Avatar from "../../../assets/avatar.svg"
 const BannerWithImage = ({banner,height,creator,loading, image}) => {
 
     const openLinkInNewTab = (url) => {
@@ -32,13 +32,13 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
                     bottom:"-50px",
                     left:"80px"
                 }}
-            />  : <ProfileImage src={creator?.profile_picture}/> }
+            />  : <ProfileImage src={creator?.profile_picture ? creator?.profile_picture : Avatar}/> }
             </BannerImageWrapper>
             
            <TextWrapper>
             <Nametext>
               {
-                loading ? <Skeleton width={200}/> : creator?.first_name
+                loading ? <Skeleton width={200}/> : creator?.first_name || creator?.phone_number
               }  
             </Nametext>
             <BioHeading>
@@ -55,7 +55,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
                  <Skeleton width={550}/> 
                  <Skeleton width={550}/> 
                 </>
-               : creator?.bio
+               : creator?.bio || "no bio"
             }
            
            </BioDescr>

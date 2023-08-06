@@ -3,6 +3,15 @@ import styled from "styled-components";
 export const SinglePostWrapper = styled.div`
 padding-left: 80px;
 max-width:40%;
+@media (max-width: 768px) {
+    padding-left:40px;
+    max-width:80%;
+  }
+  @media (max-width: 500px) {
+    padding-left:10px;
+    padding-right:10px;
+    max-width:100%;
+  }
 `
 
 export const DescHeading = styled.div`

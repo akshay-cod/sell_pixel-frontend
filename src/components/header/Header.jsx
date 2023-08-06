@@ -3,14 +3,20 @@ import { FreeMoneyLeftSide, FreeMoneyRightSide, FreeMoneyWrapper, HeaderLeft, He
 import { user } from "../../store/feature/auth";
 import { useNavigate } from "react-router-dom";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import './header.css'
+import Modal from "../common/modal/Modal";
+import WithDraw from "../withdraw/Withdraw";
+import BankDetails from "../bank/BankDetails";
+import Avatar from "../../assets/avatar.svg"
 
 const Header = ({setVisible}) => {
     const userFromRedux = useSelector(user);
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
     const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+    const [withDrawModal, setWithdrawModal] = useState(false);
+    const [BankModal, setBankModal] = useState(false);
 
     const logOutUser = () => {
         localStorage.clear("token");
@@ -34,6 +40,16 @@ const Header = ({setVisible}) => {
                 setIsActive(false)
             }
 
+      const openWithDrawModal = ()=> {
+        setWithdrawModal(true)
+        setIsActive(false)
+      }
+
+      const openBankModal = ()=> {
+        setBankModal(true)
+        setIsActive(false)
+      }
+
     console.log(userFromRedux, isActive,"user")
     return (
     <>
@@ -55,10 +71,10 @@ const Header = ({setVisible}) => {
             <div className="container" ref={dropdownRef}>
             <div className="menu-container">
               <button onClick={()=> {onClick()}} className="menu-trigger">
-                <span>{userFromRedux?.user?.first_name}</span>
+                <span>{userFromRedux?.user?.first_name || userFromRedux?.user?.phone_number}</span>
                 <img
                   className="profileImage"
-                  src={userFromRedux?.user?.profile_picture}
+                  src={userFromRedux?.user?.profile_picture ? userFromRedux?.user?.profile_picture : Avatar}
                   alt="User avatar"
                 />
               </button>
@@ -67,20 +83,29 @@ const Header = ({setVisible}) => {
                 className={`menu ${isActive ? "active" : "inactive"}`}
               >
                 <ul>
-                <li onClick={navigateToUser }>
-                    <a href="#">Earnings : ₹{userFromRedux?.user?.wallet?.wallet_balance.toLocaleString()}</a>
+                <li >
+                    <a >Earnings : ₹{userFromRedux?.user?.wallet?.wallet_balance.toLocaleString()}
+                    <div
+                    onClick={openWithDrawModal}
+                    >withDraw</div>
+                    </a>
+                    
                   </li>
 
                  <li onClick={navigateToUser }>
-                    <a href="#">User</a>
+                    <a >User</a>
                   </li>
 
                   <li onClick={navigateToProfile}>
-                    <a href="#">Profile</a>
+                    <a >Profile</a>
                   </li>
 
                   <li onClick={navigateToCreate}>
-                    <a href="#">Create</a>
+                    <a >Create</a>
+                  </li>
+
+                  <li onClick={openBankModal}>
+                    <a >Bank details</a>
                   </li>
                  
                   <li onClick={logOutUser}>
@@ -103,7 +128,12 @@ const Header = ({setVisible}) => {
             </>}
         </StickyHeaderRight>
     </WrapperStickyHeader>
-   
+    <Modal isVisible={withDrawModal} setVisible={setWithdrawModal} component={
+      <WithDraw setBankModal={setBankModal} setWithdrawModal={setWithdrawModal}/>
+        } auth={true}/>  
+       <Modal isVisible={BankModal} setVisible={setBankModal} component={
+      <BankDetails />
+        } auth={true}/>  
     </>
     )
 }

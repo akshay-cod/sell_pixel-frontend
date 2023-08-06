@@ -63,6 +63,7 @@
   
   .menu li {
     border-bottom: 1px solid rgb(43, 37, 37);
+    cursor: pointer;
   }
   
   .menu li a {

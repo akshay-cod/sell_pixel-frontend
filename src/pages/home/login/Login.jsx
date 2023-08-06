@@ -110,7 +110,7 @@ const Login = ({setVisible}) => {
                {screen == 1 ? "Login" : "Verify"} 
             </LoginHeader>
             <LoginHeaderDesc>
-            {screen == 1 ? "welcome to finscre" : "enter an OTP sent to your phone number"}
+            {screen == 1 ? "welcome to finscre" : `enter an OTP sent to +91${phoneNumber}`}
             {/* &emsp; &emsp; resend OTP in {seconds}s   */}
             </LoginHeaderDesc>
           

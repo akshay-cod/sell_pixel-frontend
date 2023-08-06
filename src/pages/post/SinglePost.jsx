@@ -13,6 +13,7 @@ import ReactPlayer from 'react-player';
 import PdfIcon from "../../assets/icons/pdf.png";
 import FileIcon from "../../assets/icons/file.png";
 import moment from "moment/moment";
+import Avatar from "../../assets/avatar.svg";
 
 const SinglePost = ({setLoginVisible}) => {
 
@@ -66,7 +67,7 @@ const SinglePost = ({setLoginVisible}) => {
                         Created By
                 </DescHeading>
                 <Createdby>
-                  <AvatarSmall src={post?.created_by?.profile_picture}/>   {post?.created_by?.first_name}
+                  <AvatarSmall src={post?.created_by?.profile_picture ? post?.created_by?.profile_picture : Avatar}/>   {post?.created_by?.first_name ? post?.created_by?.first_name : post?.created_by?.user_name}
                 </Createdby>
                 <DescHeading>
                     Description
@@ -76,7 +77,7 @@ const SinglePost = ({setLoginVisible}) => {
                 post?.description
                }</Descr>
 
-              
+              {console.log(post.files)}
             </SinglePostWrapper>
             <Space/>
             <PostContainer>

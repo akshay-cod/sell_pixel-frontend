@@ -17,4 +17,13 @@ export const ModalInsideWrapper = styled.div`
   width:400px;
   background:white;
   border-radius:10px;
+  @media (max-width: 700px) {
+    width:350px;
+  }
+  @media (max-width: 450px) {
+    width:350px;
+  }
+  @media (max-width: 300px) {
+    width:250px;
+  }
 `

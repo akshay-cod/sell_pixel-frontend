@@ -6,7 +6,11 @@ export const PROFILE = "user-profile-details";
 
 export const USERS_SEARCH = (userName) => "users/"+ userName;
 
-export const USER_DETAILS = (userId) => `user-details/${userId}`
+export const USER_DETAILS = (userId, skip) => {
+  let url = `user-details/${userId}`+ `${skip > 0 ? `?skip=${skip}` :""}` 
+  console.log(url,skip,"url")
+  return url
+}
 
 export const UPDATE_USER = `user-details`;
 
@@ -31,3 +35,13 @@ export const USER_FRIENDS_LIST = "friends/all-friends"
 export const CREATE_PAYMENT_ORDER = "payment/create-order";
 
 export const VERIFY_PAYMENT_ORDER = "payment/verify";
+
+//kyc
+
+export const KYC_DETAILS = "kyc"
+
+//bank
+
+export const BANK_DETAILS = "add/bank-details"
+
+export const GET_BANK_DETAILS = "get/bank-details"

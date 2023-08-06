@@ -14,10 +14,11 @@ import Posts from "./post/Posts";
 import { user } from "../../store/feature/auth";
 import { useParams } from "react-router-dom";
 import { getProfileDetails } from "../../api/posts/posts-requests";
-import { GreenBtn, Name, ProfileImage, PurchaseWrapper } from "./home.styles";
+import { GreenBtn, LoadMoreBtn, LoadMoreWrapper, Name, ProfileImage, PurchaseWrapper } from "./home.styles";
 import { useScript } from "../../hooks/UseScript";
 import axiosInstance from "../../axios/AxiosInstance";
 import { PAYMENT_URL } from "../../configs/urls/urls";
+import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 
 
 const Home = ({setLoginVisible}) => {
@@ -70,17 +71,24 @@ const Home = ({setLoginVisible}) => {
   }
 
   const [loading, setLoading] = useState(true);
+  const [loadMoreLoading, setLoadMoreLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [post, setPost] = useState({});
-
+  const [page, setPage] = useState(0)
   const [status, setStatus] = useState("")
-  
+  console.log(page)
+  useEffect(()=>{
+      if(page > 0){
+        fetchUserProfileDetails(page)
+      }
+  },[page])
   
   const [visible, setVisible] = useState(false)
   console.log(creator)
 
   useEffect(()=>{
-    fetchUserProfileDetails();
-  },[])
+    fetchUserProfileDetails(0);
+  },[ params.user])
 
   useEffect(()=>{
 
@@ -92,26 +100,49 @@ const Home = ({setLoginVisible}) => {
       }
     }
     else{
-      setStatus("not-purchased");
-      setVisible(true)
-      setLoading(true)
+      if(!loading && !creator?.is_user_purchased_profile){
+        setStatus("not-purchased");
+        setVisible(true)
+        setLoading(true)
+      }
+      
     }
   },[creator])
+console.log(post)
+  const onLoadMore = () => {
+    setPage(page+1)
+  }
 
-  const fetchUserProfileDetails = async () => {
+  const fetchUserProfileDetails = async (skip) => {
     console.log("truuu")
     try{
-       setLoading(true)
-        const res = await getProfileDetails(params?.user);
-        setPost(res?.user_creations)
-        let userProfile = res?.user;
-        userProfile[0].is_purchasable_profile = true;
-        userProfile[0].is_profile_purchased = false;
-        setCreator(userProfile[0])
-        setLoading(false)
+      if(skip == 0)
+      { setLoading(true)  } 
+        else
+      {  setLoadMoreLoading(true) }
+        const res = await getProfileDetails(params?.user, skip);
+        if(skip == 0){ 
+          let userProfile = res?.user;
+          if(res.user_creations.length < 9){
+            setHasMore(false)
+          }
+          setCreator(userProfile[0])
+          setPost(res?.user_creations)
+        }
+         else
+         {
+          if(res.user_creations.length < 9){
+            setHasMore(false)
+          }
+          setPost([...post,...res.user_creations]) }
+        
+        if(skip == 0) { setLoading(false) }
+        else
+         { setLoadMoreLoading(false) }
     }
     catch(err){
-     setLoading(true)
+      if(skip == 0){ setLoading(false) }
+      else { setLoadMoreLoading(false)}
     }
   }
 
@@ -125,7 +156,18 @@ const Home = ({setLoginVisible}) => {
          <BannerWithImage creator={creator} loading={loading}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
          <Posts post={post} loading={loading}/>
-      
+        {
+          hasMore ? 
+          <LoadMoreWrapper>
+           {
+              loadMoreLoading ? <SimpleLoader></SimpleLoader> :
+              <LoadMoreBtn onClick={onLoadMore}>
+            loadmore
+          </LoadMoreBtn>
+           } 
+          </LoadMoreWrapper>
+           : ""
+        } 
         </div>
         </>
         :
@@ -133,7 +175,7 @@ const Home = ({setLoginVisible}) => {
          <BannerWithImage creator={creator} loading={loading}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
          <Posts post={post} loading={loading}/>
-      
+         
         </div>
         </>
       }

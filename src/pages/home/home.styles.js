@@ -32,3 +32,20 @@ border-radius:10px;
 font-weight:bold;
 cursor:pointer;
 `
+
+export const LoadMoreWrapper = styled.div`
+ display:flex;
+ justify-content:center;
+`
+
+export const LoadMoreBtn = styled.div`
+padding:10px 25px;
+background:rgb(43, 43, 43);
+border-radius:10px;
+font-weight:bold;
+font-size:14px;
+cursor:pointer;
+width:200px;
+margin-top:20px;
+text-align:center;
+`

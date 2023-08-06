@@ -30,6 +30,14 @@ export const ProfileImage = styled.img`
 export const TextWrapper = styled.div`
 padding-top:70px;
 padding-left:80px;
+@media (max-width: 700px) {
+    padding-left:10%;
+    padding-right:10%;
+  }
+  @media (max-width: 500px) {
+    padding-left:5%;
+    padding-right:5%
+  }
 `
 export const Nametext = styled.div`
 font-size:22px;

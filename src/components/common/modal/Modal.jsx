@@ -26,7 +26,7 @@ const Modal = ({
                 <ModalInsideWrapper>
                     <div
                      style={{padding:10,float:"right",cursor:"pointer"}}
-                    onClick={()=>{if(auth) setVisible(false)}}><AiOutlineClose/></div>
+                    onClick={()=>{if(auth) setVisible(false)}}><AiOutlineClose color="black"/></div>
                 {component}
                 </ModalInsideWrapper>
             </ModalWrapper>

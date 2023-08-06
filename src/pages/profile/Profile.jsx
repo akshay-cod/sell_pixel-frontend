@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Toastholder from "../../components/common/toast/Toastholder";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import SwitchButton from "../../components/common/switchButton/SwitchButton";
-
+import Avatar from "../../assets/avatar.svg"
 const validationSchema =  {
     firstName:'required|string|min:3|max:50',
     lastName:'required|string|min:3|max:50',
@@ -116,7 +116,7 @@ const Profile = () => {
                 if(!fileLoading){  setClick(true)}}
               
                 }>
-            <ProfileImage src={profilePicture[0]?.url} 
+            <ProfileImage src={profilePicture[0]?.url ? profilePicture[0]?.url : Avatar} 
              
             />
             <ChangeProfilePicText>
