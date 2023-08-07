@@ -1,7 +1,7 @@
 import './loader.css'
-const SimpleLoader = () => {
+const SimpleLoader = ({black}) => {
     return(
-        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ellipsis"><div style={{backgroundColor:black ? "black" : "white"}}></div><div style={{backgroundColor:black ? "black" : "white"}}></div><div style={{backgroundColor:black ? "black" : "white"}}></div><div style={{backgroundColor:black ? "black" : "white"}}></div></div>
     )
 }
 

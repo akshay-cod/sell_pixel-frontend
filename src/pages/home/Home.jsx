@@ -174,7 +174,7 @@ console.log(post)
        
          <BannerWithImage creator={creator} loading={loading}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
-         <Posts post={post} loading={loading}/>
+         <Posts post={post} loading={loading} creator={creator}/>
         {
           hasMore ? 
           <LoadMoreWrapper>
@@ -193,7 +193,7 @@ console.log(post)
         <>
          <BannerWithImage creator={creator} loading={loading}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
-         <Posts post={post} loading={loading}/>
+         <Posts post={post} loading={loading} />
          
         </div>
         </>

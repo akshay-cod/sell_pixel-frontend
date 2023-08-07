@@ -6,10 +6,19 @@ import { getBankDetails } from "../../api/bank/bank-requests";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import { user } from "../../store/feature/auth";
+import Validate from 'max-validator';
+import { toast } from "react-toastify";
+import SimpleLoader from "../common/loaders/SimpleLoader";
+const validationSchema =  {
+    documentImage:'required|string|min:3|max:500',
+    documentNumber:'required|string|min:5|max:12'
+}
 
 const WithDraw = ({setBankModal,setWithdrawModal}) => {
 
     const [loading, setLoading] = useState(true);
+    const [kycBtnLoading,setKyvButtonLoading] = useState(false);
+    const [kycUpdateBtnLoading, setKycUpdateBtnLoading] = useState(false)
     const userFromRedux = useSelector(user)
     const [kycDetails, setkycDetails] = useState("");
     const [documentImage,setDocumentImage] = useState("");
@@ -65,27 +74,55 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
     }
 
     const SubmitKycDetails = async () => {
+        if(kycBtnLoading){
+            return;
+        }
+        setKyvButtonLoading(true)
         const dataToSend = {
             documentImage:documentImage[0]?.url,
             documentNumber:documentNumber
+        }
+        const results = Validate.validate(dataToSend, validationSchema)
+        console.log(results)
+        if(results?.hasError){
+            toast.error(Object.values(results?.errors)[0][0])
+             setKyvButtonLoading(false)
+            return;
         }
         const res = await postKycDetails(dataToSend)
         await fetchKycDetails()
+        setKyvButtonLoading(false)
+        toast.success("submitted your kyc details succussfully")
     }
 
     const submitUpdatekycDetails = async () => {
+        if(kycUpdateBtnLoading){
+            return;
+        }
+        setKycUpdateBtnLoading(true)
         const dataToSend = {
             documentImage:documentImage[0]?.url,
             documentNumber:documentNumber
         }
+        const results = Validate.validate(dataToSend, validationSchema)
+        console.log(results)
+        if(results?.hasError){
+            toast.error(Object.values(results?.errors)[0][0])
+            setKycUpdateBtnLoading(false)
+            return;
+        }
         const res = await updateKycDetails(dataToSend)
         await fetchKycDetails()
+        setKycUpdateBtnLoading(false)
+        toast.success("updated your kyc details succussfully")
     }
-
+if(loading){
+    <SimpleLoader black={true}/>
+}
 
     return(
        <WithDrawWrapper>
-        
+                
                 {
                     kycDetails == "" ?
                     <div>
@@ -116,9 +153,16 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                                 ></TextInput>
                             </div>
                             <div>
+                               {
+                                kycBtnLoading ?
+                                <div style={{display:"flex", justifyContent:"center"}}>
+                                <SimpleLoader black={true}/>
+                                </div>
+                                :
                                 <SaveButton onClick={SubmitKycDetails}>
                                     save
                                 </SaveButton>
+                               } 
                             </div>
                     </div>
                     :
@@ -199,9 +243,17 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                                 ></TextInput>
                             </div>
                             <div>
-                                <SaveButton onClick={submitUpdatekycDetails}>
+                                {
+                                    kycUpdateBtnLoading ?
+                                    <div style={{display:"flex", justifyContent:"center"}}>
+                                    <SimpleLoader black={true}/>
+                                    </div>
+                                    :
+                                    <SaveButton onClick={submitUpdatekycDetails}>
                                     update
-                                </SaveButton>
+                                    </SaveButton>
+                                }
+                                
                             </div>
                         
                     </div>
