@@ -3,7 +3,7 @@ import { PostContainer, PostDesc, PostDescTitle, PostImage, PostTitle, SinglePos
 import { useNavigate } from "react-router-dom";
 import { removeACreation } from "../../../api/creations/creations-requests";
 import { toast } from "react-toastify";
-import { RiDeleteBin5Line } from "react-icons/ri"
+import { RiDeleteBin5Line, RiEdgeLine, RiEdit2Line } from "react-icons/ri"
 
 const Posts = ({post, loading, creator}) => {
     const navigate = useNavigate(); 
@@ -34,12 +34,29 @@ const Posts = ({post, loading, creator}) => {
                         <SinglePost >
                 <PostImage src={i.banner_img}/>
                 {console.log(creator,"creatir")}
-                { creator?.is_owner ? <div onClick={(e)=>{
-                        OnRemoveCreation(i?._id)
-                       }}
+                { creator?.is_owner ? <div 
                        style={{display:"flex", justifyContent:"end",paddingRight:5}}
                        >
-                            <RiDeleteBin5Line/>
+                            <RiDeleteBin5Line
+                            onClick={(e)=>{
+                                OnRemoveCreation(i?._id)
+                               }}
+                            />
+
+                            <div onClick={(e)=>{
+                        navigate(`/creations/edit/${i?._id}`,{state:{
+                            bannerImage:i?.banner_img,
+                            type:i?.type,
+                            url:i?.files,
+                            price:i?.price,
+                            description:i?.description,
+                            title:i?.title
+                        }})
+                       }}
+                       style={{marginLeft:5,display:"flex", justifyContent:"end",paddingRight:5}}
+                       >
+                            <RiEdit2Line/>
+                        </div>
                         </div> : ""
                 }
                 <TextWrapper onClick={() => navigate(`/post/${i?._id}`)}>

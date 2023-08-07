@@ -19,6 +19,24 @@ export const createAcreation = async (data) => {
     }
 }
 
+export const EditCreateAcreation = async (id,data) => {
+  try{
+      const res = await axiosInstance.put(CREATE_CREATION+"/"+id+"/edit", data)
+         console.log(res.data)
+          return{
+              ...res.data,
+              status:true
+          }
+  }
+  catch(err){
+      console.log(err)
+    return {
+      status:false,
+      message:err.response.data.message
+    }
+  }
+}
+
 export const removeACreation = async (id) => {
   try{
       const res = await axiosInstance.put(SINGLE_CREATION(id))

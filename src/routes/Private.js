@@ -1,5 +1,6 @@
 import { routeTypes } from "../configs/routes/routeConfigs"
 import Create from "../pages/creation/Create"
+import EditCreation from "../pages/creation/EditCreate"
 import Profile from "../pages/profile/Profile"
 
 const config = {
@@ -17,6 +18,12 @@ export const PrivateRoutes = [
         path:"/creations/create",
         component:Create,
         order:3,
+        ...config
+    },
+    {
+        path:"/creations/edit/:creationId",
+        component:EditCreation,
+        order:4,
         ...config
     }
 ]
