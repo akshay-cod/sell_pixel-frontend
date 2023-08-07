@@ -135,7 +135,9 @@ const Login = ({setVisible}) => {
             type="number"
            />}
             {screen == 1 ? 
-                (loading ? <SimpleLoader black={true}></SimpleLoader> :
+                (loading ?  <div style={{display:"flex", justifyContent:"center"}}>
+                <SimpleLoader black={true}/>
+                </div> :
                 <SendOtpButton onClick={()=>{onClickSendOtp(phoneNumber)}}>
                   Send OTP
                 </SendOtpButton>) :
