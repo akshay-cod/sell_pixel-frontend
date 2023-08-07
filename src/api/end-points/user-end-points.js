@@ -12,6 +12,11 @@ export const USER_DETAILS = (userId, skip) => {
   return url
 }
 
+export const USER_DETAILS_NO_AUTH = (userId) => {
+  let url = `no-auth/user-details/${userId}`;
+  return url
+}
+
 export const UPDATE_USER = `user-details`;
 
 //creations

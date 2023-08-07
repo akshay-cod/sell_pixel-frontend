@@ -19,6 +19,7 @@ import { useScript } from "../../hooks/UseScript";
 import axiosInstance from "../../axios/AxiosInstance";
 import { PAYMENT_URL } from "../../configs/urls/urls";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
+import { getUserByUserIdNoAuth } from "../../api/auth/auth-request";
 
 
 const Home = ({setLoginVisible}) => {
@@ -83,15 +84,25 @@ const Home = ({setLoginVisible}) => {
       }
   },[page])
   
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const isLoggedIn = localStorage.getItem("token")
   console.log(creator)
 
   useEffect(()=>{
-    fetchUserProfileDetails(0);
-  },[ params.user])
+    if(isLoggedIn){
+      fetchUserProfileDetails(0);
+    }
+    
+  },[params.user])
 
   useEffect(()=>{
+    if(!isLoggedIn){
+      fetchUserNoAuth()
+    }
+  },[])
 
+  useEffect(()=>{
+  
     if(creator?.is_user_purchased_profile){
       setStatus("purchased");
       setVisible(false)
@@ -111,6 +122,14 @@ const Home = ({setLoginVisible}) => {
 console.log(post)
   const onLoadMore = () => {
     setPage(page+1)
+  }
+
+  const fetchUserNoAuth = async () => {
+    setLoading(true)
+    const res = await getUserByUserIdNoAuth(params.user)
+    console.log(res.user)
+    setCreator(res.user[0])
+    setLoading(false)
   }
 
   const fetchUserProfileDetails = async (skip) => {

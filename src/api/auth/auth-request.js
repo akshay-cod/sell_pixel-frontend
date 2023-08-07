@@ -1,6 +1,6 @@
 
 import axiosInstance from "../../axios/AxiosInstance"
-import { PROFILE, REQUEST_AN_OTP, UPDATE_USER, USERS_SEARCH, USER_DETAILS, VERIFY_AN_OTP } from "../end-points/user-end-points"
+import { PROFILE, REQUEST_AN_OTP, UPDATE_USER, USERS_SEARCH, USER_DETAILS, USER_DETAILS_NO_AUTH, VERIFY_AN_OTP } from "../end-points/user-end-points"
 
 export const requestForOtp = async (phoneNumber) => {
     try{
@@ -73,6 +73,28 @@ export const getProfileDetails = async () => {
 export const getUserByUserId = async (userId, page) => {
     try{
         const res = await axiosInstance.get(USER_DETAILS(userId)+"?skip="+page)
+           console.log({
+            ...res.data,
+            status:true
+        })
+            return{
+                ...res.data,
+                status:true
+            }
+
+    }
+    catch(err){
+        console.log(err)
+      return {
+        status:false,
+        message:err.response.data.message
+      }
+    }
+}
+
+export const getUserByUserIdNoAuth = async (userId, page) => {
+    try{
+        const res = await axiosInstance.get(USER_DETAILS_NO_AUTH(userId))
            console.log({
             ...res.data,
             status:true

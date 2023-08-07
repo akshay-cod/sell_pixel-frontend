@@ -19,7 +19,7 @@ const Posts = ({post, loading}) => {
             })
             }
             {
-              loading == false && post?.map((i,index)=>{
+              loading == false && post.length>0 && post?.map((i,index)=>{
                     return(
                         <SinglePost onClick={() => navigate(`/post/${i?._id}`)}>
                 <PostImage src={i.banner_img}/>
