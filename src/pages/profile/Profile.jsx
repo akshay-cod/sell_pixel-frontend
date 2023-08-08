@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Toastholder from "../../components/common/toast/Toastholder";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import SwitchButton from "../../components/common/switchButton/SwitchButton";
+
 import Avatar from "../../assets/avatar.svg"
 const validationSchema =  {
     firstName:'required|string|min:3|max:50',

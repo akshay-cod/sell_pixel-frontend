@@ -1,8 +1,15 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { BannerImage, BannerImageWrapper, BannerWrapper, BioDescr, BioHeading, IconsWrapper, LinkHeading, Nametext, ProfileImage, TextWrapper } from "./banner.styles";
-import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe } from "react-icons/bs";
-import Avatar from "../../../assets/avatar.svg"
+import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe} from "react-icons/bs";
+import Avatar from "../../../assets/avatar.svg";
+import {HiOutlineShare} from "react-icons/hi"
+import { useState } from "react";
+import Modal from "../../../components/common/modal/Modal";
+import ShareCompo from "./share/ShareCompo";
+
 const BannerWithImage = ({banner,height,creator,loading, image}) => {
+
+    const [shareModal, setShareModal] = useState(false);
 
     const openLinkInNewTab = (url) => {
         window.open( 
@@ -19,6 +26,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
         )
     }
     return(
+        <>
         <BannerWrapper>
                 <SkeletonTheme baseColor="#202020" highlightColor="#444">   
                    
@@ -39,7 +47,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
             <Nametext>
               {
                 loading ? <Skeleton width={200}/> : creator?.first_name || creator?.phone_number
-              }  
+              }  <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />
             </Nametext>
             <BioHeading>
            {
@@ -76,13 +84,22 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
                {creator?.links?.instagram ? <BsInstagram onClick={() => openLinkInNewTab(creator?.links?.instagram)} style={{marginRight:8, color:"#858584"}}/> : ""}
                {creator?.links?.facebook ? <BsFacebook onClick={() => openLinkInNewTab(creator?.links?.facebook)} style={{marginRight:8, color:"#858584"}}/>: ""}
                 {creator?.links?.discord ? <BsDiscord onClick={() => openLinkInNewTab(creator?.links?.discord)} style={{marginRight:8, color:"#858584"}}/> : ""}
-                {creator?.links?.youtube ? <BsYoutube onClick={() => openLinkInNewTab(creator?.links?.youtube)} style={{marginRight:8, color:"#858584"}}/>: ""}</>
+                {creator?.links?.youtube ? <BsYoutube onClick={() => openLinkInNewTab(creator?.links?.youtube)} style={{marginRight:8, color:"#858584"}}/>: ""}
+              
+                </>
             }
                
            </IconsWrapper>
            </TextWrapper>
            </SkeletonTheme>
         </BannerWrapper>
+        <Modal
+          auth={true}
+          isVisible={shareModal}
+          setVisible={setShareModal}
+          component={<ShareCompo/>}
+        />
+        </>
     )
 }
 

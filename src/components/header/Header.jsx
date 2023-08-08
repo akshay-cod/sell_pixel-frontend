@@ -25,6 +25,11 @@ const Header = ({setVisible}) => {
 
     const onClick = () => setIsActive(!isActive);
 
+    const navigateToPurchses = () => {
+      navigate('profile/purchases');
+      setIsActive(false)
+    }
+
     const navigateToProfile = ()=>{
             navigate(`${userFromRedux?.user?._id}`);
             setIsActive(false)
@@ -102,6 +107,10 @@ const Header = ({setVisible}) => {
 
                   <li onClick={navigateToCreate}>
                     <a >Create</a>
+                  </li>
+
+                  <li onClick={navigateToPurchses}>
+                    <a >Purchases</a>
                   </li>
 
                   <li onClick={openBankModal}>

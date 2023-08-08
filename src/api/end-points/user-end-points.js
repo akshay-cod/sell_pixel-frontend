@@ -50,3 +50,7 @@ export const KYC_DETAILS = "kyc"
 export const BANK_DETAILS = "add/bank-details"
 
 export const GET_BANK_DETAILS = "get/bank-details"
+
+//purchases
+
+export const PURCHASES = "user/purchases"
