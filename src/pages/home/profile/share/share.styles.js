@@ -14,6 +14,7 @@ export const Lefturl = styled.div`
 width:290px;
 text-overflow: ellipsis;
 overflow: hidden;
+white-space: nowrap;
 `
 
 export const RightIcon = styled.div`
