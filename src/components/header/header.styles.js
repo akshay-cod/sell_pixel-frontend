@@ -120,3 +120,14 @@ font-weight:bold;
 color:white;
 margin:10px;
 `
+
+export const WithDrawBtn = styled.div`
+background:#A259FF;
+padding: 10px 30px;
+border-radius: 10px;
+font-size:12px;
+font-weight:bold;
+color:white;
+margin:10px;
+text-align:center;
+`

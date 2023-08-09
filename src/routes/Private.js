@@ -2,7 +2,7 @@ import { routeTypes } from "../configs/routes/routeConfigs"
 import Create from "../pages/creation/Create"
 import EditCreation from "../pages/creation/EditCreate"
 import Profile from "../pages/profile/Profile"
-import Purchases from "../pages/profile/Purchases"
+import Index from "../pages/profile/purchases/Index"
 
 const config = {
     type:routeTypes.PRIVATE
@@ -29,7 +29,7 @@ export const PrivateRoutes = [
     },
     {
         path:"/profile/purchases",
-        component:Purchases,
+        component:Index,
         order:5,
         ...config
     }

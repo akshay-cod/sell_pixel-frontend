@@ -53,4 +53,6 @@ export const GET_BANK_DETAILS = "get/bank-details"
 
 //purchases
 
-export const PURCHASES = "user/purchases"
+export const PURCHASES = "user/purchases";
+
+export const SOLD = "user/sold"

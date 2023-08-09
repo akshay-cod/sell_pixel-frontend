@@ -219,7 +219,7 @@ if(loading){
                          </div>
                          {documentImage ? 
                             <div>
-                              <span onClick={removeDocumentImage}>X</span>  
+                              <span style={{float:"right", cursor:"pointer"}} onClick={removeDocumentImage}>X</span>  
                                  <img
                                 style={{width:"100%",height:200,objectFit:"cover"}}
                                 src={documentImage[0]?.url}

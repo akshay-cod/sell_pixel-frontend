@@ -1,6 +1,6 @@
 
 import axiosInstance from "../../axios/AxiosInstance"
-import { PROFILE, PURCHASES, REQUEST_AN_OTP, UPDATE_USER, USERS_SEARCH, USER_DETAILS, USER_DETAILS_NO_AUTH, VERIFY_AN_OTP } from "../end-points/user-end-points"
+import { PROFILE, PURCHASES, REQUEST_AN_OTP, SOLD, UPDATE_USER, USERS_SEARCH, USER_DETAILS, USER_DETAILS_NO_AUTH, VERIFY_AN_OTP } from "../end-points/user-end-points"
 
 export const requestForOtp = async (phoneNumber) => {
     try{
@@ -185,3 +185,48 @@ export const getAnUserPurchasesPaginated = async (page) => {
 }
 
 
+export const getAnUserSellings = async () => {
+    try{
+        const res = await axiosInstance.get(SOLD
+            )
+           console.log({
+            ...res.data,
+            status:true
+        })
+            return{
+                ...res.data,
+                status:true
+            }
+
+    }
+    catch(err){
+        console.log(err)
+      return {
+        status:false,
+        message:err.response.data.message
+      }
+    }
+}
+
+export const getAnUserSellingsPaginated = async (page) => {
+    try{
+        const res = await axiosInstance.get(SOLD+"?skip="+page
+            )
+           console.log({
+            ...res.data,
+            status:true
+        })
+            return{
+                ...res.data,
+                status:true
+            }
+
+    }
+    catch(err){
+        console.log(err)
+      return {
+        status:false,
+        message:err.response.data.message
+      }
+    }
+}

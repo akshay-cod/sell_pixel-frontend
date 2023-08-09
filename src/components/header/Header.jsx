@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { FreeMoneyLeftSide, FreeMoneyRightSide, FreeMoneyWrapper, HeaderLeft, HeaderRight, LanguageLeftSide, LanguageRightSide, LanguageWrapper, LogOutBtn, LoginBtn, MenuItem, RegistorBtn, StickyHeaderLeft, StickyHeaderRight, Wrapper, WrapperStickyHeader } from "./header.styles";
+import { FreeMoneyLeftSide, FreeMoneyRightSide, FreeMoneyWrapper, HeaderLeft, HeaderRight, LanguageLeftSide, LanguageRightSide, LanguageWrapper, LogOutBtn, LoginBtn, MenuItem, RegistorBtn, StickyHeaderLeft, StickyHeaderRight, WithDrawBtn, Wrapper, WrapperStickyHeader } from "./header.styles";
 import { user } from "../../store/feature/auth";
 import { useNavigate } from "react-router-dom";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
@@ -90,9 +90,9 @@ const Header = ({setVisible}) => {
                 <ul>
                 <li >
                     <a >Earnings : ₹{userFromRedux?.user?.wallet?.wallet_balance.toLocaleString()}
-                    <div
+                    <WithDrawBtn
                     onClick={openWithDrawModal}
-                    >withDraw</div>
+                    >Withdraw</WithDrawBtn>
                     </a>
                     
                   </li>

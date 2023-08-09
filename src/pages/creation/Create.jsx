@@ -102,7 +102,7 @@ const Create = () => {
         <Wrapper>
                      {banImg ? 
                             <div>
-                              <span onClick={removeBannerImage}>X</span>  
+                              <span style={{float:"right", cursor:"pointer"}} onClick={removeBannerImage}>X</span>  
                                  <img
                                 style={{width:"100%",height:200,objectFit:"cover"}}
                                 src={banImg[0]?.url}
