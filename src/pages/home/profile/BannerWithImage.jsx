@@ -32,7 +32,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
                    
                   
             <BannerImageWrapper>
-            {loading ? <Skeleton  height={300} width={"100%"} />  : <BannerImage src= {image ? image : "https://picsum.photos/1000/800"}/>}
+            {loading ? <Skeleton  height={300} width={"100%"} />  : <BannerImage src= {image ? image: "https://picsum.photos/1000/800"}/>}
             {loading ? <Skeleton  height={120} width={100} 
                 style={{
                     position:"absolute",
@@ -47,7 +47,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
             <Nametext>
               {
                 loading ? <Skeleton width={200}/> : creator?.first_name || creator?.phone_number
-              }  <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />
+              }  { loading ? <Skeleton width={200}/> : <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />}
             </Nametext>
             <BioHeading>
            {

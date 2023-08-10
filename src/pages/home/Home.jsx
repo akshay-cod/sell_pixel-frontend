@@ -172,7 +172,7 @@ console.log(post)
         status === "purchased" ?
         <>
        
-         <BannerWithImage creator={creator} loading={loading}/>
+         <BannerWithImage creator={creator} loading={loading} image={creator?.banner_image}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
          <Posts post={post} loading={loading} creator={creator}/>
         {

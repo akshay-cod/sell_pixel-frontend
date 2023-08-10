@@ -19,7 +19,8 @@ const validationSchema =  {
     userName:"string|min:3",
     bio:'required|string|min:3|max:400',
     links:`object`,
-    isPurchasableProfile:'required|string'
+    isPurchasableProfile:'required|string',
+    bannerImage:`string`
 }
 
 
@@ -42,6 +43,7 @@ const Profile = () => {
     const [facebook, setFacebook] = useState("")
     const [instagram, setInstagram] = useState("")
     const [twitter, setTwitter] = useState("")
+    const [banImg, setBannerImg] = useState("")
     const[profilePicture, setProfilePicture] = useState([]);
 
     const [click,setClick] = useState(false);
@@ -59,7 +61,8 @@ const Profile = () => {
                 instagram:instagram,
                 twitter:twitter
             },
-            isPurchasableProfile:`${purchasableToggle}`
+            isPurchasableProfile:`${purchasableToggle}`,
+            bannerImage:banImg[0]?.url
         }
         if(userName !== userDetails.user?.user_name){
            dataTosend.userName = userName 
@@ -105,8 +108,14 @@ const Profile = () => {
             setFacebook(userDetails?.user?.links?.facebook)
             setTwitter(userDetails?.user?.links?.twitter)
             setPurchasableToggle(userDetails?.user?.is_purchasable_profile)
+            setBannerImg(userDetails?.user?.banner_image ? [{url:userDetails?.user?.banner_image}] : "")
         }
     },[userDetails])
+
+    
+    const removeBannerImage = async () => {
+        setBannerImg("")
+    }
 
     console.log(bio,"bio")
 
@@ -146,6 +155,24 @@ const Profile = () => {
            <SwitchButton checked={purchasableToggle} setChecked={setPurchasableToggle}/>
            </div>
            
+           <Label style={{marginBottom:10}}>
+            Banner Image
+           </Label>
+           {banImg ? 
+                            <div>
+                              <span style={{float:"right", cursor:"pointer"}} onClick={removeBannerImage}>X</span>  
+                                 <img
+                                style={{width:"100%",height:200,objectFit:"cover"}}
+                                src={banImg[0]?.url}
+                             />
+                             </div>
+                            : <UploadBlock
+                                 url={banImg}
+                                 setUrl={setBannerImg}
+                                 accept="image/jpeg"
+                                 label="Banner Image"
+                                 id="remb"
+                 /> }
 
             <Label>
                 First name
