@@ -35,6 +35,12 @@ const Home = ({setLoginVisible}) => {
           setLoginVisible(true)
           return
         }
+        if(purchaseLoading){
+          return;
+        }
+        else{
+          setPurchaseLoading(true)
+        }
           let res = await axiosInstance.post(PAYMENT_URL+"/initiate_payment",
           {
             profile:params?.user,
@@ -54,10 +60,11 @@ const Home = ({setLoginVisible}) => {
               }
               )
               console.log(verify)
+              setPurchaseLoading(false)
               window.location.reload()
             }
             else{
-
+              setPurchaseLoading(false)
             }
               
              // document.getElementById('response').innerText=JSON.stringify(response);
@@ -65,14 +72,16 @@ const Home = ({setLoginVisible}) => {
           theme: "#2B2B2B" // color hex
           }
           easebuzzCheckout.initiatePayment(options);
+          setPurchaseLoading(false)
       }
       catch(err){
-
+        setPurchaseLoading(false)
       }
   }
 
   const [loading, setLoading] = useState(true);
   const [loadMoreLoading, setLoadMoreLoading] = useState(false);
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [post, setPost] = useState({});
   const [page, setPage] = useState(0)

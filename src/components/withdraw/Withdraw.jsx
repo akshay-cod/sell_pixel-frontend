@@ -26,7 +26,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
     const [documentNumber, setDocumentNumber] = useState("");
     const [bankDetails, setBankDetails] = useState("")
     const [selectedOption, setSelectedOption] = useState({value: 'bank', label: 'bank'});
-
+    const [withdrawalLoading, setWithdrawalLoading] = useState(false);
     const [amount, setAmount] = useState(0)
 
     useEffect(()=>{
@@ -123,8 +123,11 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
     }
 
     const submitWithdrawRequest = async () => {
+        if(withdrawalLoading) return;
+        setWithdrawalLoading(true)
         if(!(amount > 100 )|| userFromRedux?.user?.wallet?.wallet_balance < amount){
             toast.error("enter amount more than 100 & below earnings ")
+            setWithdrawalLoading(false)
             return;
         }
         const res = await raiseAwithdrawRequest({
@@ -135,9 +138,11 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
             toast.success("withdrawal request raised successfully")
             dispatch(checkUserLoggedIn())
             setWithdrawModal(false)
+            setWithdrawalLoading(false)
         }
         else{
             toast.error("withdrawal request not successful")
+            setWithdrawalLoading(false)
         }
         
     }
@@ -232,9 +237,17 @@ if(loading){
                              </div>
                          } 
                           </div>
-                           <SaveButton onClick={submitWithdrawRequest}>
+                          {
+                            withdrawalLoading ?
+                            <div style={{display:"flex", justifyContent:"center"}}>
+                            <SimpleLoader black={true}/>
+                            </div>
+                            :
+                            <SaveButton onClick={submitWithdrawRequest}>
                                     Request Withdrawal
                                 </SaveButton>
+                          }
+                           
                     </div>
                     :   kycDetails?.status == "pending" ?
                     <div>
