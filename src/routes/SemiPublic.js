@@ -1,6 +1,7 @@
 import { routeTypes } from "../configs/routes/routeConfigs";
 import Avaitor from "../pages/avaiator/Avaitor";
 import Home from "../pages/home/Home";
+import Main from "../pages/index/Main";
 import SinglePost from "../pages/post/SinglePost";
 
 const config = {
@@ -19,5 +20,11 @@ export const SemiRoutes =
         component:SinglePost,
         order:2,
         ...config
+    },
+    {
+        path:"/",
+        component:Main,
+        order:2,
+        ...config 
     }
 ]
