@@ -62,7 +62,7 @@ const Profile = () => {
                 twitter:twitter
             },
             isPurchasableProfile:`${purchasableToggle}`,
-            bannerImage:banImg[0]?.url
+            bannerImage:banImg[0]?.url ? banImg[0]?.url : ""
         }
         if(userName !== userDetails.user?.user_name){
            dataTosend.userName = userName 
