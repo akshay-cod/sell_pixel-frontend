@@ -4,18 +4,19 @@ import { getKycDetails, postKycDetails, updateKycDetails } from "../../api/kyc/k
 import UploadBlock from "../common/upload/UploadBlock";
 import { getBankDetails } from "../../api/bank/bank-requests";
 import Select from "react-select";
-import { useSelector } from "react-redux";
-import { user } from "../../store/feature/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserLoggedIn, user } from "../../store/feature/auth";
 import Validate from 'max-validator';
 import { toast } from "react-toastify";
 import SimpleLoader from "../common/loaders/SimpleLoader";
+import { raiseAwithdrawRequest } from "../../api/withdraw/withdraw-request";
 const validationSchema =  {
     documentImage:'required|string|min:3|max:500',
     documentNumber:'required|string|min:5|max:12'
 }
 
 const WithDraw = ({setBankModal,setWithdrawModal}) => {
-
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [kycBtnLoading,setKyvButtonLoading] = useState(false);
     const [kycUpdateBtnLoading, setKycUpdateBtnLoading] = useState(false)
@@ -30,10 +31,14 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
 
     useEffect(()=>{
         fetchKycDetails();
-        if(kycDetails?.status == "verified"){
-           fetchBankdetails();
-        }
+       
     },[])
+
+    useEffect(()=>{
+        if(kycDetails?.status == "verified"){
+            fetchBankdetails();
+         }
+    },[kycDetails])
 
     const handleSelect = (selectedOption) => {
         console.log(selectedOption)
@@ -116,6 +121,27 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
         setKycUpdateBtnLoading(false)
         toast.success("updated your kyc details succussfully")
     }
+
+    const submitWithdrawRequest = async () => {
+        if(!(amount > 100 )|| userFromRedux?.user?.wallet?.wallet_balance < amount){
+            toast.error("enter amount more than 100 & below earnings ")
+            return;
+        }
+        const res = await raiseAwithdrawRequest({
+            type:selectedOption.value,
+            amount:amount
+        })
+        if(res.status == true){
+            toast.success("withdrawal request raised successfully")
+            dispatch(checkUserLoggedIn())
+            setWithdrawModal(false)
+        }
+        else{
+            toast.error("withdrawal request not successful")
+        }
+        
+    }
+
 if(loading){
     <SimpleLoader black={true}/>
 }
@@ -178,7 +204,7 @@ if(loading){
                          <TextInput
                                 placeholder="enter amount to withdraw"
                                  value={amount}
-                                 onChange={(e)=>{amount(e.target.value)}}
+                                 onChange={(e)=>{setAmount(e.target.value)}}
                           ></TextInput>
                           <div style={{marginBottom:20,marginTop:20}}>
                          {bankDetails ?
@@ -206,7 +232,7 @@ if(loading){
                              </div>
                          } 
                           </div>
-                           <SaveButton onClick={()=>{}}>
+                           <SaveButton onClick={submitWithdrawRequest}>
                                     Request Withdrawal
                                 </SaveButton>
                     </div>

@@ -56,3 +56,7 @@ export const GET_BANK_DETAILS = "get/bank-details"
 export const PURCHASES = "user/purchases";
 
 export const SOLD = "user/sold"
+
+//withdraw
+
+export const WITHDRAW = "withdrawal/raise"

@@ -6,6 +6,7 @@ import { useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Sellings = () => {
     const [sellings, setSellings] = useState([]);
@@ -34,12 +35,13 @@ const Sellings = () => {
     }
 
     const fetchUserPurchses = async () => {
+        setLoading(true)
         const res = await getAnUserSellings();
         if(res.sellings.length != 10){
             setHasMore(false)
         }
         setSellings(res.sellings)
-
+        setLoading(false)
     }
 
     const navigateToProfile = (id) => {
@@ -50,10 +52,22 @@ const Sellings = () => {
         setPage(page+1)
       }
 
+      if(loading){
+        return(
+            <PurchasesWrapper>
+            <SkeletonTheme baseColor="#202020" highlightColor="#444">  
+            <Skeleton  height={160} width={"100%"} borderRadius={10}/>
+            <Skeleton  height={160} width={"100%"} borderRadius={10} style={{margin:"15px 0px"}}/>
+            <Skeleton  height={160} width={"100%"} borderRadius={10}/>
+            </SkeletonTheme>
+            </PurchasesWrapper>
+        )
+      }
+
     return(
         <PurchasesWrapper>
            
-            {
+            {!loading &&
                 sellings.length > 0 && sellings.map((item,index)=>{
                     return(
                         <CardWrapper>
@@ -90,7 +104,7 @@ const Sellings = () => {
             {
           haseMore ? 
           <LoadMoreWrapper>
-           {
+           {!loading &&
               loadMoreLoading ? <SimpleLoader></SimpleLoader> :
               <LoadMoreBtn onClick={onLoadMore}>
             loadmore

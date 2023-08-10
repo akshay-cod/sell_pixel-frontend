@@ -17,6 +17,9 @@ function App() {
   useEffect(()=>{
     dispatch(checkUserLoggedIn())
   },[])
+
+  
+
   return (
    <Router>
     <Layout visible={visible} setVisible={setLoginVisible}>

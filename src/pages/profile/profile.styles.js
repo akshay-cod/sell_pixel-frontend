@@ -110,3 +110,11 @@ padding:10px 30px;
 border-radius:10px;
 cursor:pointer;
 `
+
+export const LoaderHolder = styled.div`
+ min-height:80vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ flex-direction:column;
+`

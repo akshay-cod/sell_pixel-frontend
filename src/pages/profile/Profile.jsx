@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ButtonWrapper, ChangeProfilePicText, Label, ProfileImage, ProfileImageWrapper, ProfileWrapper, SubmitBtn, TextInput, Textarea } from "./profile.styles";
+import { ButtonWrapper, ChangeProfilePicText, Label, LoaderHolder, ProfileImage, ProfileImageWrapper, ProfileWrapper, SubmitBtn, TextInput, Textarea } from "./profile.styles";
 import { useSelector } from "react-redux";
 import { user } from "../../store/feature/auth";
 import Validate from 'max-validator';
@@ -109,6 +109,10 @@ const Profile = () => {
     },[userDetails])
 
     console.log(bio,"bio")
+
+    if(userDetails?.loading){
+        return(<LoaderHolder> <SimpleLoader/></LoaderHolder>)
+    }
 
     return(
         <>

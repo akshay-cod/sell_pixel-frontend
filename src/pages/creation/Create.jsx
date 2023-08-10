@@ -8,6 +8,9 @@ import { ButtonWrapper, FileHolder, FilesWrapper, ImageFile, Label, SubmitBtn, T
 import ReactPlayer from "react-player";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+
+
 
 const itemTypes=[
     {label:"Image", value:"image"},
@@ -18,7 +21,7 @@ const itemTypes=[
     {label:"File", value:"file"}
 ]
 
-const validationSchema =  {
+let validationSchema =  {
     title:'required|string|min:3|max:50',
     description:'required|string|min:3|max:1000',
     bannerImg:'required|string|min:3|max:1000',
@@ -34,11 +37,19 @@ const Create = () => {
     const [url,setUrl] = useState([]);
     const [price, setPrice] = useState("");
     const [banImg, setBannerImg] = useState("")
+    const [selectedOption, setSelectedOption] = useState({label:"Any", value:"any"});
+    const [selectedOptionType, setSelectedOptionType] = useState({label:"select paid/free", value:"select"});
 
     const [buttonLoading, setButtonLoading] = useState(false);
     const navigate = useNavigate();
 
     console.log(banImg,"banImg",url);
+
+
+    const handleSelect = (selectedOption) => {
+        console.log(selectedOption)
+        setSelectedOption(selectedOption)
+    }
 
 
     const onSubmitCreation = async () => {
@@ -47,9 +58,12 @@ const Create = () => {
             title:title,
             description:desc,
             bannerImg:banImg[0]?.url,
-            price:parseInt(price),
-            type:"image",
+            price:selectedOptionType.value == "free" ? 0 : parseInt(price),
+            type:selectedOption.value,
             files:url
+        }
+        if(selectedOptionType.value == "free"){
+            delete validationSchema.price
         }
         const result = Validate.validate(
           dataToSend,
@@ -97,6 +111,10 @@ const Create = () => {
            setUrl([...temp_url])
         }
 
+        const handleSelectType = (selectedOption) =>{
+            setSelectedOptionType(selectedOption)
+        }
+
     return(
         <>
         <Wrapper>
@@ -114,6 +132,42 @@ const Create = () => {
                                  accept="image/jpeg"
                                  label="Banner Image"
                                 /> }
+                        <div style={{marginTop:20}}>
+                        <Select
+                            styles={{
+                                color: 'hsl(10, 40%, 40%)',
+                                menuList: styles => ({
+                                    ...styles,
+                                    background: 'rgb(43, 43, 43)',
+                                    color:"black"
+                                  }),
+                                  option: (styles, { isFocused, isSelected, isDisabled }) => ({
+                                    ...styles,
+                                    background: isFocused
+                                      ? '#3B3B3B'
+                                      : isSelected
+                                        ? '#3B3B3B'
+                                        : undefined,
+                                    zIndex: 1,
+                                    color: isDisabled
+                                    ? '#ccc'
+                                    : isSelected ? 'white'
+                                      : 'white'
+                                  }),
+                                control: (baseStyles, state) => ({
+                                  ...baseStyles,
+                                  background:"#3B3B3B",
+                                  color:"#3B3B3B",
+                                  borderColor: state.isFocused ? 'grey' : 'grey',
+                                }),
+                                singleValue: (styles, { data }) => ({ ...styles, color:"white" })
+                              }}
+                                value={selectedOption}
+                                onChange={handleSelect}
+                                options={itemTypes}
+                              />
+                        </div>
+                            
 
                                 <Label>
                                     Title
@@ -179,10 +233,53 @@ const Create = () => {
                             }
                                 </div>
 
-                                <Label>
+                                <div style={{marginTop:20}}>
+                        <Select
+                            styles={{
+                                color: 'hsl(10, 40%, 40%)',
+                                menuList: styles => ({
+                                    ...styles,
+                                    background: 'rgb(43, 43, 43)',
+                                    color:"black"
+                                  }),
+                                  option: (styles, { isFocused, isSelected, isDisabled }) => ({
+                                    ...styles,
+                                    background: isFocused
+                                      ? '#3B3B3B'
+                                      : isSelected
+                                        ? '#3B3B3B'
+                                        : undefined,
+                                    zIndex: 1,
+                                    color: isDisabled
+                                    ? '#ccc'
+                                    : isSelected ? 'white'
+                                      : 'white'
+                                  }),
+                                control: (baseStyles, state) => ({
+                                  ...baseStyles,
+                                  background:"#3B3B3B",
+                                  color:"#3B3B3B",
+                                  borderColor: state.isFocused ? 'grey' : 'grey',
+                                }),
+                                singleValue: (styles, { data }) => ({ ...styles, color:"white" })
+                              }}
+                                value={selectedOptionType}
+                                onChange={handleSelectType}
+                                options={[{
+                                    label:"Free",
+                                    value:"free"
+                                },
+                            {
+                                label:"Paid",
+                                value:"paid"
+                            }]}
+                              />
+                        </div>
+
+                               {selectedOptionType.value == "paid" && <><Label>
                                     Price
                                 </Label>
-                                <TextInput placeholder="Enter your price" value={price} onChange={(e)=>{setPrice(e.target.value)}}/>
+                                <TextInput placeholder="Enter your price" value={price} onChange={(e)=>{setPrice(e.target.value)}}/> </>}
 
                                 <ButtonWrapper>
                 {

@@ -44,8 +44,8 @@ const SinglePost = ({setLoginVisible}) => {
         try{
             const res = await getAPostDetails(params?.id);
             let creations = res.creation
-            creations.is_purchasable_profile = true;
-            creations.is_profile_purchased = false;
+            creations.is_purchasable_profile = false;
+            creations.is_profile_purchased = true;
             setPost(creations)
         }
         catch(err){}

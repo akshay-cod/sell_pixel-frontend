@@ -6,6 +6,7 @@ import { useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Purchases = ({heading}) => {
     const [purchases, setPurchases] = useState([]);
@@ -34,12 +35,13 @@ const Purchases = ({heading}) => {
     }
 
     const fetchUserPurchses = async () => {
+        setLoading(true)
         const res = await getAnUserPurchases();
         if(res.purchases.length != 10){
             setHasMore(false)
         }
         setPurchases(res.purchases)
-
+        setLoading(false)
     }
 
     const navigateToProfile = (id) => {
@@ -50,10 +52,21 @@ const Purchases = ({heading}) => {
         setPage(page+1)
       }
 
+      if(loading){
+        return(
+            <PurchasesWrapper>
+            <SkeletonTheme baseColor="#202020" highlightColor="#444">  
+            <Skeleton  height={160} width={"100%"} borderRadius={10}/>
+            <Skeleton  height={160} width={"100%"} borderRadius={10} style={{margin:"15px 0px"}}/>
+            <Skeleton  height={160} width={"100%"} borderRadius={10}/>
+            </SkeletonTheme>
+            </PurchasesWrapper>
+        )
+      }
     return(
         <PurchasesWrapper>
            
-            {
+            {!loading &&
                 purchases.length > 0 && purchases.map((item,index)=>{
                     return(
                         <CardWrapper>
@@ -79,7 +92,7 @@ const Purchases = ({heading}) => {
                 })
             }
             {
-          haseMore ? 
+         !loading && haseMore ? 
           <LoadMoreWrapper>
            {
               loadMoreLoading ? <SimpleLoader></SimpleLoader> :

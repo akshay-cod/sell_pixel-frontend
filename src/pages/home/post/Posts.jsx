@@ -32,7 +32,7 @@ const Posts = ({post, loading, creator}) => {
               loading == false && post.length>0 && post?.map((i,index)=>{
                     return(
                         <SinglePost >
-                <PostImage src={i.banner_img}/>
+                <PostImage src={i.banner_img} onClick={() => navigate(`/post/${i?._id}`)}/>
                 {console.log(creator,"creatir")}
                 { creator?.is_owner ? <div 
                        style={{display:"flex", justifyContent:"end",paddingRight:5}}
@@ -50,7 +50,7 @@ const Posts = ({post, loading, creator}) => {
                             url:i?.files,
                             price:i?.price,
                             description:i?.description,
-                            title:i?.title
+                            title:i?.title,
                         }})
                        }}
                        style={{marginLeft:5,display:"flex", justifyContent:"end",paddingRight:5}}
@@ -59,7 +59,7 @@ const Posts = ({post, loading, creator}) => {
                         </div>
                         </div> : ""
                 }
-                <TextWrapper onClick={() => navigate(`/post/${i?._id}`)}>
+                <TextWrapper >
                     <PostTitle>
                        {i?.title}
                     </PostTitle>   
