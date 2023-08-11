@@ -58,10 +58,10 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
             {
                 loading ?
                 <>
-                 <Skeleton width={500}/> 
-                 <Skeleton width={500}/> 
-                 <Skeleton width={550}/> 
-                 <Skeleton width={550}/> 
+                 <Skeleton width={300}/> 
+                 <Skeleton width={250}/> 
+                 <Skeleton width={200}/> 
+                 <Skeleton width={300}/> 
                 </>
                : creator?.bio || "no bio"
             }
