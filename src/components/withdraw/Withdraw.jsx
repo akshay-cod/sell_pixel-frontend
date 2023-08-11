@@ -234,14 +234,15 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                             ]}
                               />
                             :
-                            <div 
+                            <SaveButton 
                              onClick={()=>{
                                 setBankModal(true)
                                 setWithdrawModal(false)
                             }}
+                            style={{textAlign:"center"}}
                             >
-                                add bank details
-                             </div>
+                                Add bank details
+                             </SaveButton>
                          } 
                           </div>
                           {

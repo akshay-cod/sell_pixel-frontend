@@ -66,7 +66,12 @@ const Sellings = () => {
 
     return(
         <PurchasesWrapper>
-           
+            {
+            !loading && sellings.length == 0 ?
+            <div style={{textAlign:"center"}}>
+                no sellings yet
+            </div> : ""
+           }
             {!loading &&
                 sellings.length > 0 && sellings.map((item,index)=>{
                     return(

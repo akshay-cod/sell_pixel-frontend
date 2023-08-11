@@ -65,7 +65,12 @@ const Purchases = ({heading}) => {
       }
     return(
         <PurchasesWrapper>
-           
+           {
+            !loading && purchases.length == 0 ?
+            <div style={{textAlign:"center"}}>
+                no purchases yet
+            </div> : ""
+           }
             {!loading &&
                 purchases.length > 0 && purchases.map((item,index)=>{
                     return(

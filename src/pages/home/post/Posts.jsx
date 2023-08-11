@@ -4,18 +4,55 @@ import { useNavigate } from "react-router-dom";
 import { removeACreation } from "../../../api/creations/creations-requests";
 import { toast } from "react-toastify";
 import { RiDeleteBin5Line, RiEdgeLine, RiEdit2Line } from "react-icons/ri"
+import { useState } from "react";
+import Modal from "../../../components/common/modal/Modal";
+import { SubmitBtn } from "../../creation/create.styles";
+import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 
 const Posts = ({post, loading, creator}) => {
     const navigate = useNavigate(); 
-
+    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [id, setId] = useState("")
     const OnRemoveCreation = async (id) => {
-        const res = await removeACreation(id)
-        if(res){
-            toast.success("deleted craetion succesfully")
-        }
+        setId(id)
+       setDeleteModal(true)
     }
 
+    const requestforDelete = async () => {
+        setDeleteLoading(true)
+       const res = await removeACreation(id)
+        if(res){
+            setDeleteLoading(false)
+            toast.success("deleted creation succesfully")
+            window.location.reload()
+        }
+        setDeleteLoading(false)
+    }
+
+    const DelteCompo = (
+        <div 
+          style={{padding:20,color:"black",textAlign:"center"}}
+        >
+            <div>
+                Are you sure you want to delete ?
+            </div>
+            <div>
+
+           {
+            deleteLoading ? <div style={{display:"flex", justifyContent:"center"}}>
+                <SimpleLoader black={true} />
+            </div> : <SubmitBtn onClick={requestforDelete} style={{color:"white",background:"red",margin:"15px 0px"}}>Yes</SubmitBtn>
+           } 
+            <SubmitBtn onClick={()=>{setDeleteModal(false)}} style={{color:"white"}}>No</SubmitBtn>
+                
+            </div>
+        </div>
+    )
+
+
     return(
+        <>
         <PostContainer>
             { loading == true && 
             [1,2,3,4,5,6,7,8].map((i)=>{
@@ -33,7 +70,7 @@ const Posts = ({post, loading, creator}) => {
                     return(
                         <SinglePost >
                 <PostImage src={i.banner_img} onClick={() => navigate(`/post/${i?._id}`)}/>
-                {console.log(creator,"creatir")}
+               
                 { creator?.is_owner ? <div 
                        style={{display:"flex", justifyContent:"end",paddingRight:5}}
                        >
@@ -76,6 +113,16 @@ const Posts = ({post, loading, creator}) => {
             }
             
         </PostContainer>
+        <div >
+        <Modal
+          auth={true}
+          component={DelteCompo}
+          isVisible={deleteModal}
+          setVisible={setDeleteModal}
+        />
+        </div>
+        
+        </>
     )
 }
 

@@ -11,11 +11,19 @@ import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import SwitchButton from "../../components/common/switchButton/SwitchButton";
 
 import Avatar from "../../assets/avatar.svg"
+import { isValidEmail } from "../../helpers/validations";
 const validationSchema =  {
     firstName:'required|string|min:3|max:50',
     lastName:'required|string|min:3|max:50',
     profilePicture:'required|string|min:3|max:500',
-    email:'required|string|min:3|max:50',
+    email:["required","string","min:3","max:50",
+     function (value){
+        if(isValidEmail(value)){
+            return true
+        }
+        return "enter a valid email"
+     }]
+    ,
     userName:"string|min:3",
     bio:'required|string|min:3|max:400',
     links:`object`,

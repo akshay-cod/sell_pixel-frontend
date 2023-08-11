@@ -80,7 +80,14 @@ const SinglePost = ({setLoginVisible}) => {
               {console.log(post.files)}
             </SinglePostWrapper>
             <Space/>
+            {
+            !loading && post?.files?.length == 0 ?
+            <div style={{textAlign:"center"}}>
+                no files yet
+            </div> : ""
+           }
             <PostContainer>
+           
                 {
                     post?.files?.length > 0 &&
                     post.files.map((file)=>{

@@ -177,6 +177,7 @@ console.log(post)
 
     return(
       <>
+          
       {
         status === "purchased" ?
         <>
@@ -184,6 +185,12 @@ console.log(post)
          <BannerWithImage creator={creator} loading={loading} image={creator?.banner_image}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
          <Posts post={post} loading={loading} creator={creator}/>
+         {
+            !loading && post.length == 0 ?
+            <div style={{textAlign:"center"}}>
+                no creations yet
+            </div> : ""
+           }
         {
           hasMore ? 
           <LoadMoreWrapper>
@@ -201,7 +208,7 @@ console.log(post)
         :
         <>
          <BannerWithImage creator={creator} loading={loading}/>
-       <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
+       <div style={{background:colors.primary}}>
          <Posts post={post} loading={loading} />
          
         </div>
