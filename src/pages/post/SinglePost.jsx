@@ -100,6 +100,11 @@ const SinglePost = ({setLoginVisible}) => {
                                         width="100%"
                                         height="198px"
                                         controls
+                                        config={{ file: { 
+                                            attributes: {
+                                              controlsList: 'nodownload'  //<- this is the important bit
+                                            }
+                                        }}}
                                         url={file?.url}/> 
                                 </div>
                             </div>)
