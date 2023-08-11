@@ -47,15 +47,17 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
 
     const fetchBankdetails = async () => {
         try{
+            setLoading(true)
             const res = await getBankDetails()
             if(res?.bankDetails)
             {
                setBankDetails(res.bankDetails)
+               setLoading(false)
             }
-
+            setLoading(false)
         }
         catch(err){
-
+            setLoading(false)
         }
     }
 
@@ -147,9 +149,14 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
         
     }
 
-if(loading){
-    <SimpleLoader black={true}/>
-}
+    if(loading){
+        return(
+            <div style={{minHeight:300}}>
+                    <SimpleLoader/>
+            </div>
+            
+        )
+    }
 
     return(
        <WithDrawWrapper>

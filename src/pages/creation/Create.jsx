@@ -54,15 +54,16 @@ const Create = () => {
 
     const onSubmitCreation = async () => {
         setButtonLoading(true)
+       
         const dataToSend = {
             title:title,
             description:desc,
             bannerImg:banImg[0]?.url,
-            price:selectedOptionType.value == "free" ? 0 : parseInt(price),
+            price:selectedOptionType.value == "free"|| selectedOptionType.value == "select" ? 0 : parseInt(price),
             type:selectedOption.value,
             files:url
         }
-        if(selectedOptionType.value == "free"){
+        if(selectedOptionType.value == "free" || selectedOptionType.value == "select"){
             delete validationSchema.price
         }
         const result = Validate.validate(
@@ -74,6 +75,11 @@ const Create = () => {
         if(result?.hasError){
             setButtonLoading(false)
             toast.error(Object.values(result?.errors)[0][0]);
+            return;
+        }
+        if(selectedOptionType.value == "select"){
+            toast.error("please select free or paid creation")
+            setButtonLoading(false)
             return;
         }
            const res = await createAcreation(dataToSend);
