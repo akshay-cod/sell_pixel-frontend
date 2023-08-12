@@ -28,7 +28,7 @@ const SinglePost = ({setLoginVisible}) => {
     },[])
 
     useEffect(()=>{
-        if(post?.is_profile_purchased){
+        if(post?.is_purchased){
           setStatus("purchased");
           setVisible(false)
         }
@@ -42,13 +42,15 @@ const SinglePost = ({setLoginVisible}) => {
 
     const fetchPostDetails = async() => {
         try{
+            setLoading(true)
             const res = await getAPostDetails(params?.id);
             let creations = res.creation
-            creations.is_purchasable_profile = false;
-            creations.is_profile_purchased = true;
+            //creations.is_purchased = false;
+           // creations.is_profile_purchased = true;
             setPost(creations)
+            setLoading(false)
         }
-        catch(err){}
+        catch(err){setLoading(false)}
       
     }
 
@@ -145,8 +147,8 @@ const SinglePost = ({setLoginVisible}) => {
                      </div> */}
                     
             </PostContainer>
-            <Modal isVisible={visible} setVisible={setVisible} component={
-          <PurchaseWrapper>
+          {post?.is_purchased == false &&  <Modal isVisible={visible} setVisible={setVisible} component={
+          <PurchaseWrapper style={{paddingLeft:20}}>
              <ProfileImage src={post?.created_by?.profile_picture}>
 
              </ProfileImage>
@@ -159,14 +161,14 @@ const SinglePost = ({setLoginVisible}) => {
                     setLoginVisible(true)
                     return;
                 }
-              setPost({...post, is_profile_purchased:true})
+            //  setPost({...post, is_profile_purchased:true})
               setLoading(false)
              }}>
                 Purchase
               </GreenBtn> 
           </PurchaseWrapper>
            
-        } auth={false}/> 
+        } auth={false}/> }
             </>
     )
 }

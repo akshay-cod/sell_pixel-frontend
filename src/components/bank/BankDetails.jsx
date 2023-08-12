@@ -97,6 +97,7 @@ const BankDetails = () => {
                 setUpiId(res.bankDetails?.upi[0]?.upi_id)
                 setLoading(false)
             }
+            setLoading(false)
 
         }
         catch(err){

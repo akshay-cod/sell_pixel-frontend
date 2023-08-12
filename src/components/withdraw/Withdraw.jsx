@@ -126,6 +126,10 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
 
     const submitWithdrawRequest = async () => {
         if(withdrawalLoading) return;
+        if(!bankDetails){
+            toast.error("please add bank details")
+            return;
+        }
         setWithdrawalLoading(true)
         if(!(amount > 100 )|| userFromRedux?.user?.wallet?.wallet_balance < amount){
             toast.error("enter amount more than 100 & below earnings ")
@@ -251,7 +255,9 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                             <SimpleLoader black={true}/>
                             </div>
                             :
-                            <SaveButton onClick={submitWithdrawRequest}>
+                            <SaveButton onClick={submitWithdrawRequest}
+                            style={{background:!bankDetails ? "grey" : ""}}
+                            >
                                     Request Withdrawal
                                 </SaveButton>
                           }

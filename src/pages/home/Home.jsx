@@ -45,6 +45,7 @@ const Home = ({setLoginVisible}) => {
           {
             profile:params?.user,
             price:creator?.profile_price || 10,
+            type:"profile"
           })
           var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "test")
           var options = {
@@ -216,7 +217,7 @@ console.log(post)
       }
      
         <Modal isVisible={visible} setVisible={setVisible} component={
-          <PurchaseWrapper>
+          <PurchaseWrapper style={{paddingLeft:20}}>
              <ProfileImage src={creator?.profile_picture} >
 
              </ProfileImage>
