@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ButtonWrapper, ChangeProfilePicText, Label, LoaderHolder, ProfileImage, ProfileImageWrapper, ProfileWrapper, SubmitBtn, TextInput, Textarea } from "./profile.styles";
-import { useSelector } from "react-redux";
-import { user } from "../../store/feature/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserLoggedIn, user } from "../../store/feature/auth";
 import Validate from 'max-validator';
 import { updateAnUserDetails } from "../../api/auth/auth-request";
 import UploadBlock from "../../components/common/upload/UploadBlock";
@@ -36,7 +36,7 @@ const Profile = () => {
 
     const userDetails = useSelector(user)
     console.log(userDetails,"details");
-    
+    const dispatch = useDispatch();
 
     const [buttonLoading, setButtonLoading] = useState(false);
     const [fileLoading, setFileLoading] = useState(false);
@@ -93,6 +93,7 @@ const Profile = () => {
             // setToastType(toastBodyTypes.success);
             // setShowToast(true)
             setButtonLoading(false)
+            dispatch(checkUserLoggedIn())
             return;
         }
         else{
