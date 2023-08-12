@@ -5,30 +5,44 @@ import { loginUser, user } from "../../../store/feature/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
+import {BiArrowBack} from "react-icons/bi"
 
 const Login = ({setVisible}) => {
     const [screen, setScreen] = useState(1);
     const [loading, setLoading] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("")
     const [otp, setOtp] = useState("")
-    const [seconds, setSeconds] = useState(60);
+    const [time, setTime] = useState(60);
 
     const [authData, setAuthData] = useState({});
 
     const users = useSelector(user);
     const dispatch = useDispatch();
-    console.log(users,"user")
+    console.log(time,"user")
 
-    // useEffect(()=>{
-    //     if (seconds > 0) {
-    //         setTimeout(() => setSeconds(seconds - 1), 1000);
-    //       } else {
-    //         setSeconds(0);
-    //       }
-    // })
+    useEffect(()=>{
+        if(screen == 2){
+            document.getElementById("otp").focus();
+        }
+    },[screen])
+
+    useEffect(()=>{
+        
+        if(screen == 2){
+        if (time > 0) {
+            setTimeout(() => setTime(time - 1), 1000);
+          } else {
+            setTime(0);
+          }
+        }
+        return () => clearTimeout()
+    })
 
     const onClickSendOtp = async (number) => {
         try{
+            if(loading){
+                return
+            }
             setLoading(true);
             if(!number){
                 toast.error("please enter a phonenumber")
@@ -45,7 +59,9 @@ const Login = ({setVisible}) => {
             {
                 setAuthData(data)
                 setLoading(false);
+                toast.success("successfully sent an otp")
                 setScreen(2)
+               
             }
             else{
                 setLoading(false);
@@ -62,6 +78,20 @@ const Login = ({setVisible}) => {
        
     }
 
+
+    const onResend = async() => {
+        onClickSendOtp(phoneNumber)
+    }
+
+    const verifyBtnFb = async() => {
+        const res = await handleVerifyRequest(otp);  
+        if(res){
+            window.location.reload();
+        }
+        else{
+
+        }
+        }
 
     const handleVerifyRequest = async (otpCode) => {
         try{
@@ -106,15 +136,23 @@ const Login = ({setVisible}) => {
     return (
         <>
         <Wrapper>
+            <div>
+               {screen == 2 ? <BiArrowBack color="black" fontSize="20px"
+                 style={{transform:"translate(-30px,-20px)",cursor:"pointer"}}
+                 onClick={()=>{setScreen(1)}}
+                /> : ""}
+            </div>
             <LoginHeader>
                {screen == 1 ? "Login" : "Verify"} 
             </LoginHeader>
             <LoginHeaderDesc>
-            {screen == 1 ? "welcome to finscre" : `enter an OTP sent to +91${phoneNumber}`}
-            {/* &emsp; &emsp; resend OTP in {seconds}s   */}
+            {screen == 1 ? "Welcome to finscre" : `Enter an OTP sent to +91${phoneNumber}`}
+            {/* &emsp; &emsp; resend OTP in {time}s   */}
+           
             </LoginHeaderDesc>
           
             {screen == 1 ? <PhoneNumberInput
+             autoFocus={true}
              onChange={(e)=>{
                 const re = /^[0-9\b]+$/;
                 if (e.target.value === '' || re.test(e.target.value)) {
@@ -123,7 +161,10 @@ const Login = ({setVisible}) => {
              }}
              value={phoneNumber}
              placeholder="phonenumber"
+             onKeyDown={(e)=>{if(e.key === 'Enter'){onClickSendOtp(phoneNumber)}}}
             /> : <PhoneNumberInput
+            id="otp"
+            autoFocus={true}
             onChange={(e)=>{
                 const re = /^[0-9\b]+$/;
                 if (e.target.value === '' || re.test(e.target.value)) {
@@ -133,7 +174,14 @@ const Login = ({setVisible}) => {
             value={otp}
             placeholder="OTP"
             type="number"
+            onKeyDown={(e)=>{if(e.key === 'Enter'){verifyBtnFb()}}}
            />}
+              <div style={{color:"black", fontSize:11, marginTop:10, textAlign:"center"}}>
+            {(screen == 2) ? <div>{time == 0 ? <span
+             style={{color:"blue",cursor:"pointer"}}
+            onClick={onResend}
+            >Resend</span> :`Resend OTP in ${time}s`}</div> : ""}
+            </div>
             {screen == 1 ? 
                 (loading ?  <div style={{display:"flex", justifyContent:"center"}}>
                 <SimpleLoader black={true}/>
@@ -141,15 +189,7 @@ const Login = ({setVisible}) => {
                 <SendOtpButton onClick={()=>{onClickSendOtp(phoneNumber)}}>
                   Send OTP
                 </SendOtpButton>) :
-                (<SendOtpButton onClick={async() => {
-                    const res = await handleVerifyRequest(otp);  
-                    if(res){
-                        window.location.reload();
-                    }
-                    else{
-
-                    }
-                    }}>
+                (<SendOtpButton onClick={verifyBtnFb}>
                 Verify
                 </SendOtpButton>)
             }

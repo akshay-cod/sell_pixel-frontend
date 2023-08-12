@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 `
 
 export const LoginHeader = styled.div`
-font-size:22px;
+font-size:24px;
 color:${colors.primary};
 font-weight:bold;
 padding:0px 0px;
