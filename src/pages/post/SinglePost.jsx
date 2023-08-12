@@ -14,6 +14,9 @@ import PdfIcon from "../../assets/icons/pdf.png";
 import FileIcon from "../../assets/icons/file.png";
 import moment from "moment/moment";
 import Avatar from "../../assets/avatar.svg";
+import { useScript } from "../../hooks/UseScript";
+import { PAYMENT_URL } from "../../configs/urls/urls";
+import axiosInstance from "../../axios/AxiosInstance";
 
 const SinglePost = ({setLoginVisible}) => {
 
@@ -23,6 +26,62 @@ const SinglePost = ({setLoginVisible}) => {
     const [status, setStatus] = useState("")
     const [loading, setLoading] = useState(true);
     const params = useParams();
+    const [purchaseLoading, setPurchaseLoading] = useState(false);
+    const UserRedux = useSelector(user)
+    
+  const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
+    
+  const OnPurchase = async () => {
+      try{
+        if(UserRedux.auth == false){
+          setLoginVisible(true)
+          return
+        }
+        if(purchaseLoading){
+          return;
+        }
+        else{
+          setPurchaseLoading(true)
+        }
+          let res = await axiosInstance.post(PAYMENT_URL+"/initiate_payment",
+          {
+            product:params?.id,
+            price:post?.price || 10,
+            type:"creations"
+          })
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "test")
+          var options = {
+          access_key: res.data.access_key, // access key received via Initiate Payment
+          onResponse: async (response) => {
+            //  console.log(response,"res")
+            if(response.status === "success"){
+              let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
+              {
+                response:response,
+                price:post?.price || 10,
+                product:params?.id
+              }
+              )
+              console.log(verify)
+              setPurchaseLoading(false)
+              window.location.reload()
+            }
+            else{
+              setPurchaseLoading(false)
+            }
+              
+             // document.getElementById('response').innerText=JSON.stringify(response);
+          },
+          theme: "#2B2B2B" // color hex
+          }
+          easebuzzCheckout.initiatePayment(options);
+          setPurchaseLoading(false)
+      }
+      catch(err){
+        setPurchaseLoading(false)
+      }
+  }
+
     useEffect(()=>{
         fetchPostDetails()
     },[])
@@ -156,13 +215,7 @@ const SinglePost = ({setLoginVisible}) => {
              {post?.created_by?.first_name }
              </Name>
              <GreenBtn onClick={()=>{
-                if(!userDetails.auth )
-                {
-                    setLoginVisible(true)
-                    return;
-                }
-            //  setPost({...post, is_profile_purchased:true})
-              setLoading(false)
+             OnPurchase()
              }}>
                 Purchase
               </GreenBtn> 

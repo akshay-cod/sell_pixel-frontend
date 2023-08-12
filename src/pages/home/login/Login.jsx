@@ -80,6 +80,7 @@ const Login = ({setVisible}) => {
 
 
     const onResend = async() => {
+        setTime(60)
         onClickSendOtp(phoneNumber)
     }
 
@@ -139,7 +140,7 @@ const Login = ({setVisible}) => {
             <div>
                {screen == 2 ? <BiArrowBack color="black" fontSize="20px"
                  style={{transform:"translate(-30px,-20px)",cursor:"pointer"}}
-                 onClick={()=>{setScreen(1)}}
+                 onClick={()=>{setOtp(""); setScreen(1); }}
                 /> : ""}
             </div>
             <LoginHeader>
