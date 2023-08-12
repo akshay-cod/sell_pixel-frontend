@@ -1,6 +1,6 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { BannerImage, BannerImageWrapper, BannerWrapper, BioDescr, BioHeading, IconsWrapper, LinkHeading, Nametext, ProfileImage, TextWrapper } from "./banner.styles";
-import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe} from "react-icons/bs";
+import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe, BsTwitter} from "react-icons/bs";
 import Avatar from "../../../assets/avatar.svg";
 import {HiOutlineShare} from "react-icons/hi"
 import { useState } from "react";
@@ -85,6 +85,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
                {creator?.links?.facebook ? <BsFacebook onClick={() => openLinkInNewTab(creator?.links?.facebook)} style={{marginRight:8, color:"#858584"}}/>: ""}
                 {creator?.links?.discord ? <BsDiscord onClick={() => openLinkInNewTab(creator?.links?.discord)} style={{marginRight:8, color:"#858584"}}/> : ""}
                 {creator?.links?.youtube ? <BsYoutube onClick={() => openLinkInNewTab(creator?.links?.youtube)} style={{marginRight:8, color:"#858584"}}/>: ""}
+                {creator?.links?.twitter ? <BsTwitter onClick={() => openLinkInNewTab(creator?.links?.twitter)} style={{marginRight:8, color:"#858584"}}/>: ""}
               
                 </>
             }
