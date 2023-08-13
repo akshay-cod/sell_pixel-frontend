@@ -28,7 +28,9 @@ const validationSchema =  {
     bio:'required|string|min:3|max:400',
     links:`object`,
     isPurchasableProfile:'required|string',
-    bannerImage:`string`
+    bannerImage:`string`,
+    setProfilePrice:'boolean|required',
+    price:'number'
 }
 
 
@@ -42,6 +44,7 @@ const Profile = () => {
     const [fileLoading, setFileLoading] = useState(false);
 
     const[purchasableToggle, setPurchasableToggle] = useState(false);
+    const[priceToggle, setPriceToggle] = useState(false)
     const [firstName,setFirstname] = useState("");
     const [lastName,setLastName] = useState("");
     const [userName, setuserName] = useState("");
@@ -52,7 +55,8 @@ const Profile = () => {
     const [instagram, setInstagram] = useState("")
     const [twitter, setTwitter] = useState("")
     const [banImg, setBannerImg] = useState("")
-    const[profilePicture, setProfilePicture] = useState([]);
+    const [profilePicture, setProfilePicture] = useState([]);
+    const [price, setPrice] = useState(0)
 
     const [click,setClick] = useState(false);
     const onSubmit = async () => {
@@ -70,7 +74,9 @@ const Profile = () => {
                 twitter:twitter
             },
             isPurchasableProfile:`${purchasableToggle}`,
-            bannerImage:banImg[0]?.url ? banImg[0]?.url : ""
+            bannerImage:banImg[0]?.url ? banImg[0]?.url : "",
+            setProfilePrice:priceToggle,
+            price:price
         }
         if(userName !== userDetails.user?.user_name){
            dataTosend.userName = userName 
@@ -118,6 +124,8 @@ const Profile = () => {
             setTwitter(userDetails?.user?.links?.twitter)
             setPurchasableToggle(userDetails?.user?.is_purchasable_profile)
             setBannerImg(userDetails?.user?.banner_image ? [{url:userDetails?.user?.banner_image}] : "")
+            setPriceToggle(userDetails?.user?.set_profile_price)
+            setPrice(userDetails?.user?.price)
         }
     },[userDetails])
 
@@ -157,11 +165,25 @@ const Profile = () => {
            
             </ProfileImageWrapper>
            
-           <div >
-           <Label style={{marginBottom:10}}>
-              Profile purchasable
-            </Label>
-           <SwitchButton checked={purchasableToggle} setChecked={setPurchasableToggle}/>
+           <div style={{display:"flex", justifyContent:"space-between"}}>
+               <div>
+                    <Label style={{marginBottom:10}}>
+                    Profile purchasable
+                    </Label>
+                     <SwitchButton checked={purchasableToggle} setChecked={setPurchasableToggle}/>
+               </div>
+               {purchasableToggle && <div>
+                    <Label style={{marginBottom:10}}>
+                    Set Purchase Price 
+                    </Label>
+                     <SwitchButton checked={priceToggle} setChecked={setPriceToggle}/>
+                    {priceToggle && <Label>
+                        price  <TextInput type="text" placeholder="Enter your price" value={price} onChange={(e)=>{setPrice(e.target.value)}}/>
+                     </Label>}
+               </div>}
+           </div>
+           <div style={{fontSize:12, textAlign:"center", marginTop:25}}>
+             if purchase price is on then user can buy with the amount you set or it will be user preference
            </div>
            
            <Label style={{marginBottom:10}}>

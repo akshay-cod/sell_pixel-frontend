@@ -140,7 +140,6 @@ const SinglePost = ({setLoginVisible}) => {
                 post?.description
                }</Descr>
 
-              {console.log(post.files)}
             </SinglePostWrapper>
             <Space/>
             {
@@ -153,7 +152,7 @@ const SinglePost = ({setLoginVisible}) => {
            
                 {
                     post?.files?.length > 0 &&
-                    post.files.map((file)=>{
+                    post?.files.map((file)=>{
                         if(file.type.startsWith('image'))
                         return(
                             <div style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
@@ -219,7 +218,7 @@ const SinglePost = ({setLoginVisible}) => {
              <GreenBtn onClick={()=>{
              OnPurchase()
              }}>
-                Purchase
+                Purchase ₹{post?.price.toLocaleString()}
               </GreenBtn> 
           </PurchaseWrapper>
            

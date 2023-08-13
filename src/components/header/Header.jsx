@@ -20,6 +20,7 @@ const Header = ({setVisible}) => {
 
     const logOutUser = () => {
         localStorage.clear("token");
+        setIsActive(false)
         window.location.reload()
     }
 

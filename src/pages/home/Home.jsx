@@ -20,31 +20,56 @@ import axiosInstance from "../../axios/AxiosInstance";
 import { PAYMENT_URL } from "../../configs/urls/urls";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import { getUserByUserIdNoAuth } from "../../api/auth/auth-request";
+import { Label } from "../../components/withdraw/widthdraw.styles";
+import { TextInput } from "../../components/bank/bank-details.styles";
+import { toast } from "react-toastify";
 
 
 const Home = ({setLoginVisible}) => {
   const params = useParams();
+  const [donateModal, setDonateModal] = useState(false);
+  const [price, setPrice] = useState("")
   const [creator, setCreator] = useState({});
   const UserRedux = useSelector(user)
 
   const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
     
-  const OnPurchase = async () => {
+  const OnPurchase = async (fromDonate) => {
       try{
+
         if(UserRedux.auth == false){
           setLoginVisible(true)
           return
         }
+        if(creator?.set_profile_price == false){
+            if(fromDonate == false){
+              setDonateModal(true)
+              return;
+            }
+        }
+        if(creator?.set_profile_price == false){
+          if(fromDonate == true){
+            if(
+              parseInt(price) > 100 && parseInt(price) < 100000
+            ){}
+            else
+            {
+              toast.error("please enter amount between 100 & 1L")
+             return;
+            }
+          }
+        }
         if(purchaseLoading){
           return;
         }
+
         else{
           setPurchaseLoading(true)
         }
           let res = await axiosInstance.post(PAYMENT_URL+"/initiate_payment",
           {
             profile:params?.user,
-            price:creator?.profile_price || 10,
+            price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
             type:"profile"
           })
           var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "test")
@@ -56,7 +81,7 @@ const Home = ({setLoginVisible}) => {
               let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
               {
                 response:response,
-                price:creator?.profile_price || 10,
+                price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
                 profile:params?.user,
                 type:"profile"
               }
@@ -226,10 +251,27 @@ console.log(post)
              {creator?.first_name}
              </Name>
              <GreenBtn onClick={()=>{
-              OnPurchase()
+              OnPurchase(false)
               //setLoading(false)
              }}>
                 Purchase
+              </GreenBtn> 
+          </PurchaseWrapper>
+           
+        } auth={false}/> 
+         <Modal isVisible={donateModal} setVisible={setDonateModal} component={
+          <PurchaseWrapper style={{paddingLeft:20}}>
+             <div style={{marginBottom:20}}> <Label style={{color:"black",textAlign:"center",fontWeight:"bold"}}>
+                Amount
+              </Label>
+              <TextInput placeholder="enter your donation amount" value={price} onChange={(e)=>setPrice(e.target.value)}>
+
+              </TextInput></div>
+             <GreenBtn onClick={()=>{
+              OnPurchase(true)
+              //setLoading(false)
+             }}>
+                Donate
               </GreenBtn> 
           </PurchaseWrapper>
            

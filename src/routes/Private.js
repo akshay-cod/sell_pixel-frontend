@@ -1,6 +1,7 @@
 import { routeTypes } from "../configs/routes/routeConfigs"
 import Create from "../pages/creation/Create"
 import EditCreation from "../pages/creation/EditCreate"
+import SinglePost from "../pages/post/SinglePost"
 import Profile from "../pages/profile/Profile"
 import Index from "../pages/profile/purchases/Index"
 
@@ -31,6 +32,12 @@ export const PrivateRoutes = [
         path:"/profile/purchases",
         component:Index,
         order:5,
+        ...config
+    },
+    {
+        path:"/post/:id",
+        component:SinglePost,
+        order:2,
         ...config
     }
 ]
