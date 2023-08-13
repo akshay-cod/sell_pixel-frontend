@@ -51,13 +51,14 @@ const Home = ({setLoginVisible}) => {
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
-            //  console.log(response,"res")
+              console.log(response,"res")
             if(response.status === "success"){
               let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
               {
                 response:response,
                 price:creator?.profile_price || 10,
-                profile:params?.user
+                profile:params?.user,
+                type:"profile"
               }
               )
               console.log(verify)

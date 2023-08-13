@@ -82,6 +82,7 @@ const Login = ({setVisible}) => {
     const onResend = async() => {
         setTime(60)
         onClickSendOtp(phoneNumber)
+        setOtp("")
     }
 
     const verifyBtnFb = async() => {

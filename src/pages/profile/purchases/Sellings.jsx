@@ -77,13 +77,19 @@ const Sellings = () => {
                     return(
                         <CardWrapper>
                         <TitlePriceWrapper>
-                            <TitleContainer>{ `Profile purchased by ${item?.purchased_user?.first_name || item?.purchased_user?.user_name}`}</TitleContainer>
+                           
+                            {
+                                item.product ?  <TitleContainer>{ `Creation purchased by ${item?.purchased_user?.first_name || item?.purchased_user?.user_name}`}</TitleContainer>
+                                : <TitleContainer>{  `Profile purchased by ${item?.purchased_user?.first_name || item?.purchased_user?.user_name}`}</TitleContainer>
+                            }
                             <PriceContainer>₹{item?.price.toLocaleString()}</PriceContainer>
                          </TitlePriceWrapper>     
                          <CreatorPurchaseTimeWrapper>
-                                <CreatorName onClick={()=>navigateToProfile(item?.purchased_user?._id)}>
-                                {`${item?.purchased_user?.first_name || item?.purchased_user?.user_name}`}
-                                </CreatorName>
+                  
+                                    <CreatorName onClick={()=>navigateToProfile(item?.purchased_user?._id)}>
+                                     {`${item?.purchased_user?.first_name || item?.purchased_user?.user_name}`}
+                                    </CreatorName>
+                        
                                 <TimeWrapper>
                                     {moment(item?.createdAt).format('LLL')}
                                 </TimeWrapper>
@@ -98,8 +104,15 @@ const Sellings = () => {
                            
                          </CommissionHolder>
                          <ButtonWrapper>
-                            <PreviwBtn onClick={()=>navigateToProfile(item?.purchased_user?._id)}>
-                                View User
+                            <PreviwBtn onClick={()=>{
+                                if(item.product){
+                                    navigateToProfile(`post/${item?.product?._id}`)
+                                }
+                                else{
+                                    navigateToProfile(item?.profile?._id)
+                                }
+                                }}>
+                              {item.product ? "view creation" : "View User"}  
                             </PreviwBtn>
                          </ButtonWrapper>
                     </CardWrapper>

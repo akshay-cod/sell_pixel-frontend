@@ -76,20 +76,39 @@ const Purchases = ({heading}) => {
                     return(
                         <CardWrapper>
                         <TitlePriceWrapper>
-                            <TitleContainer>{ `Profile of ${item?.profile?.first_name || item?.profile?.user_name}`}</TitleContainer>
+                            {
+                                item.product ?  <TitleContainer>{ `${item?.product?.title}`}</TitleContainer>
+                                : <TitleContainer>{ `Profile of ${item?.profile?.first_name || item?.profile?.user_name}`}</TitleContainer>
+                            }
+                            
                             <PriceContainer>₹{item?.price.toLocaleString()}</PriceContainer>
                          </TitlePriceWrapper>     
                          <CreatorPurchaseTimeWrapper>
-                                <CreatorName onClick={()=>navigateToProfile(item?.profile?._id)}>
-                                {item?.profile ? `${item?.profile?.first_name || item?.profile?.user_name}`: ""}
-                                </CreatorName>
+                                {
+                                    item.product ? <CreatorName onClick={()=>navigateToProfile(item?.owner?._id)}>
+                                    {item?.owner ? `${item?.owner?.first_name || item?.owner?.user_name}`: ""}
+                                    </CreatorName>
+                                    :
+                                    <CreatorName onClick={()=>navigateToProfile(item?.profile?._id)}>
+                                    {item?.profile ? `${item?.profile?.first_name || item?.profile?.user_name}`: ""}
+                                    </CreatorName>
+                                }
                                 <TimeWrapper>
                                     {moment(item?.createdAt).format('LLL')}
                                 </TimeWrapper>
                          </CreatorPurchaseTimeWrapper>  
                          <ButtonWrapper>
-                            <PreviwBtn onClick={()=>navigateToProfile(item?.profile?._id)}>
-                                View
+                            <PreviwBtn onClick={()=>{
+                                if(item.product){
+                                    navigateToProfile(`post/${item?.product?._id}`)
+                                }
+                                else{
+                                    navigateToProfile(item?.profile?._id)
+                                }
+                                }}
+                                
+                                >
+                               {item.product ? "view creation" : "View User"}  
                             </PreviwBtn>
                          </ButtonWrapper>
                     </CardWrapper>
