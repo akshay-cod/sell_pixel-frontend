@@ -53,18 +53,20 @@ const SinglePost = ({setLoginVisible}) => {
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
-            //  console.log(response,"res")
+             console.log(response,"res")
             if(response.status === "success"){
               let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
               {
                 response:response,
                 price:post?.price || 10,
-                product:params?.id
+                product:params?.id,
+                type:"creations"
               }
               )
               console.log(verify)
+              await fetchPostDetails()
               setPurchaseLoading(false)
-              window.location.reload()
+              document.body.style.overflow = "scroll"
             }
             else{
               setPurchaseLoading(false)
