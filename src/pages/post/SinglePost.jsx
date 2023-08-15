@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Layout from "../../HOC/Layout";
 import BannerWithImage from "../home/profile/BannerWithImage";
 import { AvatarSmall, Createdby, DescHeading, Descr, SinglePostWrapper, Space, TimeStamp, TitleHeading } from "./singlepost.styles";
@@ -17,8 +17,33 @@ import Avatar from "../../assets/avatar.svg";
 import { useScript } from "../../hooks/UseScript";
 import { PAYMENT_URL } from "../../configs/urls/urls";
 import axiosInstance from "../../axios/AxiosInstance";
+import ImageViewer from 'react-simple-image-viewer';
+import PdfViewer from "../../components/pdf-viewer/PdfViewer";
+
+const downloadURI = (uri, name) => {
+  const link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 const SinglePost = ({setLoginVisible}) => {
+  const [images, setImages] = useState([])
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+  const openImageViewer = useCallback((index,image) => {
+    setImages([image])
+    setCurrentImage(0);
+    setIsViewerOpen(true);
+  }, []);
+
+  const closeImageViewer = () => {
+    setCurrentImage(0);
+    setIsViewerOpen(false);
+  };
 
     const [post, setPost] = useState({});
     const userDetails = useSelector(user)
@@ -27,7 +52,20 @@ const SinglePost = ({setLoginVisible}) => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const [purchaseLoading, setPurchaseLoading] = useState(false);
-    const UserRedux = useSelector(user)
+    const UserRedux = useSelector(user);
+
+    //pdf
+    const [isPdfOpen, setIsPdfOpen] = useState(false);
+    const [pdfUrl, setPdfUrl] = useState("");
+
+    const onPdfClick = (url) => {
+      setPdfUrl(url)
+      setIsPdfOpen(true)
+    } 
+    const onPdfClose = () => {
+      setIsPdfOpen(false)
+    }
+   
     
   const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
     
@@ -152,11 +190,11 @@ const SinglePost = ({setLoginVisible}) => {
            
                 {
                     post?.files?.length > 0 &&
-                    post?.files.map((file)=>{
+                    post?.files.map((file,index)=>{
                         if(file.type.startsWith('image'))
                         return(
                             <div style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
-                            <img style={{objectFit:"contain"}} src={file.url} width="300" height="200"/>
+                            <img  onClick={() => openImageViewer(index,file.url)} style={{objectFit:"contain", cursor:"pointer"}} src={file.url} width="300" height="200"/>
                        
                         </div>
                         )
@@ -179,14 +217,17 @@ const SinglePost = ({setLoginVisible}) => {
                             </div>)
                         if(file.type.startsWith('application/pdf'))
                         return(
-                            <div style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                            <div onClick={()=>{onPdfClick(file.url)}} style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",cursor:"pointer"}}>
                                 <img src={PdfIcon} width="150" height="150"/>
+                                <div style={{marginTop:10}}> {file.url.split('/')[3]} </div> 
                             </div>
                         )
                         else
                         return(
-                            <div style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                            <div onClick={()=>{downloadURI(file.url)}} style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center", cursor:"pointer"}}>
                                 <img src={FileIcon} width="150" height="150"/>
+                              <div style={{marginTop:10}}> {file.url.split('/')[3]}
+                                </div> 
                             </div>
                         )
                     })
@@ -223,6 +264,32 @@ const SinglePost = ({setLoginVisible}) => {
           </PurchaseWrapper>
            
         } auth={false}/> }
+         {isViewerOpen && (
+        <ImageViewer
+          
+          src={images}
+          currentIndex={currentImage}
+          onClose={closeImageViewer}
+          disableScroll={false}
+          backgroundStyle={{
+            backgroundColor: "rgba(0,0,0,0.9)",
+            zIndex:100
+          }}
+          closeOnClickOutside={true}
+        />
+      )}
+      {isPdfOpen &&
+        <div style={{position:"absolute",top:0,zIndex:102,background:"black", width:"100%",display:"flex",justifyContent:"center"}}>
+          <div onClick={()=>{setIsPdfOpen(false)}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
+            X
+          </div>
+            <div >
+            <PdfViewer url={pdfUrl}/>
+            </div>
+           
+        </div>
+        
+      }
             </>
     )
 }
