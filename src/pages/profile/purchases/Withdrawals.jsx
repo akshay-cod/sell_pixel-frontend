@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { getAnUserPurchases, getAnUserPurchasesPaginated } from "../../../api/auth/auth-request";
-import { PriceContainer, ButtonWrapper, TitleContainer, TitlePriceWrapper,CardWrapper, CreatorPurchaseTimeWrapper, PurchasesWrapper, CreatorName, TimeWrapper, PreviwBtn, LoadMoreWrapper, LoadMoreBtn } from "./purchases.styles";
+import { PriceContainer, ButtonWrapper, TitleContainer, TitlePriceWrapper,CardWrapper, CreatorPurchaseTimeWrapper, PurchasesWrapper, CreatorName, TimeWrapper, PreviwBtn, LoadMoreWrapper, LoadMoreBtn } from "./withdrawals.styles";
 
 import { useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { listWithdrawalsOfUser, listWithdrawalsOfUserPaginated } from "../../../api/withdraw/withdraw-request";
 
-const Purchases = ({heading}) => {
+const Withdrawals = ({heading}) => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState(0);
     const [haseMore, setHasMore] = useState(true);
@@ -27,28 +28,23 @@ const Purchases = ({heading}) => {
     },[page])
 
     const fetchmoreDetails = async () => {
-        setLoadMoreLoading(true)
-        const res = await getAnUserPurchasesPaginated(page);
-        if(res.purchases.length != 10){
+        const res = await listWithdrawalsOfUserPaginated(page);
+        if(res.withdrawals.length != 10){
             setHasMore(false)
         }
-        setPurchases([...purchases ,...res.purchases])
-        setLoadMoreLoading(false)
+        setPurchases([...purchases ,...res.withdrawals])
     }
 
     const fetchUserPurchses = async () => {
         setLoading(true)
-        const res = await getAnUserPurchases();
-        if(res.purchases.length != 10){
+        const res = await listWithdrawalsOfUser();
+        if(res.withdrawals.length != 10){
             setHasMore(false)
         }
-        setPurchases(res.purchases)
+        setPurchases(res.withdrawals)
         setLoading(false)
     }
 
-    const navigateToProfile = (id) => {
-        navigate(`/${id}`)
-    }
 
     const onLoadMore = () => {
         setPage(page+1)
@@ -70,7 +66,7 @@ const Purchases = ({heading}) => {
            {
             !loading && purchases.length == 0 ?
             <div style={{textAlign:"center"}}>
-                no purchases yet
+                no withdrawals yet
             </div> : ""
            }
             {!loading &&
@@ -78,39 +74,20 @@ const Purchases = ({heading}) => {
                     return(
                         <CardWrapper>
                         <TitlePriceWrapper>
-                            {
-                                item.product ?  <TitleContainer>{ `${item?.product?.title}`}</TitleContainer>
-                                : <TitleContainer>{ `Profile of ${item?.profile?.first_name || item?.profile?.user_name}`}</TitleContainer>
-                            }
+                           
+                            <TitleContainer>{ `Withdrawal of ₹${item?.amount.toLocaleString()}`}</TitleContainer>
+                          
                             
-                            <PriceContainer>₹{item?.price.toLocaleString()}</PriceContainer>
+                            <PriceContainer>₹{item?.amount.toLocaleString()}</PriceContainer>
                          </TitlePriceWrapper>     
                          <CreatorPurchaseTimeWrapper>
-                                {
-                                    item.product ? <CreatorName onClick={()=>navigateToProfile(item?.owner?._id)}>
-                                    {item?.owner ? `${item?.owner?.first_name || item?.owner?.user_name}`: ""}
-                                    </CreatorName>
-                                    :
-                                    <CreatorName onClick={()=>navigateToProfile(item?.profile?._id)}>
-                                    {item?.profile ? `${item?.profile?.first_name || item?.profile?.user_name}`: ""}
-                                    </CreatorName>
-                                }
                                 <TimeWrapper>
                                     {moment(item?.createdAt).format('LLL')}
                                 </TimeWrapper>
                          </CreatorPurchaseTimeWrapper>  
                          <ButtonWrapper>
-                            <PreviwBtn onClick={()=>{
-                                if(item.product){
-                                    navigateToProfile(`post/${item?.product?._id}`)
-                                }
-                                else{
-                                    navigateToProfile(item?.profile?._id)
-                                }
-                                }}
-                                
-                                >
-                               {item.product ? "view creation" : "View User"}  
+                            <PreviwBtn style={{border: !item.is_processed ? "1px solid red" : ""}}>
+                               {item.is_processed ? "success" : "processing"}  
                             </PreviwBtn>
                          </ButtonWrapper>
                     </CardWrapper>
@@ -133,4 +110,4 @@ const Purchases = ({heading}) => {
     )
 }
 
-export default Purchases;
+export default Withdrawals;

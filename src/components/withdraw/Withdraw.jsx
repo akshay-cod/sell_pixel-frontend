@@ -125,7 +125,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
 
     const submitWithdrawRequest = async () => {
         if(withdrawalLoading) return;
-        if(!bankDetails){
+        if(!bankDetails._id){
             toast.error("please add bank details")
             return;
         }
@@ -137,7 +137,8 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
         }
         const res = await raiseAwithdrawRequest({
             type:selectedOption.value,
-            amount:parseFloat(amount)
+            amount:parseFloat(amount),
+            accounts:bankDetails._id
         })
         if(res.status == true){
             toast.success("withdrawal request raised successfully")

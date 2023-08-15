@@ -58,4 +58,6 @@ export const SOLD = "user/sold"
 
 //withdraw
 
-export const WITHDRAW = "withdrawal/raise"
+export const WITHDRAW = "withdrawal/raise";
+
+export const WITHDRAW_LIST = "withdrawal"

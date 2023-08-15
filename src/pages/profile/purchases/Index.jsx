@@ -2,6 +2,7 @@ import { useState } from "react";
 import Purchases from "./Purchases.jsx";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai"
 import Sellings from "./Sellings.jsx";
+import Withdrawals from "./Withdrawals.jsx";
 
 const Index = () => {
 
@@ -11,18 +12,24 @@ const Index = () => {
         if(title == "Purchases"){
             setTitle("Sellings")
         }
+        else if(title =="Sellings"){
+            setTitle("Withdrawal")
+        }
         else{
-            setTitle("Purchases")
+          setTitle("Purchases")
         }
     }
 
     const onLeftArrowClick = () => {
-        if(title == "Purchases"){
-            setTitle("Sellings")
-        }
-        else{
-            setTitle("Purchases")
-        }
+      if(title == "Purchases"){
+        setTitle("Withdrawal")
+    }
+    else if(title =="Withdrawal"){
+        setTitle("Sellings")
+    }
+    else{
+      setTitle("Purchases")
+    }
     }
 
     return(
@@ -30,14 +37,14 @@ const Index = () => {
             <div style={{textAlign:"center",margin:"20px 10px 10px 10px",fontSize:20, fontWeight:"bold"}}>
               <AiFillCaretLeft
               style={{marginRight:20}}
-                onClick={onRightArrowClick}
+                onClick={onLeftArrowClick}
               />{title}<AiFillCaretRight
               style={{marginLeft:20}}
-                onClick={onLeftArrowClick}
+                onClick={onRightArrowClick}
               />
             </div>
               {
-                title == "Purchases" ? <Purchases /> : <Sellings/>
+                title == "Purchases" ? <Purchases /> : title == "Withdrawal" ? <Withdrawals/>: <Sellings/>
               }  
         </>
     )

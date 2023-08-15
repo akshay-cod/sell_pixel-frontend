@@ -27,11 +27,13 @@ const Sellings = () => {
     },[page])
 
     const fetchmoreDetails = async () => {
+        setLoadMoreLoading(true)
         const res = await getAnUserSellingsPaginated(page);
         if(res.sellings.length != 10){
             setHasMore(false)
         }
         setSellings([...sellings ,...res.sellings])
+        setLoadMoreLoading(false)
     }
 
     const fetchUserPurchses = async () => {
