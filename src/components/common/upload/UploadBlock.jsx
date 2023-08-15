@@ -64,7 +64,6 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
         setFileLoading(false)
     }
     setProgress(0)
-    console.log(err)
   }
   };
 
@@ -75,7 +74,6 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
 
       // Printing the log realted to the file
       // Setting the state to show single file attributes
-      console.log(e.target.files)
       setSingleFile(e.target.files);
       // await uploadImage()
     } catch (err) {

@@ -49,7 +49,7 @@ const SinglePost = ({setLoginVisible}) => {
             price:post?.price || 10,
             type:"creations"
           })
-          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "test")
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "prod")
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
