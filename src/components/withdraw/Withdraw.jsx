@@ -137,7 +137,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
         }
         const res = await raiseAwithdrawRequest({
             type:selectedOption.value,
-            amount:amount
+            amount:parseFloat(amount)
         })
         if(res.status == true){
             toast.success("withdrawal request raised successfully")
