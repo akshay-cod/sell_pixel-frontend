@@ -45,7 +45,7 @@ const EditCreation = () => {
     const [buttonLoading, setButtonLoading] = useState(false);
     const navigate = useNavigate();
 
-    console.log(banImg,"banImg",url);
+    //console.log(banImg,"banImg",url);
 
     useEffect(()=>{
         setBannerImg([{url:state?.bannerImage}])
@@ -78,7 +78,7 @@ const EditCreation = () => {
     },[])
 
     const handleSelect = (selectedOption) => {
-        console.log(selectedOption)
+        //console.log(selectedOption)
         setSelectedOption(selectedOption)
     }
 
@@ -104,7 +104,7 @@ const EditCreation = () => {
           dataToSend,
           validationSchema
         )
-        console.log(result,"results")
+        //console.log(result,"results")
     
         if(result?.hasError){
             setButtonLoading(false)
@@ -139,10 +139,10 @@ const EditCreation = () => {
         }
     
         const removeItFromList = async (index) => {
-            console.log(url)
+            //console.log(url)
             let temp_url = url
             temp_url.splice(index, 1)
-           console.log(temp_url,"new")
+           //console.log(temp_url,"new")
            setUrl([...temp_url])
         }
 
@@ -251,7 +251,7 @@ const EditCreation = () => {
                                                          </div>
                                                      </div>
                                                     }
-                                                    {console.log(data.url.split('/')[3])}
+                                                   
                                                    {!data?.type.startsWith("image") && !data?.type.startsWith("video") && <FileHolder >
                                                          <span>{data.url.split('/')[3]}</span> 
                                                          <span style={{cursor:"pointer"}} onClick={() => removeItFromList(index)}>X</span>

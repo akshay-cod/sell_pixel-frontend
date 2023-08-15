@@ -4,10 +4,7 @@ import { SINGLE_CREATION, USER_DETAILS } from "../end-points/user-end-points"
 export const getProfileDetails = async (id, skip) => {
     try{
         const res = await axiosInstance.get(USER_DETAILS(id ||"645d34643e09f833f450e67d",skip))
-           console.log({
-            ...res?.data,
-            status:true
-        })
+      
             return{
                 ...res?.data,
                 status:true
@@ -25,10 +22,7 @@ export const getProfileDetails = async (id, skip) => {
 export const getAPostDetails = async (id) => {
   try{
       const res = await axiosInstance.get(SINGLE_CREATION(id))
-         console.log({
-          ...res?.data,
-          status:true
-      })
+    
           return{
               ...res?.data,
               status:true

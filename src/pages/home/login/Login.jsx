@@ -18,7 +18,7 @@ const Login = ({setVisible}) => {
 
     const users = useSelector(user);
     const dispatch = useDispatch();
-    console.log(time,"user")
+   // console.log(time,"user")
 
     useEffect(()=>{
         if(screen == 2){
@@ -66,14 +66,14 @@ const Login = ({setVisible}) => {
             else{
                 setLoading(false);
                 toast.error(data?.message)
-                console.log(data)
+               // console.log(data)
             }
            
      }
      catch(err){
         toast.error(err?.message)
         setLoading(false);
-        console.log(err)
+       // console.log(err)
      }
        
     }
@@ -108,16 +108,16 @@ const Login = ({setVisible}) => {
                 setLoading(false);
                 return;
             }
-               console.log(phoneNumber, authData?.ginger, otpCode)
+              // console.log(phoneNumber, authData?.ginger, otpCode)
                const data = await verifyAnOtp(phoneNumber, authData?.ginger, otpCode);
-               console.log(data.token,"token")
+              // console.log(data.token,"token")
                if(!data.token){
                 toast.error(data?.message)
                 setLoading(false);
                 return
                }
                const isTokenSaved = localStorage.setItem("token", data?.token)
-               console.log("errr nope")
+              // console.log("errr nope")
                if(data.status == true){
                 setLoading(false);
                  dispatch(loginUser(data.user))

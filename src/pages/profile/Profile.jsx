@@ -37,7 +37,7 @@ const validationSchema =  {
 const Profile = () => {
 
     const userDetails = useSelector(user)
-    console.log(userDetails,"details");
+    //console.log(userDetails,"details");
     const dispatch = useDispatch();
 
     const [buttonLoading, setButtonLoading] = useState(false);
@@ -81,9 +81,9 @@ const Profile = () => {
         if(userName !== userDetails.user?.user_name){
            dataTosend.userName = userName 
         }
-        console.log(dataTosend,"sss")
+        //console.log(dataTosend,"sss")
         const results = Validate.validate(dataTosend, validationSchema)
-        console.log(results)
+        //console.log(results)
         if(results?.hasError){
             toast.error(Object.values(results?.errors)[0][0])
             // setToastText(Object.values(results?.errors)[0][0]);
@@ -91,6 +91,16 @@ const Profile = () => {
             // setShowToast(true)
              setButtonLoading(false)
             return;
+        }
+        if(price != 0){
+            if(price > 100 && price < 100000){
+
+            }
+            else{
+                toast.error("please enter amount between 100 & 1L") 
+                setButtonLoading(false)
+                return;
+            }
         }
         const res = await updateAnUserDetails(dataTosend)
         if(res.status){
@@ -108,7 +118,7 @@ const Profile = () => {
         setButtonLoading(false)
      }
 
-     console.log(profilePicture[0]?.url)
+     //console.log(profilePicture[0]?.url)
 
     useEffect(()=>{
         if(userDetails){
@@ -134,7 +144,7 @@ const Profile = () => {
         setBannerImg("")
     }
 
-    console.log(bio,"bio")
+    //console.log(bio,"bio")
 
     if(userDetails?.loading){
         return(<LoaderHolder> <SimpleLoader/></LoaderHolder>)

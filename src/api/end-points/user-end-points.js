@@ -8,7 +8,6 @@ export const USERS_SEARCH = (userName) => "users/"+ userName;
 
 export const USER_DETAILS = (userId, skip) => {
   let url = `user-details/${userId}`+ `${skip > 0 ? `?skip=${skip}` :""}` 
-  console.log(url,skip,"url")
   return url
 }
 

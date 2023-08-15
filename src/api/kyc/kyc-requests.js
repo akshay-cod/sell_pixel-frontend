@@ -4,10 +4,7 @@ import { KYC_DETAILS } from "../end-points/user-end-points"
 export const getKycDetails = async () => {
     try{
         const res = await axiosInstance.get(KYC_DETAILS)
-           console.log({
-            ...res?.data,
-            status:true
-        })
+        
             return{
                 ...res?.data,
                 status:true
@@ -26,10 +23,7 @@ export const getKycDetails = async () => {
 export const postKycDetails = async (data) => {
     try{
         const res = await axiosInstance.post(KYC_DETAILS,data)
-           console.log({
-            ...res?.data,
-            status:true
-        })
+     
             return{
                 ...res?.data,
                 status:true
@@ -47,10 +41,7 @@ export const postKycDetails = async (data) => {
 export const updateKycDetails = async (data) => {
     try{
         const res = await axiosInstance.put(KYC_DETAILS,data)
-           console.log({
-            ...res?.data,
-            status:true
-        })
+       
             return{
                 ...res?.data,
                 status:true

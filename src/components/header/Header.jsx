@@ -56,7 +56,6 @@ const Header = ({setVisible}) => {
         setIsActive(false)
       }
 
-    console.log(userFromRedux, isActive,"user")
     return (
     <>
    

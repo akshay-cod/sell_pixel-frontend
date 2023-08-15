@@ -43,7 +43,7 @@ export const authSlice = createSlice({
             if(token)
             {
                 const getusersDetails = await getProfileDetails()
-                console.log(getusersDetails.profile)
+               // console.log(getusersDetails.profile)
                 dispatch(add_login_details(getusersDetails.profile))
                 dispatch(stop_loading())
             }

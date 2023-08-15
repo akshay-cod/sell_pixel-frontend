@@ -8,4 +8,4 @@ export const allRoutes = [
     ...SemiRoutes
 ]
 
-console.log(allRoutes)
+//console.log(allRoutes)

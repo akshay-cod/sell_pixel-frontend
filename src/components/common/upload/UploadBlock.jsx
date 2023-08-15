@@ -9,7 +9,6 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   
-  console.log(progress,"progress")
 
   useEffect(() => {
     if (singleFile?.length > 0) {
@@ -49,7 +48,6 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
       //  Please change file upload URL
       let res = await axiosInstance.post(UPLOAD_URL+"/upload-single-file", data, config)
 
-      console.log(res.data, "data")
       let temp_url = url
       setUrl([ { ...res.data }, ...temp_url]);
       setSingleFile([])

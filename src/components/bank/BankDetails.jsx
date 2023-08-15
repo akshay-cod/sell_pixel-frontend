@@ -68,7 +68,6 @@ const BankDetails = () => {
             dataToSend.accountDetails[0],
             validationSchemaBank
           )
-      console.log(result)
           if(result?.hasError){
               setButtonLoading(false)
               toast.error(Object.values(result?.errors)[0][0]);

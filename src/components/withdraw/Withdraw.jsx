@@ -41,7 +41,6 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
     },[kycDetails])
 
     const handleSelect = (selectedOption) => {
-        console.log(selectedOption)
         setSelectedOption(selectedOption)
     }
 
@@ -90,7 +89,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
             documentNumber:documentNumber
         }
         const results = Validate.validate(dataToSend, validationSchema)
-        console.log(results)
+        //console.log(results)
         if(results?.hasError){
             toast.error(Object.values(results?.errors)[0][0])
              setKyvButtonLoading(false)
@@ -112,7 +111,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
             documentNumber:documentNumber
         }
         const results = Validate.validate(dataToSend, validationSchema)
-        console.log(results)
+        //console.log(results)
         if(results?.hasError){
             toast.error(Object.values(results?.errors)[0][0])
             setKycUpdateBtnLoading(false)

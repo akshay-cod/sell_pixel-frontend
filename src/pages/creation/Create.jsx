@@ -25,7 +25,7 @@ let validationSchema =  {
     title:'required|string|min:3|max:50',
     description:'required|string|min:3|max:1000',
     bannerImg:'required|string|min:3|max:1000',
-    price:'required|between:10,100000|numeric',
+    price:'required|between:100,100000|numeric',
     type:'required|string|min:3|max:1000',
     files:"required|array|min:1"
 }
@@ -43,11 +43,8 @@ const Create = () => {
     const [buttonLoading, setButtonLoading] = useState(false);
     const navigate = useNavigate();
 
-    console.log(banImg,"banImg",url);
-
 
     const handleSelect = (selectedOption) => {
-        console.log(selectedOption)
         setSelectedOption(selectedOption)
     }
 
@@ -70,7 +67,16 @@ const Create = () => {
           dataToSend,
           validationSchema
         )
-        console.log(result,"results")
+        if(price != 0 || price != ""){
+            if(price > 100 && price < 100000){
+
+            }
+            else{
+                toast.error("please enter amount between 100 & 1L") 
+                setButtonLoading(false)
+                return;
+            }
+        }
     
         if(result?.hasError){
             setButtonLoading(false)
@@ -110,10 +116,8 @@ const Create = () => {
         }
     
         const removeItFromList = async (index) => {
-            console.log(url)
             let temp_url = url
             temp_url.splice(index, 1)
-           console.log(temp_url,"new")
            setUrl([...temp_url])
         }
 
@@ -226,7 +230,6 @@ const Create = () => {
                                                          </div>
                                                      </div>
                                                     }
-                                                    {console.log(data.url.split('/')[3])}
                                                    {!data?.type.startsWith("image") && !data?.type.startsWith("video") && <FileHolder >
                                                          <span>{data.url.split('/')[3]}</span> 
                                                          <span style={{cursor:"pointer"}} onClick={() => removeItFromList(index)}>X</span>

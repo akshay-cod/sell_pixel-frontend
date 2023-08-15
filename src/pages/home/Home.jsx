@@ -72,11 +72,11 @@ const Home = ({setLoginVisible}) => {
             price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
             type:"profile"
           })
-          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "test")
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "prod")
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
-              console.log(response,"res")
+             // console.log(response,"res")
             if(response.status === "success"){
               let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
               {
@@ -86,7 +86,7 @@ const Home = ({setLoginVisible}) => {
                 type:"profile"
               }
               )
-              console.log(verify)
+             // console.log(verify)
               setPurchaseLoading(false)
               window.location.reload()
             }
@@ -113,7 +113,7 @@ const Home = ({setLoginVisible}) => {
   const [post, setPost] = useState({});
   const [page, setPage] = useState(0)
   const [status, setStatus] = useState("")
-  console.log(page)
+ // console.log(page)
   useEffect(()=>{
       if(page > 0){
         fetchUserProfileDetails(page)
@@ -122,7 +122,7 @@ const Home = ({setLoginVisible}) => {
   
   const [visible, setVisible] = useState(false);
   const isLoggedIn = localStorage.getItem("token")
-  console.log(creator)
+ // console.log(creator)
 
   useEffect(()=>{
     if(isLoggedIn){
@@ -155,7 +155,7 @@ const Home = ({setLoginVisible}) => {
       
     }
   },[creator])
-console.log(post)
+//console.log(post)
   const onLoadMore = () => {
     setPage(page+1)
   }
@@ -163,13 +163,13 @@ console.log(post)
   const fetchUserNoAuth = async () => {
     setLoading(true)
     const res = await getUserByUserIdNoAuth(params.user)
-    console.log(res.user)
+   // console.log(res.user)
     setCreator(res.user[0])
     setLoading(false)
   }
 
   const fetchUserProfileDetails = async (skip) => {
-    console.log("truuu")
+   // console.log("truuu")
     try{
       if(skip == 0)
       { setLoading(true)  } 
@@ -254,7 +254,7 @@ console.log(post)
               OnPurchase(false)
               //setLoading(false)
              }}>
-                Purchase
+                Purchase {creator?.set_profile_price == true ? `₹${creator?.price.toLocaleString()}` : ""}
               </GreenBtn> 
           </PurchaseWrapper>
            
