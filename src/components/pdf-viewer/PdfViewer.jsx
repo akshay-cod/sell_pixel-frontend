@@ -12,9 +12,9 @@ import { useState } from 'react';
  import { pdfjs, Document, Page } from 'react-pdf';
  import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
  import 'react-pdf/dist/esm/Page/TextLayer.css';
+ import {isMobile} from 'react-device-detect';
 //import MobilePdfViewer from './MobilePdfViewer';
  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
  // Core viewer
 //import { Worker, Viewer } from '@react-pdf-viewer/core';
 
@@ -55,9 +55,11 @@ const PdfViewer = ({url}) => {
         <>
          {url && 
          <div>
-         <Document file={pdfContent} onLoadSuccess={onDocumentLoadSuccess} page={1}>
+         <Document file={pdfContent} onLoadSuccess={onDocumentLoadSuccess} page={1}
+          loading={<div>loading</div> }
+         >
                 {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            <Page key={`page_${index + 1}`} pageNumber={index + 1} renderMode='svg' scale={isMobile ? 0.5 : 1}/>
                ))}  
          </Document>
         
