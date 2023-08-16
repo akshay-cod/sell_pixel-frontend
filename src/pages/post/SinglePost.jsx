@@ -7,7 +7,7 @@ import Modal from "../../components/common/modal/Modal";
 import { GreenBtn, Name, ProfileImage, PurchaseWrapper } from "../home/home.styles";
 import { user } from "../../store/feature/auth";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PostContainer } from "../home/post/post.styles";
 import ReactPlayer from 'react-player';
 import PdfIcon from "../../assets/icons/pdf.png";
@@ -53,6 +53,7 @@ const SinglePost = ({setLoginVisible}) => {
     const params = useParams();
     const [purchaseLoading, setPurchaseLoading] = useState(false);
     const UserRedux = useSelector(user);
+    const navigate = useNavigate();
 
     //pdf
     const [isPdfOpen, setIsPdfOpen] = useState(false);
@@ -60,6 +61,7 @@ const SinglePost = ({setLoginVisible}) => {
 
     const onPdfClick = (url) => {
       setPdfUrl(url)
+    // navigate("/view/pdf", {state:{url:url}})
       setIsPdfOpen(true)
     } 
     const onPdfClose = () => {
@@ -279,7 +281,7 @@ const SinglePost = ({setLoginVisible}) => {
         />
       )}
       {isPdfOpen &&
-        <div style={{position:"absolute",top:0,zIndex:102,background:"black", width:"100%",display:"flex",justifyContent:"center"}}>
+        <div style={{position:"absolute",top:0,zIndex:102, background:"black", width:"100%",display:"flex",justifyContent:"center",overflow:"scroll"}}>
           <div onClick={()=>{setIsPdfOpen(false)}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
             X
           </div>
