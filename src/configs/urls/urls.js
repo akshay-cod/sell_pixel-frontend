@@ -1,4 +1,4 @@
-export const __ENV = "prod";
+export let __ENV = "prod";
 let URL = "http://62.72.31.73"
 
 if(__ENV == "dev"){
