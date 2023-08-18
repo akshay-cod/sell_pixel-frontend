@@ -17,7 +17,7 @@ import { getProfileDetails } from "../../api/posts/posts-requests";
 import { GreenBtn, LoadMoreBtn, LoadMoreWrapper, Name, ProfileImage, PurchaseWrapper } from "./home.styles";
 import { useScript } from "../../hooks/UseScript";
 import axiosInstance from "../../axios/AxiosInstance";
-import { PAYMENT_URL } from "../../configs/urls/urls";
+import { PAYMENT_URL, __ENV } from "../../configs/urls/urls";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import { getUserByUserIdNoAuth } from "../../api/auth/auth-request";
 import { Label } from "../../components/withdraw/widthdraw.styles";
@@ -72,7 +72,7 @@ const Home = ({setLoginVisible}) => {
             price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
             type:"profile"
           })
-          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "prod")
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key,  __ENV == "prod" ? "prod" : "test")
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {

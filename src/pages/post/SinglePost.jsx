@@ -15,7 +15,7 @@ import FileIcon from "../../assets/icons/file.png";
 import moment from "moment/moment";
 import Avatar from "../../assets/avatar.svg";
 import { useScript } from "../../hooks/UseScript";
-import { PAYMENT_URL } from "../../configs/urls/urls";
+import { PAYMENT_URL, __ENV } from "../../configs/urls/urls";
 import axiosInstance from "../../axios/AxiosInstance";
 import ImageViewer from 'react-simple-image-viewer';
 import PdfViewer from "../../components/pdf-viewer/PdfViewer";
@@ -89,7 +89,7 @@ const SinglePost = ({setLoginVisible}) => {
             price:post?.price || 10,
             type:"creations"
           })
-          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "prod")
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, __ENV == "prod" ? "prod" : "test")
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
