@@ -72,7 +72,7 @@ const Home = ({setLoginVisible}) => {
             price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
             type:"profile"
           })
-          var easebuzzCheckout = new EasebuzzCheckout(res.data.key,  __ENV == "prod" ? "prod" : "test")
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key,  (__ENV == "prod" ? "prod" : "test"))
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
