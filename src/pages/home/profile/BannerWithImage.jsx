@@ -1,11 +1,12 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { BannerImage, BannerImageWrapper, BannerWrapper, BioDescr, BioHeading, IconsWrapper, LinkHeading, Nametext, ProfileImage, TextWrapper } from "./banner.styles";
 import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe, BsTwitter} from "react-icons/bs";
-import Avatar from "../../../assets/avatar.svg";
+
 import {HiOutlineShare} from "react-icons/hi"
 import { useState } from "react";
 import Modal from "../../../components/common/modal/Modal";
 import ShareCompo from "./share/ShareCompo";
+import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
 
 const BannerWithImage = ({banner,height,creator,loading, image}) => {
 
@@ -40,7 +41,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
                     bottom:"-50px",
                     left:"80px"
                 }}
-            />  : <ProfileImage src={creator?.profile_picture ? creator?.profile_picture : Avatar}/> }
+            />  : <ProfileImage src={creator?.profile_picture ? creator?.profile_picture : getDynamicFileUrl("avatar.svg")}/> }
             </BannerImageWrapper>
             
            <TextWrapper>

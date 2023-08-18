@@ -10,8 +10,8 @@ import Toastholder from "../../components/common/toast/Toastholder";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import SwitchButton from "../../components/common/switchButton/SwitchButton";
 
-import Avatar from "../../assets/avatar.svg"
 import { isValidEmail, isnoSpecialCharAndSpace } from "../../helpers/validations";
+import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 const validationSchema =  {
     firstName:'required|string|min:3|max:50',
     lastName:'required|string|min:3|max:50',
@@ -164,7 +164,7 @@ const Profile = () => {
                 if(!fileLoading){  setClick(true)}}
               
                 }>
-            <ProfileImage src={profilePicture[0]?.url ? profilePicture[0]?.url : Avatar} 
+            <ProfileImage src={profilePicture[0]?.url ? profilePicture[0]?.url : getDynamicFileUrl("avatar.svg")} 
              
             />
             <ChangeProfilePicText>

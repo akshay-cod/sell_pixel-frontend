@@ -169,7 +169,7 @@ const SinglePost = ({setLoginVisible}) => {
                         Created By
                 </DescHeading>
                 <Createdby>
-                  <AvatarSmall src={post?.created_by?.profile_picture ? post?.created_by?.profile_picture : Avatar}/>   {post?.created_by?.first_name ? post?.created_by?.first_name : post?.created_by?.user_name}
+                  <AvatarSmall src={post?.created_by?.profile_picture ? post?.created_by?.profile_picture : getDynamicFileUrl("avatar.svg")}/>   {post?.created_by?.first_name ? post?.created_by?.first_name : post?.created_by?.user_name}
                 </Createdby>
                 <DescHeading>
                     Description
