@@ -98,7 +98,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
           auth={true}
           isVisible={shareModal}
           setVisible={setShareModal}
-          component={<ShareCompo/>}
+          component={<ShareCompo text={`${window.location.origin}/${creator?.user_name}`}/>}
         />
         </>
     )

@@ -10,8 +10,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostContainer } from "../home/post/post.styles";
 import ReactPlayer from 'react-player';
-import PdfIcon from "../../assets/icons/pdf.png";
-import FileIcon from "../../assets/icons/file.png";
 import moment from "moment/moment";
 import Avatar from "../../assets/avatar.svg";
 import { useScript } from "../../hooks/UseScript";
@@ -19,6 +17,7 @@ import { PAYMENT_URL, __ENV } from "../../configs/urls/urls";
 import axiosInstance from "../../axios/AxiosInstance";
 import ImageViewer from 'react-simple-image-viewer';
 import PdfViewer from "../../components/pdf-viewer/PdfViewer";
+import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 
 const downloadURI = (uri, name) => {
   const link = document.createElement("a");
@@ -68,7 +67,7 @@ const SinglePost = ({setLoginVisible}) => {
       setIsPdfOpen(false)
     }
    
-    
+    console.log(__ENV,"env")
   const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
     
   const OnPurchase = async () => {
@@ -220,14 +219,14 @@ const SinglePost = ({setLoginVisible}) => {
                         if(file.type.startsWith('application/pdf'))
                         return(
                             <div onClick={()=>{onPdfClick(file.url)}} style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",cursor:"pointer"}}>
-                                <img src={PdfIcon} width="150" height="150"/>
+                                <img src={getDynamicFileUrl("pdf.png")} width="150" height="150"/>
                                 <div style={{marginTop:10}}> {file.url.split('/')[3]} </div> 
                             </div>
                         )
                         else
                         return(
                             <div onClick={()=>{downloadURI(file.url)}} style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center", cursor:"pointer"}}>
-                                <img src={FileIcon} width="150" height="150"/>
+                                <img src={getDynamicFileUrl("file.png")} width="150" height="150"/>
                               <div style={{marginTop:10}}> {file.url.split('/')[3]}
                                 </div> 
                             </div>

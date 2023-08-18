@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { getProfileDetails } from "../../api/auth/auth-request";
+import Cookies from 'universal-cookie';
 
 const initialState = {
     auth:false,
@@ -39,7 +40,9 @@ export const authSlice = createSlice({
 
   export const checkUserLoggedIn = (data) => async (dispatch) => {
             dispatch(start_loading())
-            const token = localStorage.getItem("token");
+            const cookies = new Cookies();
+          //  cookies.set('token', 'Pacman', { path: '/' });
+            const token = cookies.get('token')
             if(token)
             {
                 const getusersDetails = await getProfileDetails()

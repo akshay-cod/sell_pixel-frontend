@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 import {BiArrowBack} from "react-icons/bi"
+import Cookies from 'universal-cookie';
 
 const Login = ({setVisible}) => {
     const [screen, setScreen] = useState(1);
@@ -116,7 +117,8 @@ const Login = ({setVisible}) => {
                 setLoading(false);
                 return
                }
-               const isTokenSaved = localStorage.setItem("token", data?.token)
+               const cookies = new Cookies();
+               const isTokenSaved = cookies.set('token',  data?.token, { path: '/', maxAge:2628000});
               // console.log("errr nope")
                if(data.status == true){
                 setLoading(false);

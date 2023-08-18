@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../configs/urls/urls';
-
+import Cookies from 'universal-cookie';
 // const token = async () => {
 //     try {
 //         const value = await getAToken();
@@ -18,7 +18,8 @@ const axiosInstance = axios.create()
 
 axiosInstance.interceptors.request.use(
   async config => {
-    const userToken = await localStorage.getItem("token")
+    const cookies = new Cookies();
+    const userToken = await cookies.get("token")
     if (userToken) {
       config.headers.authorization = 'Bearer ' + userToken
     }

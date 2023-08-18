@@ -11,7 +11,7 @@ import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import SwitchButton from "../../components/common/switchButton/SwitchButton";
 
 import Avatar from "../../assets/avatar.svg"
-import { isValidEmail } from "../../helpers/validations";
+import { isValidEmail, isnoSpecialCharAndSpace } from "../../helpers/validations";
 const validationSchema =  {
     firstName:'required|string|min:3|max:50',
     lastName:'required|string|min:3|max:50',
@@ -24,7 +24,14 @@ const validationSchema =  {
         return "enter a valid email"
      }]
     ,
-    userName:"string|min:3",
+    userName:["string","min:3",
+    function (value){
+        if(isnoSpecialCharAndSpace(value) && value != "api" && value != "pay" && value != "upload"){
+            return true
+        }
+        return "user name already taken or invalid character"
+     }]
+,
     bio:'required|string|min:3|max:400',
     links:`object`,
     isPurchasableProfile:'required|string',
@@ -171,6 +178,7 @@ const Profile = () => {
             setClick={setClick}
             accept="image/jpeg"
             setFileLoading={setFileLoading}
+            limit={5}
             /></div>
            
             </ProfileImageWrapper>
@@ -213,6 +221,7 @@ const Profile = () => {
                                  accept="image/jpeg"
                                  label="Banner Image"
                                  id="remb"
+                                 limit={5}
                  /> }
 
             <Label>

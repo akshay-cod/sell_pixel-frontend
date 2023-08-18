@@ -8,7 +8,8 @@ import './header.css'
 import Modal from "../common/modal/Modal";
 import WithDraw from "../withdraw/Withdraw";
 import BankDetails from "../bank/BankDetails";
-import Avatar from "../../assets/avatar.svg"
+import Cookies from 'universal-cookie';
+import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 
 const Header = ({setVisible}) => {
     const userFromRedux = useSelector(user);
@@ -19,7 +20,8 @@ const Header = ({setVisible}) => {
     const [BankModal, setBankModal] = useState(false);
 
     const logOutUser = () => {
-        localStorage.clear("token");
+        const cookies = new Cookies();
+        cookies.remove("token")
         setIsActive(false)
         window.location.reload()
     }
@@ -32,7 +34,7 @@ const Header = ({setVisible}) => {
     }
 
     const navigateToProfile = ()=>{
-            navigate(`${userFromRedux?.user?._id}`);
+            navigate(`${userFromRedux?.user?.user_name}`);
             setIsActive(false)
         }
     
@@ -79,7 +81,7 @@ const Header = ({setVisible}) => {
                 <span>{userFromRedux?.user?.first_name || userFromRedux?.user?.phone_number}</span>
                 <img
                   className="profileImage"
-                  src={userFromRedux?.user?.profile_picture ? userFromRedux?.user?.profile_picture : Avatar}
+                  src={userFromRedux?.user?.profile_picture ? userFromRedux?.user?.profile_picture : getDynamicFileUrl("avatar.svg")}
                   alt="User avatar"
                 />
               </button>

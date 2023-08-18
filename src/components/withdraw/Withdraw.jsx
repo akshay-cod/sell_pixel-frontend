@@ -68,6 +68,9 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
             setDocumentImage([{url:res?.kyc.document_image}])
             setDocumentNumber(res?.kyc?.document_number)
             setLoading(false)
+            if(res?.kyc?.status == "verified"){
+                dispatch(checkUserLoggedIn())
+            }
         }
         else
         {

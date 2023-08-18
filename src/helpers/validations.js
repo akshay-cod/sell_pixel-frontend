@@ -12,3 +12,10 @@ export const isValidEmail = (email) => {
     let result =/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
     return result
 }
+
+export const isnoSpecialCharAndSpace = (input) => {
+    // Regular expression to match only alphanumeric characters (no special characters) and no spaces
+    const regex = /^[a-zA-Z0-9]*$/.test(input);
+  
+    return regex;
+  }

@@ -17,12 +17,13 @@ import { getProfileDetails } from "../../api/posts/posts-requests";
 import { GreenBtn, LoadMoreBtn, LoadMoreWrapper, Name, ProfileImage, PurchaseWrapper } from "./home.styles";
 import { useScript } from "../../hooks/UseScript";
 import axiosInstance from "../../axios/AxiosInstance";
-import { PAYMENT_URL } from "../../configs/urls/urls";
+import { PAYMENT_URL, __ENV } from "../../configs/urls/urls";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import { getUserByUserIdNoAuth } from "../../api/auth/auth-request";
 import { Label } from "../../components/withdraw/widthdraw.styles";
 import { TextInput } from "../../components/bank/bank-details.styles";
 import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
 
 
 const Home = ({setLoginVisible}) => {
@@ -72,7 +73,7 @@ const Home = ({setLoginVisible}) => {
             price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
             type:"profile"
           })
-          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, "prod")
+          var easebuzzCheckout = new EasebuzzCheckout(res.data.key, (__ENV == "prod" ? "prod" : "test"))
           var options = {
           access_key: res.data.access_key, // access key received via Initiate Payment
           onResponse: async (response) => {
@@ -121,7 +122,9 @@ const Home = ({setLoginVisible}) => {
   },[page])
   
   const [visible, setVisible] = useState(false);
-  const isLoggedIn = localStorage.getItem("token")
+  const cookies = new Cookies();
+ 
+  const isLoggedIn = cookies.get("token")
  // console.log(creator)
 
   useEffect(()=>{

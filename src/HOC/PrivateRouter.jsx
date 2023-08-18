@@ -1,8 +1,10 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 const PrivateRoute = ({component:Component, ...rest}) =>{
-    const token = window.localStorage.getItem('token');
+    const cookies = new Cookies();
+    const token = cookies.get("token")
     
       
         if(token)

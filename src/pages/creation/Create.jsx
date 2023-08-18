@@ -141,6 +141,7 @@ const Create = () => {
                                  setUrl={setBannerImg}
                                  accept="image/jpeg"
                                  label="Banner Image"
+                                 limit={5}
                                 /> }
                         <div style={{marginTop:20}}>
                         <Select
@@ -198,6 +199,7 @@ const Create = () => {
                                  url={url}
                                  setUrl={setUrl}
                                  id="files"
+                                 limit={1024}
                                 />}
                                 </div>
 

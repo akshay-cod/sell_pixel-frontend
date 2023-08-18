@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../axios/AxiosInstance";
 import { UPLOAD_URL } from "../../../configs/urls/urls";
+import { toast } from "react-toastify";
 
 
-const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoading, id}) => {
+const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoading, id, limit}) => {
 
   const [singleFile, setSingleFile] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -32,6 +33,7 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
   };
   const uploadImage = async () => {
     try{
+     
     // Check if any file is selected or not
     if (loading) {
       return;
@@ -71,7 +73,12 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
     if(loading) return;
     // Opening Document Picker to select one file
     try {
-
+      console.log(e.target.files[0].size/(1024*1024))
+      if(limit && e.target.files[0].size/(1024*1024) > limit){
+        setLoading(false);
+        toast.error("file should be less than "+ limit + "mb")
+        return;
+      }
       // Printing the log realted to the file
       // Setting the state to show single file attributes
       setSingleFile(e.target.files);
@@ -113,7 +120,7 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
                     src=""
                   />
                   <h4 style={Styles.uploadText}>
-                   { label || "Upload your files" }
+                   { label || "Upload your files" }{ (limit ? `(${limit}mb limit)`: "")}
                   </h4>
                 </>
               )

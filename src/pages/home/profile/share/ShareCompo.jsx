@@ -5,16 +5,16 @@ import { CopyWrapper, Lefturl, RightIcon } from "./share.styles";
 import {AiOutlineCopy} from "react-icons/ai"
 import { toast } from "react-toastify";
 
-const ShareCompo = () => {
+const ShareCompo = ({text}) => {
     const copyText = () => {
-        navigator.clipboard.writeText(window.location.href);
+        navigator.clipboard.writeText(text);
         toast.success("copied url successfully")
     }
     return(
         <div style={{color:"black",padding:40}}>
       
             <CopyWrapper>
-           <Lefturl>{window.location.href} </Lefturl><RightIcon
+           <Lefturl>{text} </Lefturl><RightIcon
             onClick={copyText}
            ><AiOutlineCopy/> </RightIcon>
             </CopyWrapper>
