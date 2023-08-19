@@ -1,5 +1,5 @@
 export let __ENV = "prod";
-let URL = "http://62.72.31.73"
+let URL = "https://finscre-app.com"
 
 if(__ENV == "dev"){
     URL = "https://dev-finscre.online/api"
