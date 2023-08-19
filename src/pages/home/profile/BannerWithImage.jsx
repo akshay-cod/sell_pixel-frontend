@@ -7,6 +7,7 @@ import { useState } from "react";
 import Modal from "../../../components/common/modal/Modal";
 import ShareCompo from "./share/ShareCompo";
 import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
+import { ensureHttps } from "../../../helpers/validations";
 
 const BannerWithImage = ({banner,height,creator,loading, image}) => {
 
@@ -14,7 +15,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
 
     const openLinkInNewTab = (url) => {
         window.open( 
-            url, "_blank");
+            ensureHttps(url), "_blank");
     }
 
     if(banner){

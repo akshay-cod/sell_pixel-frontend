@@ -99,12 +99,12 @@ const Header = ({setVisible}) => {
                     
                   </li>
 
-                 <li onClick={navigateToUser }>
-                    <a >Edit Premium Profile</a>
-                  </li>
-
                   <li onClick={navigateToProfile}>
                     <a >Profile</a>
+                  </li>
+
+                 <li onClick={navigateToUser }>
+                    <a >Edit Premium Profile</a>
                   </li>
 
                   <li onClick={navigateToCreate}>

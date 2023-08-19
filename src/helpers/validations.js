@@ -19,3 +19,16 @@ export const isnoSpecialCharAndSpace = (input) => {
   
     return regex;
   }
+
+  export const ensureHttps =(url) => {
+    // Check if the URL starts with "http://"
+    if (url.startsWith("http://")) {
+      // Replace "http://" with "https://"
+      return url.replace("http://", "https://");
+    } else if (!url.startsWith("https://")) {
+      // If it doesn't start with either "http://" or "https://", assume HTTPS
+      return "https://" + url;
+    }
+    // If it already starts with "https://", no changes needed
+    return url;
+  }
