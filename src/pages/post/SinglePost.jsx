@@ -145,7 +145,7 @@ const SinglePost = ({setLoginVisible}) => {
 
     const fetchPostDetails = async() => {
         try{
-          if(UserRedux.auth == false){
+          if(UserRedux.auth == false && UserRedux.loading == false){
             setLoading(true)
             const res = await getAcreationNoAuth(params?.id);
             let creations = res.creation
@@ -169,11 +169,11 @@ const SinglePost = ({setLoginVisible}) => {
       
     }
   
-    if(loading){
-      return(
-        <LoaderHolder> <SimpleLoader/></LoaderHolder>
-      )
-    }
+    // if(loading){
+    //   return(
+    //     <LoaderHolder> <SimpleLoader/></LoaderHolder>
+    //   )
+    // }
    
 
     return(
