@@ -92,14 +92,14 @@ const SinglePost = ({setLoginVisible}) => {
           onResponse: async (response) => {
             // console.log(response,"res")
             if(response.status === "success"){
-              let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
-              {
-                response:response,
-                price:post?.price || 10,
-                product:params?.id,
-                type:"creations"
-              }
-              )
+              // let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
+              // {
+              //   response:response,
+              //   price:post?.price || 10,
+              //   product:params?.id,
+              //   type:"creations"
+              // }
+              // )
              // console.log(verify)
              navigate("/payment/success")
             //  await fetchPostDetails()

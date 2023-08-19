@@ -80,14 +80,14 @@ const Home = ({setLoginVisible}) => {
           onResponse: async (response) => {
              // console.log(response,"res")
             if(response.status === "success"){
-              let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
-              {
-                response:response,
-                price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
-                profile:params?.user,
-                type:"profile"
-              }
-              )
+              // let verify = await axiosInstance.post(PAYMENT_URL+"/verify_payment",
+              // {
+              //   response:response,
+              //   price:creator?.set_profile_price ? creator?.price : parseFloat(price) || 10,
+              //   profile:params?.user,
+              //   type:"profile"
+              // }
+              // )
              // console.log(verify)
               setPurchaseLoading(false)
               navigate("/payment/success")
