@@ -6,6 +6,7 @@ export const ModalWrapper = styled.div`
   background:rgba(0,0,0,0.9);
   position:fixed;
   top:0;
+  left:0;
   z-index:100;
 `
 

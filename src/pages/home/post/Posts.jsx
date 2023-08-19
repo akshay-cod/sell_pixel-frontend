@@ -8,9 +8,13 @@ import { useState } from "react";
 import Modal from "../../../components/common/modal/Modal";
 import { SubmitBtn } from "../../creation/create.styles";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
+import { HiOutlineShare } from "react-icons/hi";
+import ShareCompo from "../profile/share/ShareCompo";
 
 const Posts = ({post, loading, creator}) => {
     const navigate = useNavigate(); 
+    const [shareModal, setShareModal] = useState(false);
+    const [postId, setPostId] = useState("")
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [id, setId] = useState("")
@@ -98,7 +102,10 @@ const Posts = ({post, loading, creator}) => {
                 }
                 <TextWrapper >
                     <PostTitle>
-                       {i?.title}
+                       {i?.title} <HiOutlineShare onClick={()=>{
+                        setPostId(i?._id)
+                        setShareModal(true)
+                        }} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />
                     </PostTitle>   
                     <PostDescTitle>
                         description
@@ -121,7 +128,15 @@ const Posts = ({post, loading, creator}) => {
           setVisible={setDeleteModal}
         />
         </div>
-        
+        <div >
+        <Modal
+          auth={true}
+          isVisible={shareModal}
+          setVisible={setShareModal}
+          component={<ShareCompo text={`Obtain exclusive content from the premium profile. ${window.location.origin}/post/${postId}`}/>}
+        />
+        </div>
+       
         </>
     )
 }

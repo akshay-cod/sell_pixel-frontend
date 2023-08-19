@@ -217,7 +217,7 @@ const Home = ({setLoginVisible}) => {
        
          <BannerWithImage creator={creator} loading={loading} image={creator?.banner_image}/>
        <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
-         <Posts post={post} loading={loading} creator={creator}/>
+         <Posts post={post} loading={loading} creator={creator} />
          {
             !loading && post.length == 0 ?
             <div style={{textAlign:"center"}}>
