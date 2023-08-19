@@ -55,9 +55,9 @@ const PdfViewer = ({url}) => {
         <>
          {url && 
          <div>
-         <Document file={pdfContent} onLoadSuccess={onDocumentLoadSuccess} page={1}
+         <Document file={url} onLoadSuccess={onDocumentLoadSuccess} page={1}
           loading={<div 
-          style={{background:"black", width:"100%", height:"100vh"}}
+          style={{background:"black", width:"99%", height:"1200px"}}
           >loading</div> }
          >
                 {Array.from(new Array(numPages), (el, index) => (
