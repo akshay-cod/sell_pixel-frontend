@@ -111,7 +111,7 @@ const Sellings = () => {
                                     navigateToProfile(`post/${item?.product?._id}`)
                                 }
                                 else{
-                                    navigateToProfile(item?.profile?._id)
+                                    navigateToProfile(item?.purchased_user?._id)
                                 }
                                 }}>
                               {item.product ? "view creation" : "View User"}  
