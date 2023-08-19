@@ -56,10 +56,12 @@ const PdfViewer = ({url}) => {
          {url && 
          <div>
          <Document file={pdfContent} onLoadSuccess={onDocumentLoadSuccess} page={1}
-          loading={<div>loading</div> }
+          loading={<div 
+          style={{background:"black", width:"100%", height:"100vh"}}
+          >loading</div> }
          >
                 {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} renderMode='svg' scale={isMobile ? 0.5 : 1}/>
+            <Page key={`page_${index + 1}`} pageNumber={index + 1} scale={isMobile ? 0.5 : 1}/>
                ))}  
          </Document>
         
