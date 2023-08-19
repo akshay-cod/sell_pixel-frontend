@@ -11,7 +11,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PostContainer } from "../home/post/post.styles";
 import ReactPlayer from 'react-player';
 import moment from "moment/moment";
-import Avatar from "../../assets/avatar.svg";
 import { useScript } from "../../hooks/UseScript";
 import { PAYMENT_URL, __ENV } from "../../configs/urls/urls";
 import axiosInstance from "../../axios/AxiosInstance";
@@ -32,6 +31,7 @@ const SinglePost = ({setLoginVisible}) => {
   const [images, setImages] = useState([])
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const navigate = useNavigate();
 
   const openImageViewer = useCallback((index,image) => {
     setImages([image])
@@ -52,7 +52,6 @@ const SinglePost = ({setLoginVisible}) => {
     const params = useParams();
     const [purchaseLoading, setPurchaseLoading] = useState(false);
     const UserRedux = useSelector(user);
-    const navigate = useNavigate();
 
     //pdf
     const [isPdfOpen, setIsPdfOpen] = useState(false);
@@ -67,7 +66,6 @@ const SinglePost = ({setLoginVisible}) => {
       setIsPdfOpen(false)
     }
    
-    console.log(__ENV,"env")
   const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
     
   const OnPurchase = async () => {
@@ -103,11 +101,13 @@ const SinglePost = ({setLoginVisible}) => {
               }
               )
              // console.log(verify)
-              await fetchPostDetails()
+             navigate("/payment/success")
+            //  await fetchPostDetails()
               setPurchaseLoading(false)
               document.body.style.overflow = "scroll"
             }
             else{
+              navigate("/payment/failure")
               setPurchaseLoading(false)
             }
               
@@ -219,14 +219,14 @@ const SinglePost = ({setLoginVisible}) => {
                         if(file.type.startsWith('application/pdf'))
                         return(
                             <div onClick={()=>{onPdfClick(file.url)}} style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",cursor:"pointer"}}>
-                                <img src={getDynamicFileUrl("pdf.png")} width="150" height="150"/>
+                                <img src={getDynamicFileUrl("icons/pdf.png")} width="150" height="150"/>
                                 <div style={{marginTop:10}}> {file.url.split('/')[3]} </div> 
                             </div>
                         )
                         else
                         return(
                             <div onClick={()=>{downloadURI(file.url)}} style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5,display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center", cursor:"pointer"}}>
-                                <img src={getDynamicFileUrl("file.png")} width="150" height="150"/>
+                                <img src={getDynamicFileUrl("icons/file.png")} width="150" height="150"/>
                               <div style={{marginTop:10}}> {file.url.split('/')[3]}
                                 </div> 
                             </div>

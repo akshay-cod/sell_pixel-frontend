@@ -197,8 +197,11 @@ const Login = ({setVisible}) => {
                 </div> :
                 <SendOtpButton onClick={()=>{onClickSendOtp(phoneNumber)}}>
                   Send OTP
-                </SendOtpButton>) :
-                (<SendOtpButton onClick={verifyBtnFb}>
+                </SendOtpButton>)
+                 :
+                (loading ?  <div style={{display:"flex", justifyContent:"center"}}>
+                <SimpleLoader black={true}/>
+                </div> :<SendOtpButton onClick={verifyBtnFb}>
                 Verify
                 </SendOtpButton>)
             }

@@ -35,7 +35,7 @@ function App() {
           ) 
           :  route.type === routeTypes.PUBLIC ?
           (
-            <Route Component={route.component} exact path={route.path} key={index}/>
+            <Route element={route.component} exact path={route.path} key={index}/>
           )
           : route.type === routeTypes.PRIVATE ?
           (

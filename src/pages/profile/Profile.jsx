@@ -168,7 +168,7 @@ const Profile = () => {
              
             />
             <ChangeProfilePicText>
-              {fileLoading ? "loading" : "change picture"}  
+              {fileLoading ? "loading" : "change picture*"}  
             </ChangeProfilePicText>
           <div style={{display:"none"}}> <UploadBlock
             label="upload profile"
@@ -196,7 +196,7 @@ const Profile = () => {
                     </Label>
                      <SwitchButton checked={priceToggle} setChecked={setPriceToggle}/>
                     {priceToggle && <Label>
-                        price  <TextInput type="text" placeholder="Enter your price" value={price} onChange={(e)=>{setPrice(e.target.value)}}/>
+                        price * <TextInput type="text" placeholder="Enter your price" value={price} onChange={(e)=>{setPrice(e.target.value)}}/>
                      </Label>}
                </div>}
            </div>
@@ -225,27 +225,27 @@ const Profile = () => {
                  /> }
 
             <Label>
-                First name
+                First name*
             </Label>
             <TextInput type="text" placeholder="Enter your first name" value={firstName} onChange={(e)=>{setFirstname(e.target.value)}}/>
 
             <Label>
-                Last name
+                Last name*
             </Label>
             <TextInput type="text" placeholder="Enter your last name" value={lastName} onChange={(e)=>{setLastName(e.target.value)}}/>
 
             <Label>
-                UserName
+                UserName*
             </Label>
             <TextInput type="text" placeholder="Enter your username" value={userName} onChange={(e)=>{setuserName(e.target.value)}}/>
 
             <Label>
-                Email
+                Email*
             </Label>
             <TextInput type="text" placeholder="Enter your email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
 
             <Label>
-                Bio
+                Bio*
             </Label>
             <Textarea type="text" placeholder="Enter your bio" rows={5} value={bio}
             onChange={(e)=>{setBio(e.target.value)}}

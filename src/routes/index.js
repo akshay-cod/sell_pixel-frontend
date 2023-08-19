@@ -1,9 +1,9 @@
 import { PrivateRoutes } from "./Private";
-// import { PublicRoutes } from "./Public";
+ import { PublicRoutes } from "./Public";
 import { SemiRoutes } from "./SemiPublic";
 
 export const allRoutes = [
-    // ...PublicRoutes,
+     ...PublicRoutes,
     ...PrivateRoutes,
     ...SemiRoutes
 ]

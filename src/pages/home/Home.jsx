@@ -12,7 +12,7 @@ import Login from "./login/Login";
 import BannerWithImage from "./profile/BannerWithImage";
 import Posts from "./post/Posts";
 import { user } from "../../store/feature/auth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProfileDetails } from "../../api/posts/posts-requests";
 import { GreenBtn, LoadMoreBtn, LoadMoreWrapper, Name, ProfileImage, PurchaseWrapper } from "./home.styles";
 import { useScript } from "../../hooks/UseScript";
@@ -32,6 +32,7 @@ const Home = ({setLoginVisible}) => {
   const [price, setPrice] = useState("")
   const [creator, setCreator] = useState({});
   const UserRedux = useSelector(user)
+  const navigate = useNavigate();
 
   const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
     
@@ -89,10 +90,12 @@ const Home = ({setLoginVisible}) => {
               )
              // console.log(verify)
               setPurchaseLoading(false)
-              window.location.reload()
+              navigate("/payment/success")
+              // window.location.reload()
             }
             else{
               setPurchaseLoading(false)
+              navigate("/payment/failure")
             }
               
              // document.getElementById('response').innerText=JSON.stringify(response);

@@ -140,7 +140,7 @@ const Create = () => {
                                  url={banImg}
                                  setUrl={setBannerImg}
                                  accept="image/jpeg"
-                                 label="Banner Image"
+                                 label="Banner Image* "
                                  limit={5}
                                 /> }
                         <div style={{marginTop:20}}>
@@ -181,18 +181,18 @@ const Create = () => {
                             
 
                                 <Label>
-                                    Title
+                                    Title*
                                 </Label>
                                 <TextInput placeholder="Enter your title" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
 
                                 
                                 <Label>
-                                    Description
+                                    Description*
                                 </Label>
                                 <Textarea placeholder="Enter your description" rows="8" value={desc} onChange={(e)=>{setDesc(e.target.value)}}/>
 
                                 <Label style={{marginBottom:10}}>
-                                    Files ({url?.length+"/10"})
+                                    Files ({url?.length+"/10"})*
                                 </Label>
                                 <div>
                                {url.length < 10 && <UploadBlock
