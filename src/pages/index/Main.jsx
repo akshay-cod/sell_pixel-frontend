@@ -12,9 +12,18 @@ const Main = ({setLoginVisible}) => {
         }
     },[])
 
+    useEffect(()=>{
+        if(UserRedux.auth == true){
+            navigate(`/${UserRedux?.user?.user_name}`)
+        }
+        else{
+            setLoginVisible(true)
+        }
+    },[UserRedux])
+
     const handleExploreBtn = () => {
         if(UserRedux.auth){
-            navigate(`/${UserRedux?.user?._id}`)
+            navigate(`/${UserRedux?.user?.user_name}`)
         }
         else{
             setLoginVisible(true)

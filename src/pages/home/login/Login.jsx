@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { LoginHeader, LoginHeaderDesc, PhoneNumberInput, SendOtpButton, Wrapper } from "./login.styles";
 import { requestForOtp, verifyAnOtp } from "../../../api/auth/auth-request";
-import { loginUser, user } from "../../../store/feature/auth";
+import { loginUser } from "../../../store/feature/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 import {BiArrowBack} from "react-icons/bi"
 import Cookies from 'universal-cookie';
+//import { useNavigate } from "react-router-dom";
 
 const Login = ({setVisible}) => {
     const [screen, setScreen] = useState(1);
@@ -17,8 +18,9 @@ const Login = ({setVisible}) => {
 
     const [authData, setAuthData] = useState({});
 
-    const users = useSelector(user);
+    //const UserRedux = useSelector(user);
     const dispatch = useDispatch();
+   // const navigate = useNavigate();
    // console.log(time,"user")
 
     useEffect(()=>{
@@ -78,7 +80,7 @@ const Login = ({setVisible}) => {
      }
        
     }
-
+    //console.log(window.location.href == (window.location.origin+"/"))
 
     const onResend = async() => {
         setTime(60)
@@ -89,10 +91,13 @@ const Login = ({setVisible}) => {
     const verifyBtnFb = async() => {
         const res = await handleVerifyRequest(otp);  
         if(res){
+            // if(window.location.href == (window.location.origin+"/")){
+            //     navigate(`/${res?.user?.user_name}`)
+            // }
             window.location.reload();
         }
         else{
-
+           
         }
         }
 
