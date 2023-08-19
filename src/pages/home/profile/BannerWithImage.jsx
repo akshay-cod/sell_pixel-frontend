@@ -99,7 +99,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
           auth={true}
           isVisible={shareModal}
           setVisible={setShareModal}
-          component={<ShareCompo text={`${window.location.origin}/${creator?.user_name}`}/>}
+          component={<ShareCompo text={`Obtain exclusive content and personalized mentorship by acquiring my premium profile. ${window.location.origin}/${creator?.user_name}`}/>}
         />
         </>
     )

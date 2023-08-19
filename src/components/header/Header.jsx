@@ -100,7 +100,7 @@ const Header = ({setVisible}) => {
                   </li>
 
                  <li onClick={navigateToUser }>
-                    <a >User</a>
+                    <a >Edit Premium Profile</a>
                   </li>
 
                   <li onClick={navigateToProfile}>
@@ -108,11 +108,11 @@ const Header = ({setVisible}) => {
                   </li>
 
                   <li onClick={navigateToCreate}>
-                    <a >Create</a>
+                    <a >Create Premium Content</a>
                   </li>
 
                   <li onClick={navigateToPurchses}>
-                    <a >Purchases</a>
+                    <a >Dashboard</a>
                   </li>
 
                   <li onClick={openBankModal}>

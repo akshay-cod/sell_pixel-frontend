@@ -52,11 +52,11 @@ const Home = ({setLoginVisible}) => {
         if(creator?.set_profile_price == false){
           if(fromDonate == true){
             if(
-              parseInt(price) > 100 && parseInt(price) < 100000
+              parseInt(price) > 9 && parseInt(price) < 100001
             ){}
             else
             {
-              toast.error("please enter amount between 100 & 1L")
+              toast.error("please enter amount between 10 & 1L")
              return;
             }
           }
@@ -270,14 +270,14 @@ const Home = ({setLoginVisible}) => {
              <div style={{marginBottom:20}}> <Label style={{color:"black",textAlign:"center",fontWeight:"bold"}}>
                 Amount
               </Label>
-              <TextInput placeholder="enter your donation amount" value={price} onChange={(e)=>setPrice(e.target.value)}>
+              <TextInput placeholder="enter your payment amount" value={price} onChange={(e)=>setPrice(e.target.value)}>
 
               </TextInput></div>
              <GreenBtn onClick={()=>{
               OnPurchase(true)
               //setLoading(false)
              }}>
-                Donate
+                Pay Now
               </GreenBtn> 
           </PurchaseWrapper>
            

@@ -100,11 +100,11 @@ const Profile = () => {
             return;
         }
         if(price != 0){
-            if(price > 100 && price < 100000){
+            if(price > 9 && price < 100001){
 
             }
             else{
-                toast.error("please enter amount between 100 & 1L") 
+                toast.error("please enter amount between 10 & 1L") 
                 setButtonLoading(false)
                 return;
             }

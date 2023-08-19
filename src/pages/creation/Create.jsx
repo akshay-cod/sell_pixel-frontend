@@ -25,7 +25,7 @@ let validationSchema =  {
     title:'required|string|min:3|max:50',
     description:'required|string|min:3|max:1000',
     bannerImg:'required|string|min:3|max:1000',
-    price:'required|between:100,100000|numeric',
+    price:'required|between:10,100000|numeric',
     type:'required|string|min:3|max:1000',
     files:"required|array|min:1"
 }
@@ -68,11 +68,11 @@ const Create = () => {
           validationSchema
         )
         if(price != 0 || price != ""){
-            if(price > 100 && price < 100000){
+            if(price > 9 && price < 100001){
 
             }
             else{
-                toast.error("please enter amount between 100 & 1L") 
+                toast.error("please enter amount between 10 & 1L") 
                 setButtonLoading(false)
                 return;
             }
