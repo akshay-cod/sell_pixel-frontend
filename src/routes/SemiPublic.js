@@ -20,5 +20,11 @@ export const SemiRoutes =
         component:Main,
         order:2,
         ...config 
+    },
+    {
+        path:"/post/:id",
+        component:SinglePost,
+        order:2,
+        ...config
     }
 ]

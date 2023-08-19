@@ -17,6 +17,9 @@ import axiosInstance from "../../axios/AxiosInstance";
 import ImageViewer from 'react-simple-image-viewer';
 import PdfViewer from "../../components/pdf-viewer/PdfViewer";
 import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
+import { getAcreationNoAuth } from "../../api/creations/creations-requests";
+import { LoaderHolder } from "../profile/profile.styles";
+import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 
 const downloadURI = (uri, name) => {
   const link = document.createElement("a");
@@ -101,13 +104,13 @@ const SinglePost = ({setLoginVisible}) => {
               // }
               // )
              // console.log(verify)
-             navigate("/payment/success")
+             navigate("/payment/success",{state:{link:"/post/"+params.id}})
             //  await fetchPostDetails()
               setPurchaseLoading(false)
               document.body.style.overflow = "scroll"
             }
             else{
-              navigate("/payment/failure")
+              navigate("/payment/failure", {state:{link:"/post/"+params.id}})
               setPurchaseLoading(false)
             }
               
@@ -135,13 +138,23 @@ const SinglePost = ({setLoginVisible}) => {
         else{
           setStatus("not-purchased");
           setVisible(true)
-          setLoading(true)
+         // setLoading(true)
         }
       },[post])
     
 
     const fetchPostDetails = async() => {
         try{
+          if(UserRedux.auth == false){
+            setLoading(true)
+            const res = await getAcreationNoAuth(params?.id);
+            let creations = res.creation
+            //creations.is_purchased = false;
+           // creations.is_profile_purchased = true;
+            setPost(creations)
+            setLoading(false)
+          }
+          else{
             setLoading(true)
             const res = await getAPostDetails(params?.id);
             let creations = res.creation
@@ -149,10 +162,19 @@ const SinglePost = ({setLoginVisible}) => {
            // creations.is_profile_purchased = true;
             setPost(creations)
             setLoading(false)
+          }
+            
         }
         catch(err){setLoading(false)}
       
     }
+  
+    if(loading){
+      return(
+        <LoaderHolder> <SimpleLoader/></LoaderHolder>
+      )
+    }
+   
 
     return(
         <>
@@ -254,9 +276,21 @@ const SinglePost = ({setLoginVisible}) => {
              <ProfileImage src={post?.created_by?.profile_picture}>
 
              </ProfileImage>
-             <Name>
-             {post?.created_by?.first_name }
+             <Name style={{textAlign:"center"}}>
+            content from {post?.created_by?.first_name || post?.created_by?.user_name}
              </Name>
+             <div style={{color:"black",marginBottom:2,fontWeight:500, overflow: "hidden",
+        textOverflow: "ellipsis",whiteSpace: "nowrap",width:300,textAlign:"center"}}> {post?.title}
+             </div>
+             <div style={{color:"black",marginBottom:10,fontWeight:400,whiteSpace:"pre-line",
+            display: "-webkit-box",
+            "-webkit-line-clamp": 3,
+            "-webkit-box-orient": "vertical",
+            overflow: "hidden",
+            textAlign:"center"
+            }}>
+              {post?.description}
+             </div>
              <GreenBtn onClick={()=>{
              OnPurchase()
              }}>

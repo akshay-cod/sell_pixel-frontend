@@ -18,6 +18,23 @@ export const createAcreation = async (data) => {
     }
 }
 
+export const getAcreationNoAuth = async (id) => {
+  try{
+      const res = await axiosInstance.get("/no-auth/creations/"+id )
+       
+          return{
+              ...res.data,
+              status:true
+          }
+  }
+  catch(err){
+    return {
+      status:false,
+      message:err.response.data.message
+    }
+  }
+}
+
 export const EditCreateAcreation = async (id,data) => {
   try{
       const res = await axiosInstance.put(CREATE_CREATION+"/"+id+"/edit", data)

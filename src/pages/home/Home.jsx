@@ -90,12 +90,12 @@ const Home = ({setLoginVisible}) => {
               // )
              // console.log(verify)
               setPurchaseLoading(false)
-              navigate("/payment/success")
+              navigate("/payment/success",{state:{link:"/"+params.user}})
               // window.location.reload()
             }
             else{
               setPurchaseLoading(false)
-              navigate("/payment/failure")
+              navigate("/payment/failure",{state:{link:"/"+params.user}})
             }
               
              // document.getElementById('response').innerText=JSON.stringify(response);
@@ -224,6 +224,7 @@ const Home = ({setLoginVisible}) => {
                 no creations yet
             </div> : ""
            }
+        
         {
           hasMore ? 
           <LoadMoreWrapper>

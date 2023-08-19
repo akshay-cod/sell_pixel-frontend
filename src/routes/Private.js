@@ -34,10 +34,5 @@ export const PrivateRoutes = [
         order:5,
         ...config
     },
-    {
-        path:"/post/:id",
-        component:SinglePost,
-        order:2,
-        ...config
-    }
+    
 ]

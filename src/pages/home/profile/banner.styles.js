@@ -19,12 +19,18 @@ export const ProfileImage = styled.img`
  width:100px;
  height:120px;
  border-radius:10px;
- object-fit:cover;
- stroke:1px solid #A259FF;
+ object-fit: contain;
+ border: 1px solid #2b2b2b;
  position:absolute;
  z-index:10;
  bottom:-50px;
  left:80px;
+ @media (max-width: 700px) {
+  left:60px;
+}
+@media (max-width: 500px) {
+  left:20px;
+}
 `
 
 export const TextWrapper = styled.div`
