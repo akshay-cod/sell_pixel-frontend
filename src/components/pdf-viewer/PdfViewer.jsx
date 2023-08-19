@@ -55,7 +55,7 @@ const PdfViewer = ({url}) => {
         <>
          {url && 
          <div>
-         <Document file={url} onLoadSuccess={onDocumentLoadSuccess} page={1}
+         <Document file={pdfContent} onLoadSuccess={onDocumentLoadSuccess} page={1}
           loading={<div 
           style={{background:"black", width:"99%", height:"1200px"}}
           >loading</div> }
