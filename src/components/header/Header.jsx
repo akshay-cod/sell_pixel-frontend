@@ -3,7 +3,7 @@ import { FreeMoneyLeftSide, FreeMoneyRightSide, FreeMoneyWrapper, HeaderLeft, He
 import { user } from "../../store/feature/auth";
 import { useNavigate } from "react-router-dom";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './header.css'
 import Modal from "../common/modal/Modal";
 import WithDraw from "../withdraw/Withdraw";
@@ -19,12 +19,25 @@ const Header = ({setVisible}) => {
     const [withDrawModal, setWithdrawModal] = useState(false);
     const [BankModal, setBankModal] = useState(false);
 
-    const logOutUser = () => {
+    const logOutUser = async () => {
         const cookies = new Cookies();
-        cookies.remove("token")
+        await cookies.remove("token")
         setIsActive(false)
         window.location.reload()
     }
+
+    useEffect(()=>{
+      const cookies = new Cookies();
+      console.log(cookies.getAll())
+      cookies.addChangeListener((name, value)=> {
+      //  console.log(name,value)
+        window.location.reload()
+      
+      });
+      return ()=> cookies.removeChangeListener(()=>{})
+    },[])
+
+
 
     const onClick = () => setIsActive(!isActive);
 

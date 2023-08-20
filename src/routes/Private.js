@@ -4,6 +4,7 @@ import EditCreation from "../pages/creation/EditCreate"
 import SinglePost from "../pages/post/SinglePost"
 import Profile from "../pages/profile/Profile"
 import Index from "../pages/profile/purchases/Index"
+import PaymentStaus from "../pages/payment/PaymentStaus.jsx"
 
 const config = {
     type:routeTypes.PRIVATE
@@ -34,5 +35,18 @@ export const PrivateRoutes = [
         order:5,
         ...config
     },
+    {
+        path:"/payment/success",
+        component:<PaymentStaus type={"success"}/>,
+        order:1,
+        ...config
+    },
+    
+        {
+            path:"/payment/failure",
+            component:<PaymentStaus type={"failure"}/>,
+            order:1,
+            ...config
+        }
     
 ]
