@@ -10,6 +10,7 @@ import WithDraw from "../withdraw/Withdraw";
 import BankDetails from "../bank/BankDetails";
 import Cookies from 'universal-cookie';
 import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
+import { useEffect } from "react";
 
 const Header = ({setVisible}) => {
     const userFromRedux = useSelector(user);
@@ -22,10 +23,16 @@ const Header = ({setVisible}) => {
     const logOutUser = () => {
         const cookies = new Cookies();
         cookies.remove("token")
-        setIsActive(false)
-        window.location.reload()
+      //  setIsActive(false)
+        window.location.href = window.location.href;
     }
 
+    useEffect(()=>{
+    // window.document.cookie.addEventListener("change",(e)=>{console.log(e)})
+   //   return ()=> {document.cookie onChanged.removeListener()}
+   //console.log(document.getElementById("cookies"),"ddd")
+    },[])
+   
     const onClick = () => setIsActive(!isActive);
 
     const navigateToPurchses = () => {

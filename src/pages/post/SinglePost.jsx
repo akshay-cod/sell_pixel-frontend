@@ -169,11 +169,11 @@ const SinglePost = ({setLoginVisible}) => {
       
     }
   
-    // if(loading){
-    //   return(
-    //     <LoaderHolder> <SimpleLoader/></LoaderHolder>
-    //   )
-    // }
+    if(loading){
+      return(
+        <LoaderHolder> <SimpleLoader/></LoaderHolder>
+      )
+    }
    
 
     return(
