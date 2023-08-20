@@ -13,7 +13,6 @@ import { useState } from 'react';
  import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
  import 'react-pdf/dist/esm/Page/TextLayer.css';
  import {isMobile} from 'react-device-detect';
-import axios from 'axios';
 //import MobilePdfViewer from './MobilePdfViewer';
  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
  // Core viewer
@@ -53,7 +52,7 @@ const PdfViewer = ({url}) => {
 
     const blobAnUrl = async(url) => {
       try{
-        let res = await axios.get(url) ;
+        let res = await fetch(url) ;
         //  console.log(res.json())
           res = await res.blob()
           const blobUrl = await window.URL.createObjectURL(res)
