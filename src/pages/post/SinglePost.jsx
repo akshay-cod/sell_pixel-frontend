@@ -178,7 +178,7 @@ const SinglePost = ({setLoginVisible}) => {
 
     return(
         <>
-         <BannerWithImage image={post?.banner_img} banner={true} height={500}/>
+        { <div style={{display:isPdfOpen ? "none" : ""}}> <BannerWithImage image={post?.banner_img} banner={true} height={500}/>
             <SinglePostWrapper>
                 <TitleHeading>
                        {post?.title}
@@ -312,7 +312,7 @@ const SinglePost = ({setLoginVisible}) => {
           }}
           closeOnClickOutside={true}
         />
-      )}
+      )} </div>}
       {isPdfOpen &&
         <div style={{position:"absolute",top:0,zIndex:102, background:"black", width:"100%",display:"flex",justifyContent:"center",overflow:"scroll"}}>
           <div onClick={()=>{setIsPdfOpen(false)}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
