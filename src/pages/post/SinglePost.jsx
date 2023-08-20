@@ -314,7 +314,7 @@ const SinglePost = ({setLoginVisible}) => {
         />
       )} </div>}
       {isPdfOpen &&
-        <div style={{position:"absolute",top:0,zIndex:102, background:"black", width:"100%",display:"flex",justifyContent:"center",overflow:"scroll"}}>
+        <div style={{position:"absolute",top:0,zIndex:102, background:"black", width:"100%",display:"flex",justifyContent:"center",overflow:"scroll",minHeight:"100vh"}}>
           <div onClick={()=>{setIsPdfOpen(false)}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
             X
           </div>
