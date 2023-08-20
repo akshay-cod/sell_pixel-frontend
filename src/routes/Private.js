@@ -36,14 +36,14 @@ export const PrivateRoutes = [
         ...config
     },
     {
-        path:"/payment/success",
+        path:"/status/payment/success",
         component:<PaymentStaus type={"success"}/>,
         order:1,
         ...config
     },
     
         {
-            path:"/payment/failure",
+            path:"/status/payment/failure",
             component:<PaymentStaus type={"failure"}/>,
             order:1,
             ...config

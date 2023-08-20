@@ -90,12 +90,12 @@ const Home = ({setLoginVisible}) => {
               // )
              // console.log(verify)
               setPurchaseLoading(false)
-              navigate("/payment/success",{state:{link:"/"+params.user}})
+              navigate("/status/payment/success",{state:{link:"/"+params.user}})
               // window.location.reload()
             }
             else{
               setPurchaseLoading(false)
-              navigate("/payment/failure",{state:{link:"/"+params.user}})
+              navigate("/status/payment/failure",{state:{link:"/"+params.user}})
             }
               
              // document.getElementById('response').innerText=JSON.stringify(response);
