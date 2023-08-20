@@ -8,12 +8,15 @@ export const requestForOtp = async (phoneNumber) => {
             {
                 phoneNumber:phoneNumber
             })
+            console.log(res)
             return{
                 ...res.data,
                 status:true
             }
+            
     }
     catch(err){
+      console.log(err)
       return {
         status:false,
         message:err.response.data.message

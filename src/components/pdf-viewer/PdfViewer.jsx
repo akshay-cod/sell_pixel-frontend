@@ -41,15 +41,29 @@ const PdfViewer = ({url}) => {
     function onDocumentLoadSuccess({ numPages }){
       setNumPages(numPages);
     }
-    console.log(url)
 
     useEffect(()=>{
-      fetch(url).then((r)=>{r.blob().then(d=>{
-        var url = window.URL.createObjectURL(d);
-        setPdfContent(url) 
-      })})
-     
-    },[url])
+      // fetch(url).then((r)=>{r.blob().then(d=>{
+      //   var url = window.URL.createObjectURL(d);
+      //   setPdfContent(url) 
+      // })})
+     blobAnUrl(url)
+    },[])
+
+    const blobAnUrl = async(url) => {
+      try{
+        let res = await fetch(url) ;
+        //  console.log(res.json())
+          res = await res.blob()
+          const blobUrl = await window.URL.createObjectURL(res)
+          //console.log(res,blobUrl)
+          setPdfContent(blobUrl)
+      }
+      catch(err){
+        console.log(err)
+      }
+       
+    }
 
     return (
         <>
