@@ -104,13 +104,13 @@ const SinglePost = ({setLoginVisible}) => {
               // }
               // )
              // console.log(verify)
-             navigate("/status/payment/success",{state:{link:"/post/"+params.id}})
+             navigate("/status/payment/success",{state:{link:"/post/"+params.id, type:"success"}})
             //  await fetchPostDetails()
               setPurchaseLoading(false)
               document.body.style.overflow = "scroll"
             }
             else{
-              navigate("/status/payment/failure", {state:{link:"/post/"+params.id}})
+              navigate("/status/payment/failure", {state:{link:"/post/"+params.id, type:"failure"}})
               setPurchaseLoading(false)
             }
               

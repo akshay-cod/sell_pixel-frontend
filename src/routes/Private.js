@@ -37,14 +37,14 @@ export const PrivateRoutes = [
     },
     {
         path:"/status/payment/success",
-        component:<PaymentStaus type={"success"}/>,
+        component:PaymentStaus,
         order:1,
         ...config
     },
     
         {
             path:"/status/payment/failure",
-            component:<PaymentStaus type={"failure"}/>,
+            component:PaymentStaus,
             order:1,
             ...config
         }
