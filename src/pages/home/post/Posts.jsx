@@ -77,12 +77,14 @@ const Posts = ({post, loading, creator}) => {
                
                 { creator?.is_owner ? <div 
                        style={{display:"flex", justifyContent:"end",paddingRight:5}}
-                       >
-                            <RiDeleteBin5Line
-                            onClick={(e)=>{
-                                OnRemoveCreation(i?._id)
-                               }}
-                            />
+                       >{
+                        i?.price == 0 ? <RiDeleteBin5Line
+                        onClick={(e)=>{
+                            OnRemoveCreation(i?._id)
+                           }}
+                        /> :""
+                       }
+                            
 
                             <div onClick={(e)=>{
                         navigate(`/creations/edit/${i?._id}`,{state:{
