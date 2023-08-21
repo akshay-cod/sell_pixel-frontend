@@ -136,14 +136,15 @@ export default UploadBlock;
 
 const Styles = {
   container: {
-    pointer:"cursor",
+    cursor: "pointer",
     padding:"20px 80px",
     height: 200,
     borderColor:"grey",
     borderWidth: 2,
     marginVertical: 20,
     borderStyle: "dashed",
-    borderRadius: 10
+    borderRadius: 10,
+    textAlign:"center"
   },
   uploadText: {
     color: "grey",
