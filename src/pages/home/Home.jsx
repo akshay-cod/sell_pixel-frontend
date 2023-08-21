@@ -150,6 +150,7 @@ const Home = ({setLoginVisible}) => {
   const onViewClick = () => {
      setStatus("purchased");
       setVisible(false)
+      setLoading(false)
   }
 
   useEffect(()=>{
