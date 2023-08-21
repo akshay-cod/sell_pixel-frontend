@@ -106,8 +106,8 @@ const BankDetails = () => {
 
     if(loading){
         return(
-            <div style={{minHeight:300,display:"flex",paddingLeft:40, flexDirection:"column", alignItems:"center",justifyContent:"center"}}>
-                    <SimpleLoader black={true}/>
+            <div style={{minHeight:300}}>
+                    <SimpleLoader/>
             </div>
             
         )

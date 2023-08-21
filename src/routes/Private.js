@@ -5,7 +5,6 @@ import SinglePost from "../pages/post/SinglePost"
 import Profile from "../pages/profile/Profile"
 import Index from "../pages/profile/purchases/Index"
 import PaymentStaus from "../pages/payment/PaymentStaus.jsx"
-import Wallet from "../pages/wallet/Wallet"
 
 const config = {
     type:routeTypes.PRIVATE
@@ -42,17 +41,12 @@ export const PrivateRoutes = [
         order:1,
         ...config
     },
-    {
+    
+        {
             path:"/status/payment/failure",
             component:PaymentStaus,
             order:1,
             ...config
-    },
-    {
-        path:"/user/wallet",
-        component:Wallet,
-        order:1,
-        ...config
-    }
+        }
     
 ]
