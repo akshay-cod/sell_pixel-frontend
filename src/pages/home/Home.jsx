@@ -26,6 +26,8 @@ import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
 import { isMobile } from "react-device-detect";
 import { BsFillEyeFill } from "react-icons/bs";
+import { AiFillBackward } from "react-icons/ai";
+import { BiArrowBack } from "react-icons/bi";
 
 
 const Home = ({setLoginVisible}) => {
@@ -154,15 +156,16 @@ const Home = ({setLoginVisible}) => {
   }
 
   useEffect(()=>{
-    if(!loading && isRePayable == "true" && (creator?.is_user_purchased_profile && !creator?.is_owner)){
-      setStatus("not-purchased");
+    if(!loading && isRePayable == "true" && (creator?.is_user_purchased_profile && creator?.is_owner == false)){
+        setStatus("not-purchased");
         setVisible(true)
         setLoading(true)
-      return;
+        return;
     }
-    if(creator?.is_user_purchased_profile){
+    if(!loading && creator?.is_user_purchased_profile){
       setStatus("purchased");
       setVisible(false)
+      setLoading(false)
       if(!creator._id){
         //window.location.replace("http://stackoverflow.com");
       }
@@ -219,6 +222,12 @@ const Home = ({setLoginVisible}) => {
       if(skip == 0){ setLoading(false) }
       else { setLoadMoreLoading(false)}
     }
+  }
+
+  const backPayClick = () => {
+    setDonateModal(false)
+    setVisible(true)
+    setLoading(true)
   }
 
 
@@ -278,7 +287,7 @@ const Home = ({setLoginVisible}) => {
              }}>
                 Purchase {creator?.set_profile_price == true ? `₹${creator?.price.toLocaleString()}` : ""}
               </GreenBtn> 
-              { creator?.is_user_purchased_profile && <GreenBtn
+              {creator?.is_user_purchased_profile &&  <GreenBtn
                onClick={() => onViewClick()}
               style={{marginLeft:10,padding:"13px 10px 5px 10px"}}>
                 <BsFillEyeFill/>
@@ -288,11 +297,14 @@ const Home = ({setLoginVisible}) => {
            
         } auth={false}/> 
          <Modal isVisible={donateModal} setVisible={setDonateModal} component={
-          <PurchaseWrapper style={{paddingLeft:20}}>
+          <PurchaseWrapper style={{paddingLeft:20,position:"relative"}}>
+            <div style={{color:"black", position:"absolute", top:5, left:10}} >
+              <BiArrowBack fontSize="20px" onClick={()=>{backPayClick()}}/>
+            </div>
              <div style={{marginBottom:20}}> <Label style={{color:"black",textAlign:"center",fontWeight:"bold"}}>
                 Amount
               </Label>
-              <TextInput placeholder="enter your payment amount" value={price} onChange={(e)=>setPrice(e.target.value)}>
+              <TextInput placeholder="Enter your payment amount" value={price} onChange={(e)=>setPrice(e.target.value)}>
 
               </TextInput></div>
              <GreenBtn onClick={()=>{
