@@ -174,7 +174,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                             <div>
                             {documentImage ? 
                             <div>
-                              <span style={{float:"right"}} onClick={removeDocumentImage}>X</span>  
+                              <span style={{float:"right", cursor:"pointer"}} onClick={removeDocumentImage}>X</span>  
                                  <img
                                 style={{width:"100%",height:200,objectFit:"contain"}}
                                 src={documentImage[0]?.url}
@@ -277,7 +277,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                             <div>
                               <span style={{float:"right", cursor:"pointer"}} onClick={removeDocumentImage}>X</span>  
                                  <img
-                                style={{width:"100%",height:200,objectFit:"cover"}}
+                                style={{width:"100%",height:200,objectFit:"contain"}}
                                 src={documentImage[0]?.url}
                              />
                              </div>
