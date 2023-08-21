@@ -223,7 +223,7 @@ const SinglePost = ({setLoginVisible}) => {
                         )
                         if(file.type.startsWith('video'))
                         return(
-                            <div style={{width:300, height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
+                            <div style={{ height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
                   
                                 <div style={{background:"black"}}>
                                         <ReactPlayer

@@ -24,6 +24,7 @@ import { Label } from "../../components/withdraw/widthdraw.styles";
 import { TextInput } from "../../components/bank/bank-details.styles";
 import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
+import { isMobile } from "react-device-detect";
 
 
 const Home = ({setLoginVisible}) => {
@@ -216,7 +217,7 @@ const Home = ({setLoginVisible}) => {
         <>
        
          <BannerWithImage creator={creator} loading={loading} image={creator?.banner_image}/>
-       <div style={{paddingLeft:25,paddingRight:25,background:colors.primary}}>
+       <div style={{paddingLeft:isMobile ? 0 : 25,paddingRight:isMobile ? 0 :25,background:colors.primary}}>
          <Posts post={post} loading={loading} creator={creator} />
          {
             !loading && post.length == 0 ?
