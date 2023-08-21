@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const PostContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
-  grid-gap: 20px 20px;
+  grid-gap: 30px 30px;
   justify-content: center;
  
 `
