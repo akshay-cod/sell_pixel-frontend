@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useDetectOutsideClick } from "./useDetectOutsideClick";
 import { useRef, useState } from "react";
 import './header.css'
-import Modal from "../common/modal/Modal";
-import WithDraw from "../withdraw/Withdraw";
-import BankDetails from "../bank/BankDetails";
 import Cookies from 'universal-cookie';
 import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 import { useEffect } from "react";
@@ -54,16 +51,12 @@ const Header = ({setVisible}) => {
                 navigate('creations/create');
                 setIsActive(false)
             }
-
-      const openWithDrawModal = ()=> {
-        setWithdrawModal(true)
+      
+      const navigateToWallet = () => {
+        navigate('user/wallet');
         setIsActive(false)
       }
 
-      const openBankModal = ()=> {
-        setBankModal(true)
-        setIsActive(false)
-      }
 
     return (
     <>
@@ -97,14 +90,6 @@ const Header = ({setVisible}) => {
                 className={`menu ${isActive ? "active" : "inactive"}`}
               >
                 <ul>
-                <li >
-                    <a >Earnings : ₹{userFromRedux?.user?.wallet?.wallet_balance.toLocaleString()}
-                    <WithDrawBtn
-                    onClick={openWithDrawModal}
-                    >Withdraw</WithDrawBtn>
-                    </a>
-                    
-                  </li>
 
                   <li onClick={navigateToProfile}>
                     <a >Profile</a>
@@ -122,8 +107,8 @@ const Header = ({setVisible}) => {
                     <a >Dashboard</a>
                   </li>
 
-                  <li onClick={openBankModal}>
-                    <a >Bank details</a>
+                  <li onClick={navigateToWallet}>
+                    <a >Wallet</a>
                   </li>
                  
                   <li onClick={logOutUser}>
@@ -146,12 +131,6 @@ const Header = ({setVisible}) => {
             </>}
         </StickyHeaderRight>
     </WrapperStickyHeader>
-    <Modal isVisible={withDrawModal} setVisible={setWithdrawModal} component={
-      <WithDraw setBankModal={setBankModal} setWithdrawModal={setWithdrawModal}/>
-        } auth={true}/>  
-       <Modal isVisible={BankModal} setVisible={setBankModal} component={
-      <BankDetails />
-        } auth={true}/>  
     </>
     )
 }
