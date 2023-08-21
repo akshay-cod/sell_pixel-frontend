@@ -25,6 +25,7 @@ import { TextInput } from "../../components/bank/bank-details.styles";
 import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
 import { isMobile } from "react-device-detect";
+import { BsFillEyeFill } from "react-icons/bs";
 
 
 const Home = ({setLoginVisible}) => {
@@ -111,6 +112,8 @@ const Home = ({setLoginVisible}) => {
       }
   }
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const isRePayable = urlParams.get('isMultiplePayable');
   const [loading, setLoading] = useState(true);
   const [loadMoreLoading, setLoadMoreLoading] = useState(false);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
@@ -144,8 +147,18 @@ const Home = ({setLoginVisible}) => {
     }
   },[])
 
+  const onViewClick = () => {
+     setStatus("purchased");
+      setVisible(false)
+  }
+
   useEffect(()=>{
-  
+    if(!loading && isRePayable == "true" && (creator?.is_user_purchased_profile && !creator?.is_owner)){
+      setStatus("not-purchased");
+        setVisible(true)
+        setLoading(true)
+      return;
+    }
     if(creator?.is_user_purchased_profile){
       setStatus("purchased");
       setVisible(false)
@@ -159,7 +172,6 @@ const Home = ({setLoginVisible}) => {
         setVisible(true)
         setLoading(true)
       }
-      
     }
   },[creator])
 //console.log(post)
@@ -258,12 +270,19 @@ const Home = ({setLoginVisible}) => {
              <Name>
              {creator?.first_name}
              </Name>
+             <div style={{display:"flex"}}>
              <GreenBtn onClick={()=>{
               OnPurchase(false)
               //setLoading(false)
              }}>
                 Purchase {creator?.set_profile_price == true ? `₹${creator?.price.toLocaleString()}` : ""}
               </GreenBtn> 
+              { creator?.is_user_purchased_profile && <GreenBtn
+               onClick={() => onViewClick()}
+              style={{marginLeft:10,padding:"13px 10px 5px 10px"}}>
+                <BsFillEyeFill/>
+              </GreenBtn>}
+              </div>
           </PurchaseWrapper>
            
         } auth={false}/> 
@@ -281,6 +300,7 @@ const Home = ({setLoginVisible}) => {
              }}>
                 Pay Now
               </GreenBtn> 
+             
           </PurchaseWrapper>
            
         } auth={false}/> 

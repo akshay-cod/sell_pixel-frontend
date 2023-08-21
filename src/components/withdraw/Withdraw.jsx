@@ -221,7 +221,7 @@ const WithDraw = ({setBankModal,setWithdrawModal}) => {
                           Amount
                          </Label>
                          <TextInput
-                                placeholder="enter amount to withdraw"
+                                placeholder="Enter amount to withdraw"
                                  value={amount}
                                  onChange={(e)=>{setAmount(e.target.value)}}
                           ></TextInput>

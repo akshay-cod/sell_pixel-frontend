@@ -10,7 +10,7 @@ import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
 import { ensureHttps } from "../../../helpers/validations";
 
 const BannerWithImage = ({banner,height,creator,loading, image}) => {
-
+   
     const [shareModal, setShareModal] = useState(false);
 
     const openLinkInNewTab = (url) => {
@@ -49,7 +49,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
             <Nametext>
               {
                 loading ? <Skeleton width={200}/> : creator?.first_name || creator?.phone_number
-              }  { loading ? <Skeleton width={200}/> : <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />}
+              }  { loading ? <Skeleton width={200}/> : creator?.is_owner ? <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} /> : ""}
             </Nametext>
             <BioHeading>
            {
@@ -100,7 +100,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
           auth={true}
           isVisible={shareModal}
           setVisible={setShareModal}
-          component={<ShareCompo text={`Obtain exclusive content and personalized mentorship by acquiring my premium profile. ${window.location.origin}/${creator?.user_name}`}/>}
+          component={<ShareCompo text={`Obtain exclusive content and personalized mentorship by acquiring my premium profile. ${window.location.origin}/${creator?.user_name}?isMultiplePayable=true`}/>}
         />
         </>
     )
