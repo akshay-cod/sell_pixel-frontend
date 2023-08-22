@@ -15,9 +15,9 @@ const PaymentStaus = () => {
                 <div style={{fontSize:30,fontWeight:"bold"}}>
                     {type == "success" ? "payment success" : "payment failure"}
                 </div>
-                <div>
+                <div style={{fontWeight:300,margin:5,textAlign:"center"}}>
                     {
-                        type == "success" ? `Thank you for making the payment for${name}` : ""
+                        type == "success" ? `Thank you for making the payment for ${name}` : ""
                     }
                 </div>
                 <div>
