@@ -14,8 +14,6 @@ const Header = ({setVisible}) => {
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
     const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-    const [withDrawModal, setWithdrawModal] = useState(false);
-    const [BankModal, setBankModal] = useState(false);
 
     const logOutUser = () => {
         const cookies = new Cookies();

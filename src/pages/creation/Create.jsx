@@ -4,12 +4,14 @@ import { toast } from "react-toastify";
 import Validate from 'max-validator';
 import { createAcreation } from "../../api/creations/creations-requests";
 import UploadBlock from "../../components/common/upload/UploadBlock";
-import { ButtonWrapper, FileHolder, FilesWrapper, ImageFile, Label, SubmitBtn, TextInput, Textarea, Wrapper } from "./create.styles";
+import { ButtonWrapper, FileHolder, FilesWrapper, ImageFile, Label, MessageWarning, SubmitBtn, TextInput, Textarea, Wrapper } from "./create.styles";
 import ReactPlayer from "react-player";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-
+import { useSelector } from "react-redux";
+import { user } from "../../store/feature/auth";
+import {AiOutlineWarning} from "react-icons/ai";
 
 
 const itemTypes=[
@@ -32,6 +34,7 @@ let validationSchema =  {
 
 const Create = () => {
     const [type,setType] = useState("");
+    const userRedux = useSelector(user)
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [url,setUrl] = useState([]);
@@ -50,6 +53,10 @@ const Create = () => {
 
 
     const onSubmitCreation = async () => {
+        if(!userRedux?.user?.is_verified_user){
+            toast.error("you are not allowed to create any content until we verify")
+            return;
+        }
         setButtonLoading(true)
        
         const dataToSend = {
@@ -128,6 +135,12 @@ const Create = () => {
     return(
         <>
         <Wrapper>
+            {!userRedux?.user?.is_verified_user ?
+        <MessageWarning>
+           <AiOutlineWarning fontSize="24px" style={{marginRight:10}}/> you are not allowed to create any content until we verify
+        </MessageWarning>: ""    
+        }
+            
                      {banImg ? 
                             <div>
                               <span style={{float:"right", cursor:"pointer"}} onClick={removeBannerImage}>X</span>  

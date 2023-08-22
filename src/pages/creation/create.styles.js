@@ -14,7 +14,18 @@ flex-direction:column;
   margin-right:5%
 }
 `
-
+export const MessageWarning = styled.div`
+text-align:center;
+padding:15px 10px;
+background:#f8e8c0;
+margin-bottom:15px;
+color:#947e46;
+font-weight:bold;
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+`
 
 export const Label = styled.div`
 font-size:14px;

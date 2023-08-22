@@ -7,6 +7,7 @@ import { priceFormat } from "../../helpers/formatting";
 import {WithdrawWrapper, BankDetailsWrapper, WalletCard, WalletHeading, WalletMoneyText, WalletTotalBalanceText, WalletWrapper, WithDrawbanWrapper } from "./wallet.styles";
 import { useSelector } from "react-redux";
 import { user } from "../../store/feature/auth";
+import { toast } from "react-toastify";
 
 const Wallet = () => {
     const userFromRedux = useSelector(user);
@@ -14,11 +15,24 @@ const Wallet = () => {
     const [BankModal, setBankModal] = useState(false);
 
     const openWithDrawModal = ()=> {
-        setWithdrawModal(true)
+        if(!userFromRedux?.user?.is_verified_user){
+            toast.error("Withdrawal process starts after Finscre approves. Please contact support@finscre.com for assistance")
+            return;
+        }
+        else{
+            setWithdrawModal(true)
+        }
+       
       }
 
       const openBankModal = ()=> {
+        if(!userFromRedux?.user?.is_verified_user){
+            toast.error("Contact Finscre support@finscre.com for approval for adding bank details ")
+            return;
+        }
+        else{
         setBankModal(true)
+        }
       }
     return(
         <>

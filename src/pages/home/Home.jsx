@@ -47,6 +47,10 @@ const Home = ({setLoginVisible}) => {
           setLoginVisible(true)
           return
         }
+        if(!creator?.is_verified_user){
+          toast.error("sorry !! please visit, once we verify the creator")
+          return;
+        }
         if(creator?.set_profile_price == false){
             if(fromDonate == false){
               setDonateModal(true)
@@ -94,7 +98,7 @@ const Home = ({setLoginVisible}) => {
               // )
              // console.log(verify)
               setPurchaseLoading(false)
-              navigate("/status/payment/success",{state:{link:"/"+params.user, type:"success"}})
+              navigate("/status/payment/success",{state:{link:"/"+params.user, type:"success", name:creator?.first_name + creator?.last_name + " "+  "profile"}})
               // window.location.reload()
             }
             else{

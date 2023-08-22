@@ -6,7 +6,7 @@ if(__ENV == "dev"){
 }
 
 if(__ENV == "local"){
-    URL = "http://192.168.1.7:4001/api"
+    URL = "http://localhost:4001/api"
 }
 
 export const SOCKET_URL ="http://localhost:4000";

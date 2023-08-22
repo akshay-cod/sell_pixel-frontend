@@ -49,7 +49,7 @@ const BannerWithImage = ({banner,height,creator,loading, image}) => {
             <Nametext>
               {
                 loading ? <Skeleton width={200}/> : creator?.first_name || creator?.phone_number
-              }  { loading ? <Skeleton width={200}/> : creator?.is_owner ? <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} /> : ""}
+              }  { loading ? <Skeleton width={200}/> : (creator?.is_owner && creator?.is_verified_user) ? <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} /> : ""}
             </Nametext>
             <BioHeading>
            {

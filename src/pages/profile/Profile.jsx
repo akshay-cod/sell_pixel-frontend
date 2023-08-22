@@ -147,6 +147,12 @@ const Profile = () => {
     },[userDetails])
 
     
+    useEffect(()=>{
+        if(userDetails?.user?.is_verified_user == false){
+            toast.success("Your profile request is processing our team will contact you in 1-2 working days")
+        }
+    },[userDetails])
+
     const removeBannerImage = async () => {
         setBannerImg("")
     }

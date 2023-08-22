@@ -5,6 +5,7 @@ const PaymentStaus = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const type = location?.state?.type
+    const name = location?.state?.name
     return(
         <div style={{height:"80vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
             <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
@@ -13,6 +14,11 @@ const PaymentStaus = () => {
                 </div>
                 <div style={{fontSize:30,fontWeight:"bold"}}>
                     {type == "success" ? "payment success" : "payment failure"}
+                </div>
+                <div>
+                    {
+                        type == "success" ? `Thank you for making the payment for${name}` : ""
+                    }
                 </div>
                 <div>
                     {type == "success" ? <div
