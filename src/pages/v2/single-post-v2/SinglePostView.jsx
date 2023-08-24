@@ -1,4 +1,4 @@
-import {WrapperNonSticky, AbsluteImage, AbsoluteImageHolder, BannerHolder, BannerImage, DescFilePreview, DescTitle, Desctext, FileDateTime, FileDetailsWrapper, FileImage, FileName, FileSizeWrapper, FilesWrapper, ImageIcons, ImageWrapper, InfoHolder, InfoText, MainDesc, MainTitle, MainTitleWrapper, PreviewDescHolder, PreviewIconHolder, PreviewImageContainer, RowColowmnHolder, RowOne, RowTwo, SingleFileWrapper, Tag, TagWrapper, TitleFilePreview } from "./single.post.styles";
+import {WrapperNonSticky, AbsluteImage,StackHolder, AbsoluteImageHolder, BannerHolder, BannerImage, DescFilePreview, DescTitle, Desctext, FileDateTime, FileDetailsWrapper, FileImage, FileName, FileSizeWrapper, FilesWrapper, ImageIcons, ImageWrapper, InfoHolder, InfoText, MainDesc, MainTitle, MainTitleWrapper, PreviewDescHolder, PreviewIconHolder, PreviewImageContainer, RowColowmnHolder, RowOne, RowTwo, SingleFileWrapper, Tag, TagWrapper, TitleFilePreview } from "./single.post.styles";
 import StackGrid from "react-stack-grid";
 import PdfIcon from "../../../assets/icons/PDF.svg";
 import {PiDownloadFill} from "react-icons/pi";
@@ -12,9 +12,9 @@ import MP3Icon from "../../../assets/icons/MP3.svg"
 import {PiArrowSquareLeftFill, PiArrowSquareRightFill} from "react-icons/pi";
 import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai"
 import { useState } from "react";
+import {isMobile} from "react-device-detect";
 
 const SinglePostView = () => {
-  
   const imgurl = "https://source.unsplash.com/user/c_v_r/1000x100"
   const [currentImage, setCurrentImage] = useState(imgurl+1)
 
@@ -72,11 +72,12 @@ const SinglePostView = () => {
          </AbsoluteImageHolder>
             {/* <BannerImage src="https://source.unsplash.com/user/c_v_r/1000x1000"/> */}
         </BannerHolder>
-         <StackGrid columnWidth={200}  gutterHeight={15} gutterWidth={15}>
+        <StackHolder>
+         <StackGrid columnWidth={isMobile ? "100%" : 200} monitorImagesLoaded={true}  gutterHeight={15} gutterWidth={15}>
                {
                 [0,12,2,3,32,32,4].map((k,i)=>{
                   return(
-                    <SingleFileWrapper style={{minHeight:200}}>
+                    <SingleFileWrapper style={{minHeight:"auto"}}>
                       <div style={{padding:15}}>
                       <FileImage src={i == 0 ? PdfIcon : i==1 ? MP3Icon : HTMLIcon}/>
                       <FileName>name of the file</FileName>
@@ -91,6 +92,7 @@ const SinglePostView = () => {
                 })
                }
          </StackGrid>
+         </StackHolder>
          </WrapperNonSticky>
             <FileDetailsWrapper>
               <PreviewImageContainer>

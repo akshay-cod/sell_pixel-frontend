@@ -23,7 +23,7 @@ const FlexibleCards = () =>{
         <BannerProfile/>
     </div>
     <div style={{margin:20}}>
-    <StackGrid columnWidth={332} gutterWidth={15} gutterHeight={15}>
+    <StackGrid monitorImagesLoaded={true}  columnWidth={332} gutterWidth={15} gutterHeight={15}>
    {
     [0,6,6,7,8,5,4,3,4,5].map((r,i)=>{
         return(

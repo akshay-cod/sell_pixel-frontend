@@ -10,6 +10,8 @@ margin-right:7%;
 margin-left:7%;
 @media only screen and (max-width: 600px){
 	align-items:center;
+    margin-right:1%;
+     margin-left:1%;
 }
 `
 
@@ -97,6 +99,13 @@ display:flex;
 justify-content:flex-end;
 margin-right:20px;
 `
+export const StackHolder = styled.div`
+padding:0px 2%;
+@media only screen and (max-width: 400px){
+	padding:0px 4%;
+}
+
+`
 
 export const ImageIcons = styled.div`
 background:${colorsV2.block.light};
@@ -181,7 +190,7 @@ margin-bottom:20px;
 border-radius:10px;
 min-height:300px;
 @media only screen and (max-width: 400px){
-	width:86%;
+	width:100%;
 }
 `
 
