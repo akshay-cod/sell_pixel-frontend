@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { colorsV2 } from "../../../configs/theme/color";
 import BannerProfile from "./Banner/BannerProfile";
 import { useNavigate } from "react-router-dom";
+import LazyImage from "../../../components/lazy-image/LazyImage";
 const FlexibleCards = () =>{
 
     const navigate = useNavigate()
@@ -32,7 +33,16 @@ const FlexibleCards = () =>{
         <CardWrapper onClick={navigateToCreations}>
             <AvatorContainer>
                 <AvatarHolder>
-                    <ImageAvatar src="https://source.unsplash.com/user/c_v_r/100x100"/>
+                <LazyImage
+                    style={{borderRadius:"50%",
+                        height:"48px",
+                        width:"48px",
+                        objectFit:"contain"
+                    }}
+                    height={48}
+                    width={48}
+                    src="https://source.unsplash.com/user/c_v_r/100x100"/>
+                    {/* <ImageAvatar src="https://source.unsplash.com/user/c_v_r/100x100"/> */}
                 </AvatarHolder>
                 <TextNameHolder>
                     <Name>DanielaSpector</Name>
@@ -40,7 +50,16 @@ const FlexibleCards = () =>{
                 </TextNameHolder>
             </AvatorContainer>
            <BannerImageWrapper>
-            <BannerImage src={"https://source.unsplash.com/user/c_v_r/1000x"+(Math.floor(Math.random() * (1200 - 1000)) + 1000)}/>
+           <LazyImage
+                    style={{borderRadius:9,
+                        height:"200px",
+                        width:"100%",
+                        objectFit:"cover"
+                    }}
+                    height={200}
+                    width={"100%"}
+                    src={"https://source.unsplash.com/user/c_v_r/1000x"+(Math.floor(Math.random() * (1200 - 1000)) + 1000)}/>
+            {/* <BannerImage /> */}
            </BannerImageWrapper>
            <TextNameHolder>
                     <Name style={{marginBottom:6}}>The Modern Carousel</Name>

@@ -1,4 +1,4 @@
-import { AbsluteImage, AbsoluteImageHolder, BannerHolder, BannerImage, DescFilePreview, DescTitle, Desctext, FileDateTime, FileDetailsWrapper, FileImage, FileName, FileSizeWrapper, FilesWrapper, ImageIcons, ImageWrapper, InfoHolder, InfoText, MainDesc, MainTitle, MainTitleWrapper, PreviewDescHolder, PreviewIconHolder, PreviewImageContainer, RowColowmnHolder, RowOne, RowTwo, SingleFileWrapper, Tag, TagWrapper, TitleFilePreview } from "./single.post.styles";
+import {WrapperNonSticky, AbsluteImage, AbsoluteImageHolder, BannerHolder, BannerImage, DescFilePreview, DescTitle, Desctext, FileDateTime, FileDetailsWrapper, FileImage, FileName, FileSizeWrapper, FilesWrapper, ImageIcons, ImageWrapper, InfoHolder, InfoText, MainDesc, MainTitle, MainTitleWrapper, PreviewDescHolder, PreviewIconHolder, PreviewImageContainer, RowColowmnHolder, RowOne, RowTwo, SingleFileWrapper, Tag, TagWrapper, TitleFilePreview } from "./single.post.styles";
 import StackGrid from "react-stack-grid";
 import PdfIcon from "../../../assets/icons/PDF.svg";
 import {PiDownloadFill} from "react-icons/pi";
@@ -29,7 +29,7 @@ const SinglePostView = () => {
     return(
   <>
     <FilesWrapper>
-      <div style={{flexBasis:"75%"}}>
+      <WrapperNonSticky >
         <BannerHolder link={currentImage}>
           <MainTitleWrapper>
           <TagWrapper style={{margin:0}}>
@@ -38,9 +38,28 @@ const SinglePostView = () => {
           </TagWrapper>
           <MainTitle>
             Title of the content
+            Title of the content
+            Title of the content
+            Title of the content
           </MainTitle>
           <MainDesc>
             description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            description of the data
+            
           </MainDesc>
           </MainTitleWrapper>
          
@@ -72,7 +91,7 @@ const SinglePostView = () => {
                 })
                }
          </StackGrid>
-         </div>
+         </WrapperNonSticky>
             <FileDetailsWrapper>
               <PreviewImageContainer>
                    <ImageWrapper src={PdfIcon}/>

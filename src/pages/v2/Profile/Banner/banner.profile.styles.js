@@ -64,18 +64,31 @@ export const BioWrapper = styled.div`
 margin-top:25px;
 margin-bottom:25px;
 padding-left:7.2%;
+@media only screen and (max-width: 600px){
+    padding-right:7.2%;
+}
 `
 
 export const BioHeading = styled.div`
-font-size:${typography.title.fl.fontSize};
+font-size:${typography.title.fxs.fontSize}px;
 font-weight:${typography.title.fl.fontWeight};
 margin-bottom:10px;
+@media only screen and (max-width: 600px){
+	font-size:${typography.sub.fs.fontSize}px;
+    text-align:center;
+    font-size:18px;
+}
 `
 
 export const DescText = styled.div`
 font-size:${typography.body.fl.fontSize};
 max-width:70%;
 color:${colorsV2.text.placeholder};
+@media only screen and (max-width: 600px){
+	font-size:${typography.sub.fs.fontSize}px;
+    max-width:100%;
+    padding-right:20px;
+}
 `
 
 export const Seperator = styled.div`

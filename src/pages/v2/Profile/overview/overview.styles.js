@@ -26,15 +26,33 @@ text-align:center;
 export const DetailsWrapper = styled.div`
 display:flex;
 justify-content:center;
+@media only screen and (max-width: 600px){
+	flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
 `
 
-export const IconNameWrapper = styled.div`display:flex;padding-right:80px; align-items:center; margin-top:20px; margin-bottom:20px;`
+export const IconNameWrapper = styled.div`
+display:flex;
+padding-right:80px; 
+align-items:center;
+ margin-top:20px; 
+ margin-bottom:20px;
+ @media only screen and (max-width: 600px){
+	padding-right:0px;
+}
+@media only screen and (max-width: 840px){
+	padding-right:0px;
+}
+ `
 
 export const IconWrapper = styled.div`
 margin-right:14px;
 background:${colorsV2.block.dark};
 padding:16px;
 border-radius:10px;
+
 `
 
 export const NameWrapper = styled.div``

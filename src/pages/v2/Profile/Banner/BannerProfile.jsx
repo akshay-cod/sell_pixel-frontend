@@ -5,6 +5,7 @@ import VerifiedIcon from "../../../../assets/icons/verified.svg"
 import PreIcon from "../../../../assets/icons/premium.svg"
 import OverView from "../overview/OverView";
 import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe, BsTwitter} from "react-icons/bs";
+import LazyImage from "../../../../components/lazy-image/LazyImage";
 
 const BannerProfile = () => {
     return(<>
@@ -20,7 +21,14 @@ const BannerProfile = () => {
           <AvatorContainer>
            
                 <AvatarHolder>
-                    <ImageAvatar src="https://source.unsplash.com/user/c_v_r/100x100"/>
+                    <LazyImage
+                    style={{borderRadius:"10px",
+                        height:"64px",
+                        width:"64px"}}
+                    height={64}
+                    width={64}
+                    src="https://source.unsplash.com/user/c_v_r/100x100"/>
+                    {/* <ImageAvatar /> */}
                 </AvatarHolder>
                 <TextNameHolder>
                     <Name>DanielaSpector <img src={VerifiedIcon} style={{transform:"translate(2px,3px)"}} /></Name> 

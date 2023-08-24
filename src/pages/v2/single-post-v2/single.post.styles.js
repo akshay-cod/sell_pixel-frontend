@@ -8,6 +8,9 @@ margin-bottom:0px;
 display:flex;
 margin-right:7%;
 margin-left:7%;
+@media only screen and (max-width: 600px){
+	align-items:center;
+}
 `
 
 export const SingleFileWrapper = styled.div`
@@ -46,6 +49,10 @@ display:flex;
 justify-content:flex-end;
 padding-right:60px;
 align-items:center;
+@media only screen and (max-width: 840px){
+	justify-content:center;
+    padding-right:0px;
+}
 `
 
 export const AbsluteImage = styled.img`
@@ -68,6 +75,9 @@ background:${colorsV2.block.medium};
 padding:15px;
 margin-left:25px;
 border-radius:10px;
+@media only screen and (max-width: 600px){
+    display:none; 
+}
 `
 
 export const PreviewImageContainer = styled.div`
@@ -170,6 +180,9 @@ padding-bottom:20px;
 margin-bottom:20px;
 border-radius:10px;
 min-height:300px;
+@media only screen and (max-width: 400px){
+	width:86%;
+}
 `
 
 export const BannerImage = styled.img`
@@ -183,14 +196,56 @@ opacity: 0.8;
 export const MainTitleWrapper = styled.div`
 padding:40px;`
 
+export const WrapperNonSticky = styled.div`
+flex-basis:75%;
+@media only screen and (max-width: 1000px){
+    flex-basis:65%;
+}
+@media only screen and (max-width: 600px){
+    flex-basis:97%;
+}
+`
+
 export const MainTitle = styled.div`
 margin-top:30px;
 margin-bottom:5px;
 font-size:${typography.title.f3xl.fontSize}px;
 font-family:GraphikSemiBold;
 color:${colorsV2.text.light};
+width:800px;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+@media only screen and (max-width: 1200px){
+    width:600px 
+}
+@media only screen and (max-width: 1000px){
+    width:440px 
+}
+@media only screen and (max-width: 800px){
+    width:300px ;
+    font-size:24px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;  
+    overflow: hidden;
+   white-space: pre-line;
+}
+@media only screen and (max-width: 600px){
+    width:auto 
+}
 `
 
 export const MainDesc = styled.div`
 font-size:${typography.sub.fs.fontSize}px;
-color:${colorsV2.text.placeholder};`
+color:${colorsV2.text.placeholder};
+max-width:60%;
+display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  @media only screen and (max-width: 800px){
+  
+    max-width:90%;
+}
+`
