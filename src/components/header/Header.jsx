@@ -8,6 +8,7 @@ import './header.css'
 import Cookies from 'universal-cookie';
 import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 import { useEffect } from "react";
+import { colorsV2 } from "../../configs/theme/color";
 
 const Header = ({setVisible}) => {
     const userFromRedux = useSelector(user);
@@ -75,7 +76,7 @@ const Header = ({setVisible}) => {
            {userFromRedux?.auth ? 
             <div className="container" ref={dropdownRef}>
             <div className="menu-container">
-              <button onClick={()=> {onClick()}} className="menu-trigger">
+              <button onClick={()=> {onClick()}} style={{background:colorsV2.block.medium}} className="menu-trigger">
                 <span>{userFromRedux?.user?.first_name || userFromRedux?.user?.phone_number}</span>
                 <img
                   className="profileImage"
@@ -84,7 +85,7 @@ const Header = ({setVisible}) => {
                 />
               </button>
               <nav
-                
+                style={{background:colorsV2.block.dark}}
                 className={`menu ${isActive ? "active" : "inactive"}`}
               >
                 <ul>

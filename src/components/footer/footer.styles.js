@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { colors } from "../../configs/theme/color";
+import { colors, colorsV2 } from "../../configs/theme/color";
 import { padding } from "../../configs/theme/padding";
 
 
 export const FooterWrapper = styled.div`
-  background:${colors.primary};
+  background:rgb(26 26 26);
   color:white;
   padding:${padding.tertiary}
 `
@@ -31,7 +31,7 @@ flex-basis:100%;
 `
 
 export const SeperatorRightLine = styled.div`
-background:${colors.secondary};
+background:${colorsV2.divider.dark};
 width:100%;
 height:1px;
 `
@@ -127,7 +127,7 @@ export const LinksRightWrapper = styled.div`
 `
 
 export const Seperator = styled.div`
-background:white;
+background:${colorsV2.divider.dark};
 width:100%;
 height:.6px;
 margin-top:${padding.tertiary};

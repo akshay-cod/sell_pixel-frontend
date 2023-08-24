@@ -60,10 +60,11 @@ export const WrapperStickyHeader = styled.div`
 position: sticky;
 top: 0;
  z-index: 99;
- background: #2B2B2B;
+ background: rgb(26 26 26);
  display:flex;
  justify-content:space-between;
  align-items:center;
+ border-bottom:0.1px solid rgb(43, 43, 43);
  padding:10px 55px;
  @media (max-width: 700px) {
   padding-left:10%;
