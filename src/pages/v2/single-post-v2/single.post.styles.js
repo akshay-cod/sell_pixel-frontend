@@ -169,6 +169,7 @@ position:relative;
 padding-bottom:20px;
 margin-bottom:20px;
 border-radius:10px;
+min-height:300px;
 `
 
 export const BannerImage = styled.img`

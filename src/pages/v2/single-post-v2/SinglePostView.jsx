@@ -53,11 +53,11 @@ const SinglePostView = () => {
          </AbsoluteImageHolder>
             {/* <BannerImage src="https://source.unsplash.com/user/c_v_r/1000x1000"/> */}
         </BannerHolder>
-         <StackGrid columnWidth={200} gutterHeight={15} gutterWidth={15}>
+         <StackGrid columnWidth={200}  gutterHeight={15} gutterWidth={15}>
                {
                 [0,12,2,3,32,32,4].map((k,i)=>{
                   return(
-                    <SingleFileWrapper>
+                    <SingleFileWrapper style={{minHeight:200}}>
                       <div style={{padding:15}}>
                       <FileImage src={i == 0 ? PdfIcon : i==1 ? MP3Icon : HTMLIcon}/>
                       <FileName>name of the file</FileName>

@@ -3,7 +3,15 @@ import { AvatarHolder, AvatorContainer, BannerImage, BannerImageWrapper, CardWra
 import { useEffect } from "react";
 import { colorsV2 } from "../../../configs/theme/color";
 import BannerProfile from "./Banner/BannerProfile";
+import { useNavigate } from "react-router-dom";
 const FlexibleCards = () =>{
+
+    const navigate = useNavigate()
+
+    const navigateToCreations = () => {
+        navigate("/ui/post")
+    }
+
     useEffect(()=>{
         document.body.style.background = colorsV2.block.dark;
         document.body.style.zoom = '95%';
@@ -21,7 +29,7 @@ const FlexibleCards = () =>{
             <div
       key={i}
      >
-        <CardWrapper>
+        <CardWrapper onClick={navigateToCreations}>
             <AvatorContainer>
                 <AvatarHolder>
                     <ImageAvatar src="https://source.unsplash.com/user/c_v_r/100x100"/>
