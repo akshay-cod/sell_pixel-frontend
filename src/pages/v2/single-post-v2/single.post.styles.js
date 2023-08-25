@@ -269,14 +269,13 @@ background:rgba(51, 51, 51,0.7);
  z-index:999;
  @media only screen and (max-width: 500px){
   
-    min-height:100vh;
-    min-width:100vw;
+    min-height:105vh;
+    min-width:105vw;
 }
 `
 
 export const VideWrapper = styled.div`
    background:#222222; 
-   width:50%;
    position:absolute;
    top:50%;
    transform:translate(-50%,-50%);
@@ -286,6 +285,6 @@ export const VideWrapper = styled.div`
    border-radius:10px;
    @media only screen and (max-width: 800px){
   
-    width:80%;
+   
 }
 `
