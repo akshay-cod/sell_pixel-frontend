@@ -1,0 +1,1 @@
+export {default as HomeV2} from "./FlexibleCards";

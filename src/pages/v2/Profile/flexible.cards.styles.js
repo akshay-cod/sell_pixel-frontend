@@ -6,6 +6,10 @@ export const CardWrapper = styled.div`
  background:${colorsV2.block.medium};
  padding:15px;
  border-radius:15px;
+ cursor:pointer;
+ &:hover {
+    transition: background 1s;
+    background:${colorsV2.block.light};
 `
 
 export const AvatorContainer = styled.div`
@@ -44,4 +48,38 @@ border-radius:9px;
 height:200px;
 width:100%;
 object-fit:cover;
+`
+
+
+export const PurchaseWrapper = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding-right:20px;
+    padding-left:40px;
+    padding-top:20px;
+    padding-bottom:20px;
+`
+
+export const ProfileImage = styled.img`
+width: 80px;
+border-radius: 50%;
+object-fit: contain;
+height:80px;
+`
+
+export const PurchaseName = styled.div`
+font-size:18px;
+font-weight:bold;
+color:black;
+padding:10px;
+`
+
+export const GreenBtn = styled.div`
+padding:12px 35px;
+background:green;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 `

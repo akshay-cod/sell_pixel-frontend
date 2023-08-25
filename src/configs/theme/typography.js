@@ -102,7 +102,7 @@ export const typography = {
         fontSize:13,
         fontWeight:400,
         lineHeight:"18px",
-        paraspace:"14px"
+        paraspace:"14px" 
        }, 
        fxs:{
         fontSize:11,

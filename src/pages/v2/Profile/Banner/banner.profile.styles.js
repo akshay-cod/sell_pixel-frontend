@@ -6,10 +6,11 @@ export const BannerWrapper = styled.div`
 width:100%;
 height:290px;
 background-color: fade(#FFFFFF, 100%);
-background: url("https://images.unsplash.com/photo-1475710534222-6165a8b45449?ixlib=rb-0.3.5&s=b4b0451caff94a9c0150b34ecc44d98d&auto=format&fit=crop&w=1350&q=80") no-repeat center, linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+background: url(${(props)=> props.link}) no-repeat center, linear-gradient(90deg, rgba(0,0,0,0.9),rgba(0,0,0,0.7));
 background-blend-mode: overlay;
-background-size: 100% ;
-object-fit:cover;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 position:relative;
 padding-bottom:20px;
 border-bottom:1px solid ${colorsV2.divider.dark};
@@ -82,6 +83,7 @@ margin-bottom:10px;
 
 export const DescText = styled.div`
 font-size:${typography.body.fl.fontSize};
+white-space: pre-line;
 max-width:70%;
 color:${colorsV2.text.placeholder};
 @media only screen and (max-width: 600px){

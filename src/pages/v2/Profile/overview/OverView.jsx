@@ -1,11 +1,12 @@
+import Skeleton from "react-loading-skeleton";
 import { DetailsWrapper, Heading, IconNameWrapper, IconWrapper, NameDesc, NameHeading, NameWrapper, OverViewWrapper } from "./overview.styles";
 import {AiOutlineAntDesign} from 'react-icons/ai'
-const OverView = () => {
+const OverView = ({loading}) => {
     return (
      <>
       <OverViewWrapper>
          <Heading>
-            Overview of your profile
+           {loading ? <Skeleton width={150}/> :"Overview of your profile"} 
          </Heading>
 
    <DetailsWrapper>
@@ -14,15 +15,15 @@ const OverView = () => {
             return(
                 <IconNameWrapper>
                 <IconWrapper>
-                 <AiOutlineAntDesign fontSize={30}/>
+                {loading ? <Skeleton width={30} height={30}/> : <AiOutlineAntDesign fontSize={30}/>}
                 </IconWrapper>
                  <NameWrapper>
                     <NameHeading>
-                       81 creations
+                      {loading ? <Skeleton  width={150}/> : "81 creations"} 
                     </NameHeading>
-                      <NameDesc>
-                        this shows the total creation<br/>
-                         from your profile
+                      <NameDesc style={{whiteSpace:"pre-line"}}>
+                        {loading ? <Skeleton count={2} height={10}  width={100}/> : "this shows the total creation \n this shows the total creation"}
+                      
                       </NameDesc>
                      </NameWrapper>
                   </IconNameWrapper>

@@ -15,6 +15,7 @@ function App() {
 
   const [visible, setLoginVisible] = useState(false)
   useEffect(()=>{
+    document.body.style.zoom = '95%';
     dispatch(checkUserLoggedIn())
   },[])
 

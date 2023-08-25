@@ -3,6 +3,9 @@ import Avaitor from "../pages/avaiator/Avaitor";
 import Home from "../pages/home/Home";
 import Main from "../pages/index/Main";
 import SinglePost from "../pages/post/SinglePost";
+import { HomeV2 } from "../pages/v2/Profile";
+import FlexibleCards from "../pages/v2/Profile/FlexibleCards";
+import SinglePostView from "../pages/v2/single-post-v2/SinglePostView";
 
 const config = {
     type:routeTypes.SEMI
@@ -11,7 +14,7 @@ const config = {
 export const SemiRoutes =
     [{
         path:"/:user",
-        component:Home,
+        component:HomeV2,
         order:1,
         ...config
     },
@@ -25,6 +28,18 @@ export const SemiRoutes =
         path:"/post/:id",
         component:SinglePost,
         order:2,
+        ...config
+    },
+    {
+        path:"/ui/:user",
+        component:FlexibleCards,
+        order:1,
+        ...config
+    },
+    {
+        path:"/ui/post",
+        component:SinglePostView,
+        order:1,
         ...config
     }
 ]

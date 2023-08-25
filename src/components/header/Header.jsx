@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie';
 import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 import { useEffect } from "react";
 import { colorsV2 } from "../../configs/theme/color";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Header = ({setVisible}) => {
     const userFromRedux = useSelector(user);
@@ -18,7 +19,8 @@ const Header = ({setVisible}) => {
 
     const logOutUser = () => {
         const cookies = new Cookies();
-        cookies.remove("token")
+        cookies.remove("token",{ path: '/'})
+        console.log(cookies.get("token"))
       //  setIsActive(false)
         window.location.href = window.location.href;
     }
@@ -122,11 +124,17 @@ const Header = ({setVisible}) => {
             </div>
           </div>
            
-           : <><LoginBtn
+           : <>
+           {userFromRedux.loading ?
+           <SkeletonTheme baseColor="#202020" highlightColor="#444"> 
+           <Skeleton width={100} height={30} borderRadius={10}/>
+           </SkeletonTheme>  
+           :
+           <LoginBtn
            onClick={()=>setVisible(true)}
            >
                 Login
-            </LoginBtn>
+            </LoginBtn>}
             </>}
         </StickyHeaderRight>
     </WrapperStickyHeader>
