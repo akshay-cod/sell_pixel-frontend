@@ -434,7 +434,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                         </div>
                         <div>
                         <HiOutlineShare onClick={()=>{
-                        setPostId(i?._id)
+                        setPostId(creation?._id)
                         setShareModal(true)
                         }} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />
                           </div>
