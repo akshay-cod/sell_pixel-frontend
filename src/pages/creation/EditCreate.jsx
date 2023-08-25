@@ -116,7 +116,7 @@ const EditCreation = () => {
            {
             setButtonLoading(false)
            toast.success("updated the creations successfully")
-           navigate(`/post/${creationId}`)
+           navigate(`/creations/${creationId}`)
             // navigation.navigate("single-creation-view",
             // {
             //     bannerImg:`${IMAGE_URL}/public/${banImg[0].url}`,

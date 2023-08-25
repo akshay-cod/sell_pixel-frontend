@@ -73,7 +73,7 @@ const Posts = ({post, loading, creator}) => {
               loading == false && post.length>0 && post?.map((i,index)=>{
                     return(
                         <SinglePost >
-                <PostImage src={i.banner_img} onClick={() => navigate(`/post/${i?._id}`)}/>
+                <PostImage src={i.banner_img} onClick={() => navigate(`/creations/${i?._id}`)}/>
                
                 { creator?.is_owner ? <div 
                        style={{display:"flex", justifyContent:"end",paddingRight:5}}
@@ -135,7 +135,7 @@ const Posts = ({post, loading, creator}) => {
           auth={true}
           isVisible={shareModal}
           setVisible={setShareModal}
-          component={<ShareCompo text={`Obtain exclusive content from the premium profile. ${window.location.origin}/post/${postId}`}/>}
+          component={<ShareCompo text={`Obtain exclusive content from the premium profile. ${window.location.origin}/creations/${postId}`}/>}
         />
         </div>
        

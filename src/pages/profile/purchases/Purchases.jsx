@@ -102,7 +102,7 @@ const Purchases = ({heading}) => {
                          <ButtonWrapper>
                             <PreviwBtn onClick={()=>{
                                 if(item.product){
-                                    navigateToProfile(`post/${item?.product?._id}`)
+                                    navigateToProfile(`creations/${item?.product?._id}`)
                                 }
                                 else{
                                     navigateToProfile(item?.profile?._id)

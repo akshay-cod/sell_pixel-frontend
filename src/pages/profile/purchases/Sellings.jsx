@@ -103,12 +103,16 @@ const Sellings = () => {
                             <div>
                             user-earnings : ₹{item?.commisson?.user_wallet_share.toLocaleString()}
                             </div>
+                            
                            
                          </CommissionHolder>
+                         <CommissionHolder>
+                            bank-ref : {item?.purchase_history?.transaction_history[0]?.bank_ref_num}
+                            </CommissionHolder>
                          <ButtonWrapper>
                             <PreviwBtn onClick={()=>{
                                 if(item.product){
-                                    navigateToProfile(`post/${item?.product?._id}`)
+                                    navigateToProfile(`creations/${item?.product?._id}`)
                                 }
                                 else{
                                     navigateToProfile(item?.purchased_user?._id)

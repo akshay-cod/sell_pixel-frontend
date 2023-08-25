@@ -58,11 +58,25 @@ const FlexibleCards = ({setLoginVisible}) => {
     const [deleteModal, setDeleteModal] = useState(false);
     const [id, setId] = useState("")
 
+    const [termsAndConditionModal, setTermsAndConditionModal] = useState(false)
+    const [termsText, setTermsText] = useState("")
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
+
     const OnRemoveCreation = async (id) => {
         setId(id)
         setDeleteModal(true)
     }
     
+    const acceptTerms = async () =>{
+           setAcceptedTerms(true);
+           setTermsAndConditionModal(false)
+         await  OnPurchase()
+    }
+
+    const rejectTerms = () => {
+      setAcceptedTerms(false);
+      setTermsAndConditionModal(false)
+    }
 
     const requestforDelete = async () => {
         setDeleteLoading(true)
@@ -86,6 +100,10 @@ const FlexibleCards = ({setLoginVisible}) => {
           }
           if(!creator?.is_verified_user){
             toast.error("sorry !! please visit, once we verify the creator")
+            return;
+          }
+          if(creator?.terms_and_condition?.status == true && acceptedTerms == false){
+            setTermsAndConditionModal(true)
             return;
           }
           if(creator?.set_profile_price == false){
@@ -179,7 +197,7 @@ const FlexibleCards = ({setLoginVisible}) => {
       },[creator])
 
     const navigateToCreations = (id) => {
-        navigate(`/post/${id}`)
+        navigate(`/creations/${id}`)
     }
 
     useEffect(()=>{
@@ -237,6 +255,9 @@ const FlexibleCards = ({setLoginVisible}) => {
                  setHasMore(false)
                }
                setCreator(userProfile[0])
+               if(userProfile[0]?.terms_and_condition?.status){
+                setTermsText(userProfile[0]?.terms_and_condition?.text)
+               }
                setPost(res?.user_creations)
              }
               else
@@ -333,8 +354,9 @@ const FlexibleCards = ({setLoginVisible}) => {
     </div>
     <div style={{margin:20}}>
    {loading ? <LoadingSkeleton/> : ""}
+   <div style={{minHeight:300}}>
    {!loading && <StackGrid monitorImagesLoaded={true}  columnWidth={332} gutterWidth={15} gutterHeight={15}>
-
+   
    {
     post.length > 0 && post.map((creation,i)=>{
         return(
@@ -359,7 +381,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                 </AvatarHolder>
                 <TextNameHolder>
                     <Name>{creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }</Name>
-                    <DesName>Trusted creator from FinsCRE </DesName>
+                    <DesName>{`${creator?.is_verified_user ? "Trusted" : "Unverified" } creator from FinsCRE`} </DesName>
                 </TextNameHolder>
             </AvatorContainer>
            <BannerImageWrapper>
@@ -427,6 +449,7 @@ const FlexibleCards = ({setLoginVisible}) => {
    } 
   </StackGrid>}
   </div>
+  </div>
   <Modal isVisible={visible} setVisible={setVisible} component={
           <PurchaseWrapper style={{paddingLeft:20}}>
              <ProfileImage src={creator?.profile_picture} >
@@ -482,7 +505,25 @@ const FlexibleCards = ({setLoginVisible}) => {
           auth={true}
           isVisible={shareModal}
           setVisible={setShareModal}
-          component={<ShareCompo text={`Obtain exclusive content from the premium profile. ${window.location.origin}/post/${postId}`}/>}
+          component={<ShareCompo text={`Obtain exclusive content from the premium profile. ${window.location.origin}/creations/${postId}`}/>}
+        />
+        <Modal
+          auth={false}
+          isVisible={termsAndConditionModal}
+          setVisible={setTermsAndConditionModal}
+          component={<div style={{color:"black",cursor:"pointer",padding:20}}>
+           <div style={{overflowY:"scroll",whiteSpace:"pre-line",fontSize:12}}>
+           {
+              termsText
+             }
+           </div>
+             <GreenBtn
+             onClick={()=>{rejectTerms()}}
+             style={{background:"red",marginTop:10,marginBottom:10,textAlign:"center", color:"white"}}>Reject</GreenBtn>
+             <GreenBtn
+              onClick={()=>{acceptTerms()}}
+             style={{textAlign:"center", color:"white"}}>Accept</GreenBtn>
+          </div>}
         />
         </SkeletonTheme > 
   </>

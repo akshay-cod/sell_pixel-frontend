@@ -58,10 +58,10 @@ const BannerProfile = ({creator,loading}) => {
                 </AvatarHolder>
                 <TextNameHolder>
                     <Name> {loading ? <><Skeleton width={150} height={12}/> </>:  creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }
-                    {loading ? "" : <img src={VerifiedIcon} style={{transform:"translate(2px,3px)"}} />} 
+                    {loading ? "" : (creator?.is_verified_user && <img src={VerifiedIcon} style={{transform:"translate(2px,3px)"}} />)} 
                    
                      </Name> 
-                    <DesName>{loading ? <Skeleton width={250} height={18}/> : "Trusted creator from FinsCRE"}  {(creator?.is_owner && creator?.is_verified_user && !loading) ? <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} /> : ""}</DesName>
+                    <DesName>{loading ? <Skeleton width={250} height={18}/> : `${creator?.is_verified_user ? "Trusted" : "Unverified" } creator from FinsCRE`}  {(creator?.is_owner && creator?.is_verified_user && !loading) ? <HiOutlineShare onClick={()=>{setShareModal(true)}} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} /> : ""}</DesName>
                 </TextNameHolder>
             </AvatorContainer>
         

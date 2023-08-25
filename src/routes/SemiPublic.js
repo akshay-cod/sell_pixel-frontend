@@ -30,14 +30,14 @@ export const SemiRoutes =
     //     order:2,
     //     ...config
     // },
+    // {
+    //     path:"/ui/:user",
+    //     component:FlexibleCards,
+    //     order:1,
+    //     ...config
+    // },
     {
-        path:"/ui/:user",
-        component:FlexibleCards,
-        order:1,
-        ...config
-    },
-    {
-        path:"/post/:id",
+        path:"/creations/:id",
         component:SinglePostView,
         order:1,
         ...config

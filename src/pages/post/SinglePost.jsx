@@ -104,13 +104,13 @@ const SinglePost = ({setLoginVisible}) => {
               // }
               // )
              // console.log(verify)
-             navigate("/status/payment/success",{state:{link:"/post/"+params.id, type:"success", name:post?.created_by?.first_name + post?.created_by?.last_name + " "+ "creations"}})
+             navigate("/status/payment/success",{state:{link:"/creations/"+params.id, type:"success", name:post?.created_by?.first_name + post?.created_by?.last_name + " "+ "creations"}})
             //  await fetchPostDetails()
               setPurchaseLoading(false)
               document.body.style.overflow = "scroll"
             }
             else{
-              navigate("/status/payment/failure", {state:{link:"/post/"+params.id, type:"failure"}})
+              navigate("/status/payment/failure", {state:{link:"/creations/"+params.id, type:"failure"}})
               setPurchaseLoading(false)
             }
               
@@ -178,7 +178,8 @@ const SinglePost = ({setLoginVisible}) => {
 
     return(
         <>
-        { <div style={{display:isPdfOpen ? "none" : ""}}> <BannerWithImage image={post?.banner_img} banner={true} height={500}/>
+        { <div style={{display:isPdfOpen ? "none" : ""}}> 
+        <BannerWithImage image={post?.banner_img} banner={true} height={500}/>
             <SinglePostWrapper>
                 <TitleHeading>
                        {post?.title}

@@ -85,13 +85,13 @@ const SinglePostView = ({setLoginVisible}) => {
         access_key: res.data.access_key, // access key received via Initiate Payment
         onResponse: async (response) => {
           if(response.status === "success"){
-           navigate("/status/payment/success",{state:{link:"/post/"+params.id, type:"success", name:post?.created_by?.first_name + post?.created_by?.last_name + " "+ "creations"}})
+           navigate("/status/payment/success",{state:{link:"/creations/"+params.id, type:"success", name:post?.created_by?.first_name + post?.created_by?.last_name + " "+ "creations"}})
          
             setPurchaseLoading(false)
             document.body.style.overflow = "scroll"
           }
           else{
-            navigate("/status/payment/failure", {state:{link:"/post/"+params.id, type:"failure"}})
+            navigate("/status/payment/failure", {state:{link:"/creations/"+params.id, type:"failure"}})
             setPurchaseLoading(false)
           }
          },
@@ -137,7 +137,10 @@ const fetchPostDetails = async() => {
       setLoading(true)
       const res = await getAPostDetails(params?.id);
       let creations = res.creation
-      setSingleFile(creations.files[0])
+      if(creations?.files){
+        setSingleFile(creations.files[0])
+      }
+     
       setPost(creations)
       setLoading(false)
     }
@@ -291,7 +294,8 @@ const onClickVideoPlayClose = (url) => {
          </StackHolder>
          </WrapperNonSticky>
             <FileDetailsWrapper>
-              <PreviewImageContainer>
+              { singleFile?.url ?
+                <><PreviewImageContainer>
                   {
                     singleFile?.type?.startsWith('video') ?  
                     (
@@ -381,8 +385,11 @@ const onClickVideoPlayClose = (url) => {
                 </RowColowmnHolder>
               </InfoHolder>
               </div>
-
+              </>
+              : ""
+            }
             </FileDetailsWrapper>
+                
     </FilesWrapper>
     {isViewerOpen && (
         <ImageViewer
@@ -410,7 +417,29 @@ const onClickVideoPlayClose = (url) => {
         </div>
         
       }
-      {post?.is_purchased == false &&  <Modal isVisible={visible} setVisible={setVisible} component={
+      
+      {isVideoModal &&
+        <FullScreenPlayerWrapper>
+          <VideWrapper>
+          <div onClick={()=>{onClickVideoPlayClose()}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
+            X
+          </div>
+         <ReactPlayer        
+         playing={false}
+          width="100%"
+          height="100%"
+          controls
+          config={{ file: { 
+              attributes: {
+                controlsList: 'nodownload'  //<- this is the important bit
+              }
+          }}}
+          url={videoUrl}/> 
+          </VideWrapper>
+          </FullScreenPlayerWrapper>
+      }
+
+{post?.is_purchased == false &&  <Modal isVisible={visible} setVisible={setVisible} component={
           <PurchaseWrapper style={{paddingLeft:20}}>
              <ProfileImage src={post?.created_by?.profile_picture}>
 
@@ -438,26 +467,6 @@ const onClickVideoPlayClose = (url) => {
           </PurchaseWrapper>
            
         } auth={false}/> }
-      {isVideoModal &&
-        <FullScreenPlayerWrapper>
-          <VideWrapper>
-          <div onClick={()=>{onClickVideoPlayClose()}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
-            X
-          </div>
-         <ReactPlayer        
-         playing={false}
-          width="100%"
-          height="100%"
-          controls
-          config={{ file: { 
-              attributes: {
-                controlsList: 'nodownload'  //<- this is the important bit
-              }
-          }}}
-          url={videoUrl}/> 
-          </VideWrapper>
-          </FullScreenPlayerWrapper>
-      }
      
   </>
     )

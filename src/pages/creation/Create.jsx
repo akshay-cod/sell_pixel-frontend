@@ -100,7 +100,7 @@ const Create = () => {
            {
             setButtonLoading(false)
            toast.success("created the creations successfully")
-           navigate(`/post/${res.created?._id}`)
+           navigate(`/creations/${res.created?._id}`)
             // navigation.navigate("single-creation-view",
             // {
             //     bannerImg:`${IMAGE_URL}/public/${banImg[0].url}`,
