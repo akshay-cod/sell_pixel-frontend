@@ -107,7 +107,7 @@ const SinglePostView = ({setLoginVisible}) => {
 
 useEffect(()=>{
   fetchPostDetails()
-},[])
+},[UserRedux])
 
 
 
