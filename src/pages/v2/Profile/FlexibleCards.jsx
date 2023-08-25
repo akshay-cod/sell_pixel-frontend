@@ -18,9 +18,12 @@ import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
 import Modal from "../../../components/common/modal/Modal";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
-import { Label, TextInput } from "../../creation/create.styles";
+import { Label, SubmitBtn, TextInput } from "../../creation/create.styles";
 import FullScreenLoader from "../../../components/common/loaders/FullScreenLoader";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
+import { RiDeleteBin5Line, RiEdgeLine, RiEdit2Line } from "react-icons/ri"
+import { removeACreation } from "../../../api/creations/creations-requests";
 
 const FlexibleCards = ({setLoginVisible}) => {
     const params = useParams();
@@ -45,6 +48,29 @@ const FlexibleCards = ({setLoginVisible}) => {
     const UserRedux = useSelector(user)
    
     const isLoggedIn = cookies.get("token")
+
+    const [shareModal, setShareModal] = useState(false);
+    const [postId, setPostId] = useState("")
+    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [id, setId] = useState("")
+
+    const OnRemoveCreation = async (id) => {
+        setId(id)
+        setDeleteModal(true)
+    }
+    
+
+    const requestforDelete = async () => {
+        setDeleteLoading(true)
+       const res = await removeACreation(id)
+        if(res){
+            setDeleteLoading(false)
+            toast.success("deleted creation succesfully")
+            window.location.reload()
+        }
+        setDeleteLoading(false)
+    }
 
     const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
     
@@ -149,8 +175,8 @@ const FlexibleCards = ({setLoginVisible}) => {
         }
       },[creator])
 
-    const navigateToCreations = () => {
-        navigate("/ui/post")
+    const navigateToCreations = (id) => {
+        navigate(`/post/${id}`)
     }
 
     useEffect(()=>{
@@ -173,6 +199,26 @@ const FlexibleCards = ({setLoginVisible}) => {
         setCreator(res.user[0])
         setLoading(false)
       }
+
+      const DelteCompo = (
+        <div 
+          style={{padding:20,color:"black",textAlign:"center"}}
+        >
+            <div>
+                Are you sure you want to delete ?
+            </div>
+            <div>
+
+           {
+            deleteLoading ? <div style={{display:"flex", justifyContent:"center"}}>
+                <SimpleLoader black={true} />
+            </div> : <SubmitBtn onClick={requestforDelete} style={{color:"white",background:"red",margin:"15px 0px"}}>Yes</SubmitBtn>
+           } 
+            <SubmitBtn onClick={()=>{setDeleteModal(false)}} style={{color:"white"}}>No</SubmitBtn>
+                
+            </div>
+        </div>
+    )
 
       const fetchUserProfileDetails = async (skip) => {
          try{
@@ -292,10 +338,11 @@ const FlexibleCards = ({setLoginVisible}) => {
             <div
       key={i}
      >
-        <CardWrapper onClick={navigateToCreations}>
+        <CardWrapper>
             <AvatorContainer>
                 <AvatarHolder>
-                <LazyImage
+                <LazyImage 
+                
                     style={{borderRadius:"50%",
                         height:"48px",
                         width:"48px",
@@ -314,6 +361,7 @@ const FlexibleCards = ({setLoginVisible}) => {
             </AvatorContainer>
            <BannerImageWrapper>
            <LazyImage
+            onClick={()=>navigateToCreations(creation?._id)}
                     style={{borderRadius:9,
                         height:"200px",
                         width:"100%",
@@ -328,8 +376,42 @@ const FlexibleCards = ({setLoginVisible}) => {
                     <Name style={{marginBottom:6}}> {creation?.title} </Name>
                     <DesName>
                        {creation?.description} </DesName>
+                
             </TextNameHolder>
-            <DesName style={{color:colorsV2.text.medium,marginTop:20}}>#{creation?.type} </DesName>
+            <div style={{display:"flex",justifyContent:"space-between"}}>
+              <div>
+              <DesName style={{color:colorsV2.text.medium,marginTop:20}}>#{creation?.type} </DesName>
+              </div>
+              <div>
+              { creator?.is_owner ? <div 
+                       style={{display:"flex",marginTop:20, justifyContent:"end", alignItems:"baseline", paddingRight:5}}
+                       >{
+                        creation?.price == 0 ? <RiDeleteBin5Line
+                        onClick={(e)=>{
+                            OnRemoveCreation(creation?._id)
+                           }}
+                        /> :""
+                       }
+                            
+
+                            <div onClick={(e)=>{
+                        navigate(`/creations/edit/${creation?._id}`,{state:{
+                            bannerImage:creation?.banner_img,
+                            type:creation?.type,
+                            url:creation?.files,
+                            price:creation?.price,
+                            description:creation?.description,
+                            title:creation?.title,
+                        }})
+                       }}
+                       style={{marginLeft:5,display:"flex", justifyContent:"end",paddingRight:5}}
+                       >
+                            <RiEdit2Line/>
+                        </div>
+                        </div> : ""
+                }
+              </div>
+            </div>
         </CardWrapper>
     </div>
         )
@@ -382,6 +464,12 @@ const FlexibleCards = ({setLoginVisible}) => {
           </PurchaseWrapper>
            
         } auth={false}/> 
+         <Modal
+          auth={true}
+          component={DelteCompo}
+          isVisible={deleteModal}
+          setVisible={setDeleteModal}
+        />
         </SkeletonTheme > 
   </>
   );

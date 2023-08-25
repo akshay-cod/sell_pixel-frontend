@@ -180,7 +180,7 @@ color:${colorsV2.text.light};`
 export const BannerHolder = styled.div`
 width:100%;
 height:300px;
-background:  linear-gradient(90deg, rgb(26, 26, 26) 0%, rgba(27,47,51,0.7) 100%), url(${props => props.link}) no-repeat center;
+background:  linear-gradient(90deg, rgb(26, 26, 26,0.9) 0%, rgba(27,47,51,0.7) 100%), url(${props => props.link}) no-repeat center;
 background-blend-mode: normal  ;
 background-size: 100% ;
 object-fit:cover;
@@ -256,5 +256,30 @@ display: -webkit-box;
   @media only screen and (max-width: 800px){
   
     max-width:90%;
+}
+`
+
+export const FullScreenPlayerWrapper = styled.div`
+background:rgba(51, 51, 51,0.7);
+ min-height:106vh;
+ min-width:106vw;
+ position:fixed;
+ top:0;
+ z-index:999;
+`
+
+export const VideWrapper = styled.div`
+   background:#222222; 
+   width:50%;
+   position:absolute;
+   top:50%;
+   transform:translate(-50%,-50%);
+   left:50%;
+   z-index:999;
+   padding:20px;
+   border-radius:10px;
+   @media only screen and (max-width: 800px){
+  
+    width:80%;
 }
 `

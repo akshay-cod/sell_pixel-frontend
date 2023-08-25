@@ -24,12 +24,12 @@ export const SemiRoutes =
         order:2,
         ...config 
     },
-    {
-        path:"/post/:id",
-        component:SinglePost,
-        order:2,
-        ...config
-    },
+    // {
+    //     path:"/post/:id",
+    //     component:SinglePost,
+    //     order:2,
+    //     ...config
+    // },
     {
         path:"/ui/:user",
         component:FlexibleCards,
@@ -37,7 +37,7 @@ export const SemiRoutes =
         ...config
     },
     {
-        path:"/ui/post",
+        path:"/post/:id",
         component:SinglePostView,
         order:1,
         ...config

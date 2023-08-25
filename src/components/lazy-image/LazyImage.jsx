@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-const LazyImage = ({src, height, width, style}) => {
+const LazyImage = ({src, height, width, style, onClick}) => {
 
     const [loading, setLoading] = useState(true);
 
@@ -12,7 +12,9 @@ const LazyImage = ({src, height, width, style}) => {
        <Skeleton  height={height} width={width} style={{borderRadius:style?.borderRadius}}/>
        : ""}
 
-        <img src={src} style={
+        <img src={src}
+        onClick={onClick}
+        style={
             {
                 ...style,
                 display: loading?"none":"block",
