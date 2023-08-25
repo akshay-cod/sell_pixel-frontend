@@ -427,7 +427,8 @@ const onClickVideoPlayClose = (url) => {
          <ReactPlayer        
          playing={false}
           width="100%"
-          height="100%"
+          height="auto"
+          style={{maxHeight:500,minHeight:200}}
           controls
           config={{ file: { 
               attributes: {
