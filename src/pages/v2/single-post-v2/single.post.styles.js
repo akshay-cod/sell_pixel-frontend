@@ -267,6 +267,11 @@ background:rgba(51, 51, 51,0.7);
  position:fixed;
  top:0;
  z-index:999;
+ @media only screen and (max-width: 500px){
+  
+    min-height:100vh;
+    min-width:100vw;
+}
 `
 
 export const VideWrapper = styled.div`

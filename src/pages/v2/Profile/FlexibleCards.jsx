@@ -18,12 +18,15 @@ import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
 import Modal from "../../../components/common/modal/Modal";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
-import { Label, SubmitBtn, TextInput } from "../../creation/create.styles";
+import { Label, SubmitBtn } from "../../creation/create.styles";
 import FullScreenLoader from "../../../components/common/loaders/FullScreenLoader";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 import { RiDeleteBin5Line, RiEdgeLine, RiEdit2Line } from "react-icons/ri"
 import { removeACreation } from "../../../api/creations/creations-requests";
+import { TextInput } from "../../../components/withdraw/widthdraw.styles";
+import ShareCompo from "../../home/profile/share/ShareCompo";
+import {HiOutlineShare} from 'react-icons/hi';
 
 const FlexibleCards = ({setLoginVisible}) => {
     const params = useParams();
@@ -392,8 +395,6 @@ const FlexibleCards = ({setLoginVisible}) => {
                            }}
                         /> :""
                        }
-                            
-
                             <div onClick={(e)=>{
                         navigate(`/creations/edit/${creation?._id}`,{state:{
                             bannerImage:creation?.banner_img,
@@ -407,7 +408,14 @@ const FlexibleCards = ({setLoginVisible}) => {
                        style={{marginLeft:5,display:"flex", justifyContent:"end",paddingRight:5}}
                        >
                             <RiEdit2Line/>
+                           
                         </div>
+                        <div>
+                        <HiOutlineShare onClick={()=>{
+                        setPostId(i?._id)
+                        setShareModal(true)
+                        }} style={{marginLeft:5,cursor:"pointer", transform:"translate(0px,3px)"}} fontSize={18} />
+                          </div>
                         </div> : ""
                 }
               </div>
@@ -469,6 +477,12 @@ const FlexibleCards = ({setLoginVisible}) => {
           component={DelteCompo}
           isVisible={deleteModal}
           setVisible={setDeleteModal}
+        />
+         <Modal
+          auth={true}
+          isVisible={shareModal}
+          setVisible={setShareModal}
+          component={<ShareCompo text={`Obtain exclusive content from the premium profile. ${window.location.origin}/post/${postId}`}/>}
         />
         </SkeletonTheme > 
   </>

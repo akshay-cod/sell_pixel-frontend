@@ -59,6 +59,9 @@ margin-bottom:3px;
 export const DesName = styled.div`
 color:${colorsV2.text.light};
 font-size:${typography.title.fm.fontSize}px;
+@media only screen and (max-width: 600px){
+    font-size:${typography.title.fs.fontSize}px;
+}
 `
 
 export const BioWrapper = styled.div`

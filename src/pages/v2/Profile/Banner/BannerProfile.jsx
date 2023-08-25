@@ -13,6 +13,7 @@ import { HiOutlineShare } from "react-icons/hi"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Modal from "../../../../components/common/modal/Modal";
 import ShareCompo from "../../../home/profile/share/ShareCompo";
+import { GetWishesFromCurrentTime } from "../../../../helpers/common";
 
 const BannerProfile = ({creator,loading}) => {
     //loading = true
@@ -32,8 +33,11 @@ const BannerProfile = ({creator,loading}) => {
         <div>
      <TextHeading>
         { loading ? <><Skeleton width={350}/><Skeleton width={250}/></> :
-             <> Hello, <b>{creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }</b> <br/>
-              Good Morning!!</>}
+             
+             (creator?.is_owner ? <> Hello, <b>{creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }</b> <br/>
+              {GetWishesFromCurrentTime()}!!</> : "")
+              
+              }
      </TextHeading> 
      <ButtonWrapper>
           <AvatorContainer>
@@ -95,9 +99,9 @@ const BannerProfile = ({creator,loading}) => {
               
         </DescText>
     </BioWrapper>
-    <Seperator/>
+    {/* <Seperator/>
     <OverView loading={loading}/>
-    <Seperator/>
+    <Seperator/> */}
     <BioWrapper>
         <BioHeading>
          <PremiumIcon src={PreIcon}/>  {loading ? <Skeleton width={80}/> : "Creations"} 
