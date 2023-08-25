@@ -8,10 +8,11 @@ margin-bottom:0px;
 display:flex;
 margin-right:7%;
 margin-left:7%;
+
 @media only screen and (max-width: 600px){
 	align-items:center;
-    margin-right:1%;
-     margin-left:1%;
+    margin-right:4%;
+     margin-left:4%;
 }
 `
 
@@ -211,7 +212,7 @@ flex-basis:75%;
     flex-basis:65%;
 }
 @media only screen and (max-width: 600px){
-    flex-basis:97%;
+    flex-basis:98%;
 }
 `
 

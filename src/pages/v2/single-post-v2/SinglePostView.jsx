@@ -229,14 +229,14 @@ const onClickVideoPlayClose = (url) => {
                       
                          playing={false}
                           width="100%"
-                          height={120}
+                          height={isMobile ? "220px" : "120px"}
                           config={{ file: { 
                               attributes: {
                                 controlsList: 'nodownload'  //<- this is the important bit
                               }
                           }}}
                           url={file?.url}/> 
-                          <div onClick={()=>{onClickVideoPlay(file.url)}} style={{position:"absolute",top:"25%",left:"40%",cursor:"pointer"}}>
+                          <div onClick={()=>{onClickVideoPlay(file.url)}} style={{position:"absolute",top:isMobile ? "35%":"25%",left:isMobile ? "43%" :"40%",cursor:"pointer"}}>
                             <BsPlayCircle color="white" fontSize={40}/>
                             </div>
                       </div>
@@ -272,6 +272,13 @@ const onClickVideoPlayClose = (url) => {
                        
                        <FileSizeWrapper>
                             {formatBytes(file.size)}
+                            {(isMobile && !file?.type?.startsWith("video")) ?
+                   <PiDownloadFill style={{transform:"translate(0px, 0px)",paddingBottom:"5px", float:"right"}} onClick={()=>{
+                      if(!file?.type?.startsWith("video"))
+                      downloadURI(file?.url)
+                      }} fontSize={21}/>
+                      : ""
+                 }
                        </FileSizeWrapper>
                 </SingleFileWrapper>
                    )
