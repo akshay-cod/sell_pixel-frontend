@@ -38,6 +38,7 @@ import { GreenBtn, Name, ProfileImage, PurchaseWrapper } from "../Profile/flexib
 import Modal from "../../../components/common/modal/Modal";
 import VideoPlayer from "../../../players/VideoPlayer";
 import { useRef } from "react";
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 const SinglePostView = ({setLoginVisible}) => {
   const imgurl = "https://source.unsplash.com/user/c_v_r/1000x100"
@@ -188,6 +189,8 @@ const onClickVideoPlay = (url) => {
   setIsVideoModal(true)
 }
 
+
+
 const onClickVideoPlayClose = (url) => {
   setVideoUrl("")
   setIsVideoModal(false)
@@ -227,7 +230,11 @@ const onClickVideoPlayClose = (url) => {
         <StackHolder>
           {
           
-                <StackGrid gridRef={r => (grid.current = r)} columnWidth={isMobile ? "100%" : 200} monitorImagesLoaded={true}  gutterHeight={15} gutterWidth={15}>
+          <ResponsiveMasonry 
+   
+          columnsCountBreakPoints={{300: 1, 750: 2, 900: 4}}
+          >
+          <Masonry gutter="15px">
                 {
                   post?.files?.length > 0 &&
                   post?.files.map((file,index)=>{
@@ -296,7 +303,8 @@ const onClickVideoPlayClose = (url) => {
                    )
                  })
                 }
-          </StackGrid>
+           </Masonry>
+  </ResponsiveMasonry>
               
           }
         

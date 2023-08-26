@@ -28,7 +28,7 @@ import { TextInput } from "../../../components/withdraw/widthdraw.styles";
 import ShareCompo from "../../home/profile/share/ShareCompo";
 import {HiOutlineShare} from 'react-icons/hi';
 import { useRef } from "react";
-
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 const FlexibleCards = ({setLoginVisible}) => {
   
     const grid = useRef(null);
@@ -321,7 +321,7 @@ const FlexibleCards = ({setLoginVisible}) => {
     <StackGrid gridRef={r => (grid.current = r)} monitorImagesLoaded={true}  columnWidth={332} gutterWidth={15} gutterHeight={15}>
 
     {
-    [1,2,3,6].map((creation,i)=>{
+    [1,2,3,6,77].map((creation,i)=>{
          return(
              <div
        key={i}
@@ -363,11 +363,15 @@ const FlexibleCards = ({setLoginVisible}) => {
     <div>
         <BannerProfile creator={creator} loading={loading}/>
     </div>
-    <div style={{margin:20}}>
-   {loading ? <LoadingSkeleton/> : ""}
-   <div style={{minHeight:300}}>
-   {!loading && <StackGrid monitorImagesLoaded={true}  columnWidth={332} gutterWidth={15} gutterHeight={15}>
+    {loading ? <LoadingSkeleton/> : ""}
+    <div style={{margin:20,padding:"0% 7%"}}>
    
+   <div style={{minHeight:300}}>
+   {!loading && <ResponsiveMasonry 
+   
+   columnsCountBreakPoints={{300: 1, 750: 2, 900: 4}}
+   >
+   <Masonry gutter="15px">
    {
     post.length > 0 && post.map((creation,i)=>{
         return(
@@ -458,7 +462,8 @@ const FlexibleCards = ({setLoginVisible}) => {
         )
     })
    } 
-  </StackGrid>}
+   </Masonry>
+  </ResponsiveMasonry>}
   </div>
   </div>
   <Modal isVisible={visible} setVisible={setVisible} component={
