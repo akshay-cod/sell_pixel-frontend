@@ -111,7 +111,13 @@ const Profile = () => {
         }
         const res = await updateAnUserDetails(dataTosend)
         if(res.status){
-            toast.success("profile saved successfully")
+            
+            if(userDetails?.user?.is_verified_user == false){
+                toast.success("Your profile request is processing our team will contact you in 1-2 working days")
+            }
+            else{
+                toast.success("profile saved successfully")
+            }
             // setToastText("successfully updated");
             // setToastType(toastBodyTypes.success);
             // setShowToast(true)
@@ -147,11 +153,11 @@ const Profile = () => {
     },[userDetails])
 
     
-    useEffect(()=>{
-        if(userDetails?.user?.is_verified_user == false){
-            toast.success("Your profile request is processing our team will contact you in 1-2 working days")
-        }
-    },[userDetails])
+    // useEffect(()=>{
+    //     if(userDetails?.user?.is_verified_user == false){
+    //         toast.success("Your profile request is processing our team will contact you in 1-2 working days")
+    //     }
+    // },[userDetails])
 
     const removeBannerImage = async () => {
         setBannerImg("")

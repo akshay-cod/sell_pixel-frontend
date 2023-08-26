@@ -36,6 +36,7 @@ import PdfViewer from "../../../components/pdf-viewer/PdfViewer";
 import {BsPlayCircle} from "react-icons/bs";
 import { GreenBtn, Name, ProfileImage, PurchaseWrapper } from "../Profile/flexible.cards.styles";
 import Modal from "../../../components/common/modal/Modal";
+import VideoPlayer from "../../../players/VideoPlayer";
 
 const SinglePostView = ({setLoginVisible}) => {
   const imgurl = "https://source.unsplash.com/user/c_v_r/1000x100"
@@ -299,21 +300,23 @@ const onClickVideoPlayClose = (url) => {
                   {
                     singleFile?.type?.startsWith('video') ?  
                     (
-                      <div style={{ height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
+                      // <div style={{ height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
             
-                          <div style={{background:"black"}}>
-                                  <ReactPlayer
-                                  width="100%"
-                                  height="198px"
-                                  controls
-                                  config={{ file: { 
-                                      attributes: {
-                                        controlsList: 'nodownload'  //<- this is the important bit
-                                      }
-                                  }}}
-                                  url={singleFile?.url}/> 
-                          </div>
-                      </div>) :
+                      //     <div style={{background:"black"}}>
+                      //             <ReactPlayer
+                      //             width="100%"
+                      //             height="198px"
+                      //             controls
+                      //             config={{ file: { 
+                      //                 attributes: {
+                      //                   controlsList: 'nodownload'  //<- this is the important bit
+                      //                 }
+                      //             }}}
+                      //             url={singleFile?.url}/> 
+                      //     </div>
+                      // </div>
+                      <VideoPlayer url={singleFile.url}/>
+                      ) :
                       singleFile?.type?.startsWith("image/svg+xml") ?
                       (<ImageWrapper src={SVGIcon}/>) :
                       singleFile?.type?.startsWith("image") ?
@@ -391,6 +394,7 @@ const onClickVideoPlayClose = (url) => {
             </FileDetailsWrapper>
                 
     </FilesWrapper>
+
     {isViewerOpen && (
         <ImageViewer
           
@@ -421,10 +425,13 @@ const onClickVideoPlayClose = (url) => {
       {isVideoModal &&
         <FullScreenPlayerWrapper>
           <VideWrapper>
-          <div onClick={()=>{onClickVideoPlayClose()}} style={{position:"fixed",zIndex:200,right:20,top:10,cursor:"pointer"}}>
+          <div onClick={()=>{onClickVideoPlayClose()}} style={{position:"fixed",fontFamily:"GraphikSemiBold", zIndex:200,right:20,top:10,cursor:"pointer",
+          
+         
+          }}>
             X
           </div>
-         <ReactPlayer        
+         {/* <ReactPlayer        
          playing={false}
           width={isMobile ? 280 : 800}
           height={isMobile ? 158 : 450}
@@ -435,7 +442,8 @@ const onClickVideoPlayClose = (url) => {
                 controlsList: 'nodownload'  //<- this is the important bit
               }
           }}}
-          url={videoUrl}/> 
+          url={videoUrl}/>  */}
+          <VideoPlayer url={videoUrl}/>
           </VideWrapper>
           </FullScreenPlayerWrapper>
       }

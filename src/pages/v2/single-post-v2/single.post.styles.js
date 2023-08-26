@@ -281,10 +281,11 @@ export const VideWrapper = styled.div`
    transform:translate(-50%,-50%);
    left:50%;
    z-index:999;
+   width:60%;
    padding:20px;
    border-radius:10px;
    @media only screen and (max-width: 800px){
-  
+  width:80%;
    
 }
 `

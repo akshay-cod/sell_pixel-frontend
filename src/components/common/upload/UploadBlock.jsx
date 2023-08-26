@@ -73,7 +73,7 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
     if(loading) return;
     // Opening Document Picker to select one file
     try {
-      console.log(e.target.files[0].size/(1024*1024))
+      console.log(e.target.files[0])
       if(limit && e.target.files[0].size/(1024*1024) > limit){
         setLoading(false);
         toast.error("file should be less than "+ limit + "mb")
