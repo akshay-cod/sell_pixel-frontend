@@ -144,7 +144,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                // console.log(response,"res")
               if(response.status === "success"){
                 setPurchaseLoading(false)
-                navigate("/status/payment/success",{state:{link:"/"+params.user, type:"success", name:creator?.first_name + creator?.last_name + " "+  "profile"}})
+                navigate("/status/payment/success",{state:{link:"/"+params.user, type:"success", name:creator?.first_name + creator?.last_name}})
                
               }
               else{
