@@ -37,12 +37,14 @@ import {BsPlayCircle} from "react-icons/bs";
 import { GreenBtn, Name, ProfileImage, PurchaseWrapper } from "../Profile/flexible.cards.styles";
 import Modal from "../../../components/common/modal/Modal";
 import VideoPlayer from "../../../players/VideoPlayer";
+import { useRef } from "react";
 
 const SinglePostView = ({setLoginVisible}) => {
   const imgurl = "https://source.unsplash.com/user/c_v_r/1000x100"
   //const [currentImage, setCurrentImage] = useState(imgurl+1)
   const { EasebuzzCheckout } = useScript("https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js",  "EasebuzzCheckout")
-
+  
+  const grid = useRef(null);
   const params = useParams();
   const navigate = useNavigate();
   const UserRedux = useSelector(user);
@@ -110,7 +112,13 @@ useEffect(()=>{
   fetchPostDetails()
 },[UserRedux])
 
-
+useEffect(() => {
+  requestAnimationFrame(() => {
+    if (grid.current) {
+      grid.current.updateLayout();
+    }
+  });
+}, [grid]);
 
 useEffect(()=>{
   if(post?.is_purchased){
@@ -219,7 +227,7 @@ const onClickVideoPlayClose = (url) => {
         <StackHolder>
           {
           
-                <StackGrid columnWidth={isMobile ? "100%" : 200} monitorImagesLoaded={true}  gutterHeight={15} gutterWidth={15}>
+                <StackGrid gridRef={r => (grid.current = r)} columnWidth={isMobile ? "100%" : 200} monitorImagesLoaded={true}  gutterHeight={15} gutterWidth={15}>
                 {
                   post?.files?.length > 0 &&
                   post?.files.map((file,index)=>{

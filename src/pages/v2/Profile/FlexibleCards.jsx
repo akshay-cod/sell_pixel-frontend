@@ -27,8 +27,11 @@ import { removeACreation } from "../../../api/creations/creations-requests";
 import { TextInput } from "../../../components/withdraw/widthdraw.styles";
 import ShareCompo from "../../home/profile/share/ShareCompo";
 import {HiOutlineShare} from 'react-icons/hi';
+import { useRef } from "react";
 
 const FlexibleCards = ({setLoginVisible}) => {
+  
+    const grid = useRef(null);
     const params = useParams();
     const navigate = useNavigate();
     const cookies = new Cookies();
@@ -171,6 +174,14 @@ const FlexibleCards = ({setLoginVisible}) => {
       },[])
 
       useEffect(() => {
+        requestAnimationFrame(() => {
+          if (grid.current) {
+            grid.current.updateLayout();
+          }
+        });
+      }, [grid]);
+
+      useEffect(() => {
         window.addEventListener('scroll', onScroll)
         return () => window.removeEventListener('scroll', onScroll)
       }, [post])
@@ -307,7 +318,7 @@ const FlexibleCards = ({setLoginVisible}) => {
      
 
   const LoadingSkeleton = () =>  (
-    <StackGrid monitorImagesLoaded={true}  columnWidth={332} gutterWidth={15} gutterHeight={15}>
+    <StackGrid gridRef={r => (grid.current = r)} monitorImagesLoaded={true}  columnWidth={332} gutterWidth={15} gutterHeight={15}>
 
     {
     [1,2,3,6].map((creation,i)=>{
