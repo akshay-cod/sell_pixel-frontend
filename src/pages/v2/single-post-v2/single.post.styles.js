@@ -268,9 +268,10 @@ background:rgba(51, 51, 51,0.7);
  top:0;
  z-index:999;
  @media only screen and (max-width: 500px){
-  
-    min-height:105vh;
-    min-width:105vw;
+    padding-left: 2%;
+    padding-right: 2%;
+    min-height:106vh;
+    min-width:102vw;
 }
 `
 
@@ -285,7 +286,7 @@ export const VideWrapper = styled.div`
    padding:20px;
    border-radius:10px;
    @media only screen and (max-width: 800px){
-  width:80%;
-   
+    width:85%;
+    padding:8px;
 }
 `

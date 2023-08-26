@@ -16,7 +16,7 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
        return(<>
                   <video
                     id="my-player"
-                     className="video-js vjs-theme-sea"
+                     className="video-js vjs-theme-sea vjs-16-9"
                     controls
                     preload="auto"
                    

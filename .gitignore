@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .build
+.src/configs/urls/*
 # testing
 /coverage
 
