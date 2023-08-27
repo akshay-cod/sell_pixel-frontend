@@ -285,7 +285,19 @@ const onClickVideoPlayClose = (url) => {
                           : "null"
                         }
                       
-                       <FileName style={{cursor:"pointer"}} onClick={()=>{setSingleFile(file)}}>{file?.url?.split('/')[3]}</FileName>
+                       <FileName style={{cursor:"pointer"}} onClick={ async ()=>{
+                        setSingleFile({
+                          size: 330913,
+                          type: "image/png",
+                           url: "https://test-content-finscre.s3.ap-south-1.amazonaws.com/1693158019857.png"
+                        })
+                        setTimeout(()=>{
+                          setSingleFile(file)
+                        },200)
+                        console.log(file)
+                   
+                        
+                        }}>{file?.url?.split('/')[3]}</FileName>
                        <FileDateTime>{moment(post.createdAt).format("lll")}</FileDateTime>
                        </div>
                        
