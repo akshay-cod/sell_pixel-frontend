@@ -13,7 +13,7 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
         });
     },[])
     const script = useScript("https://unpkg.com/video.js@8.3.0/dist/video.min.js")
-       return(<>
+       return(<div>
                   <video
                     id="my-player"
                      className="video-js vjs-theme-sea vjs-16-9"
@@ -33,7 +33,7 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
                         >supports HTML5 video</a>
                     </p>
                 </video>
-        </>
+        </div>
     )
 }
 export default VideoPlayer;
