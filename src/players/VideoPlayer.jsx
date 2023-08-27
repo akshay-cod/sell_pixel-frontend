@@ -13,7 +13,7 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
         });
     },[])
     const script = useScript("https://unpkg.com/video.js@8.3.0/dist/video.min.js")
-       return(<div>
+       return(<div style={{width:width}}>
                   <video
                     id="my-player"
                      className="video-js vjs-theme-sea vjs-16-9"

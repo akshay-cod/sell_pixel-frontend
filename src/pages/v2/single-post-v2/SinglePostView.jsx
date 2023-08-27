@@ -245,7 +245,7 @@ const onClickVideoPlayClose = (url) => {
                           file.type.startsWith('video') ? 
                           <div style={{background:"black",marginBottom:30}}>
                           <ReactPlayer
-                      
+                          
                          playing={false}
                           width="100%"
                           height={isMobile ? "220px" : "120px"}
@@ -316,22 +316,7 @@ const onClickVideoPlayClose = (url) => {
                   {
                     singleFile?.type?.startsWith('video') ?  
                     (
-                      // <div style={{ height:200, background:"rgb(43, 43, 43)",padding:10,borderRadius:5}}>
-            
-                      //     <div style={{background:"black"}}>
-                      //             <ReactPlayer
-                      //             width="100%"
-                      //             height="198px"
-                      //             controls
-                      //             config={{ file: { 
-                      //                 attributes: {
-                      //                   controlsList: 'nodownload'  //<- this is the important bit
-                      //                 }
-                      //             }}}
-                      //             url={singleFile?.url}/> 
-                      //     </div>
-                      // </div>
-                      <VideoPlayer url={singleFile.url}/>
+                      <VideoPlayer url={singleFile.url}  width="100%"/>
                       ) :
                       singleFile?.type?.startsWith("image/svg+xml") ?
                       (<ImageWrapper src={SVGIcon}/>) :
@@ -459,7 +444,7 @@ const onClickVideoPlayClose = (url) => {
               }
           }}}
           url={videoUrl}/>  */}
-          <VideoPlayer url={videoUrl}/>
+          <VideoPlayer url={videoUrl}  width="100%"/>
           </VideWrapper>
           </FullScreenPlayerWrapper>
       }
