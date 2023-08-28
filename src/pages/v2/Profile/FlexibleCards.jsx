@@ -104,16 +104,18 @@ const FlexibleCards = ({setLoginVisible}) => {
             toast.error("sorry !! please visit, once we verify the creator")
             return;
           }
-          if(creator?.terms_and_condition?.status == true && acceptedTerms == false){
-            setTermsAndConditionModal(true)
-            return;
-          }
+          
           if(creator?.set_profile_price == false){
               if(fromDonate == false){
                 setDonateModal(true)
                 return;
               }
           }
+          if(creator?.terms_and_condition?.status == true && acceptedTerms == false){
+            setTermsAndConditionModal(true)
+            return;
+          }
+          
           if(creator?.set_profile_price == false){
             if(fromDonate == true){
               if(
