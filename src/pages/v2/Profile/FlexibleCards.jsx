@@ -19,7 +19,6 @@ import Modal from "../../../components/common/modal/Modal";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import { Label, SubmitBtn } from "../../creation/create.styles";
-import FullScreenLoader from "../../../components/common/loaders/FullScreenLoader";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 import { RiDeleteBin5Line, RiEdgeLine, RiEdit2Line } from "react-icons/ri"

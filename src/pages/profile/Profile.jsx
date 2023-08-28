@@ -83,7 +83,7 @@ const Profile = () => {
             isPurchasableProfile:`${purchasableToggle}`,
             bannerImage:banImg[0]?.url ? banImg[0]?.url : "",
             setProfilePrice:priceToggle,
-            price:price
+            price:priceToggle ? price : 0
         }
         if(userName !== userDetails.user?.user_name){
            dataTosend.userName = userName 
