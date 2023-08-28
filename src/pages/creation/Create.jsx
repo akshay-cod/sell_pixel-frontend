@@ -235,7 +235,7 @@ const Create = () => {
                                                     {data?.type.startsWith("video") &&
                                                          <div style={{width:"100%",height:340}}>
                                                             <span style={{padding:10,float:"right",cursor:"pointer"}} onClick={() => removeItFromList(index)}>X</span>
-                                                         <div style={{background:"black"}}>
+                                                         <div style={{background:"black",height:"100%"}}>
                                                                  <ReactPlayer
                                                                  
                                                                  width="100%"

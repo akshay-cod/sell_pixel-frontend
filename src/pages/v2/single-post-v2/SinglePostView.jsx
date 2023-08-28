@@ -1,19 +1,7 @@
 import {WrapperNonSticky, AbsluteImage,StackHolder, AbsoluteImageHolder, BannerHolder, BannerImage, DescFilePreview, DescTitle, Desctext, FileDateTime, FileDetailsWrapper, FileImage, FileName, FileSizeWrapper, FilesWrapper, ImageIcons, ImageWrapper, InfoHolder, InfoText, MainDesc, MainTitle, MainTitleWrapper, PreviewDescHolder, PreviewIconHolder, PreviewImageContainer, RowColowmnHolder, RowOne, RowTwo, SingleFileWrapper, Tag, TagWrapper, TitleFilePreview, VideWrapper, FullScreenPlayerWrapper } from "./single.post.styles";
-import StackGrid from "react-stack-grid";
-import PdfIcon from "../../../assets/icons/PDF.svg";
 import {PiDownloadFill} from "react-icons/pi";
 import {AiFillInfoCircle} from "react-icons/ai"
 import { PremiumIcon } from "../Profile/Banner/banner.profile.styles";
-import PreIcon from "../../../assets/icons/premium.svg"
-import DOCIcon from "../../../assets/icons/DOC.svg"
-import HTMLIcon from "../../../assets/icons/HTML.svg"
-import ZIPIcon from "../../../assets/icons/ZIP.svg"
-import CSVIcon from "../../../assets/icons/CSV.svg"
-import MP3Icon from "../../../assets/icons/MP3.svg";
-import SVGIcon from "../../../assets/icons/SVG.svg";
-import XSLIcon from "../../../assets/icons/XSL.svg"
-import UNKNOWNIcon from "../../../assets/icons/UNKNOWN.svg"
-import {PiArrowSquareLeftFill, PiArrowSquareRightFill} from "react-icons/pi";
 import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai"
 import { useState } from "react";
 import {isMobile} from "react-device-detect";
@@ -39,6 +27,7 @@ import Modal from "../../../components/common/modal/Modal";
 import VideoPlayer from "../../../players/VideoPlayer";
 import { useRef } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
 
 const SinglePostView = ({setLoginVisible}) => {
   const imgurl = "https://source.unsplash.com/user/c_v_r/1000x100"
@@ -205,7 +194,7 @@ const onClickVideoPlayClose = (url) => {
           
           <MainTitleWrapper>
           <TagWrapper style={{margin:0}}>
-          <Tag><PremiumIcon style={{width:14}} src={PreIcon}/> Content </Tag>
+          <Tag><PremiumIcon style={{width:14}} src={getDynamicFileUrl("icons/premium.svg")}/> Content </Tag>
           <div style={{fontSize:10,marginBottom:2,transform:"translate(10px,10px)"}}> Minted on {moment(post?.createdAt).format('lll')}</div>
           </TagWrapper>
           <MainTitle>
@@ -263,15 +252,15 @@ const onClickVideoPlayClose = (url) => {
                            <FileImage
                            onClick={()=>{if(file.type == "application/pdf")onPdfClick(file.url)}}
                            src={file.type == "application/pdf" ?
-                            PdfIcon : file.type.startsWith("audio") 
-                            ? MP3Icon : file.type.startsWith("text/csv") 
-                            ? CSVIcon : file.type.startsWith("application/x-zip-compressed") ?
-                             ZIPIcon : file.type.startsWith("text/html") ?
-                             HTMLIcon : file.type.startsWith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ?
-                             XSLIcon: UNKNOWNIcon}/> 
+                            getDynamicFileUrl("icons/PDF.svg") : file.type.startsWith("audio") 
+                            ? getDynamicFileUrl("icons/MP3.svg") : file.type.startsWith("text/csv") 
+                            ? getDynamicFileUrl("icons/CSV.svg") : file.type.startsWith("application/x-zip-compressed") ?
+                             getDynamicFileUrl("icons/ZIP.svg") : file.type.startsWith("text/html") ?
+                             getDynamicFileUrl("icons/HTML.svg") : file.type.startsWith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ?
+                             getDynamicFileUrl("icons/XSL.svg"): getDynamicFileUrl("icons/UNKNOWN.svg")}/> 
                           : file.type.startsWith("image") ? 
                           file.type.startsWith("image/svg+xml") ?
-                          <FileImage src={SVGIcon}/> 
+                          <FileImage src={getDynamicFileUrl("icons/SVG.svg")}/> 
                           :
                           <LazyImage
                           onClick={() => openImageViewer(index,file.url)}
@@ -331,7 +320,7 @@ const onClickVideoPlayClose = (url) => {
                       <VideoPlayer url={singleFile.url}  width="100%"/>
                       ) :
                       singleFile?.type?.startsWith("image/svg+xml") ?
-                      (<ImageWrapper src={SVGIcon}/>) :
+                      (<ImageWrapper src={getDynamicFileUrl("icons/SVG.svg")}/>) :
                       singleFile?.type?.startsWith("image") ?
                       (<LazyImage
                         onClick={() => openImageViewer("",singleFile.url)}
@@ -345,12 +334,12 @@ const onClickVideoPlayClose = (url) => {
                       :
                   <ImageWrapper
                    src={ singleFile?.type == "application/pdf" ?
-                            PdfIcon : singleFile?.type?.startsWith("audio") 
-                            ? MP3Icon : singleFile?.type?.startsWith("text/csv") 
-                            ? CSVIcon : singleFile?.type?.startsWith("application/x-zip-compressed") ?
-                             ZIPIcon : singleFile?.type?.startsWith("text/html") ?
-                             HTMLIcon : singleFile?.type?.startsWith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ?
-                             XSLIcon: UNKNOWNIcon}/> }
+                            getDynamicFileUrl("icons/PDF.svg") : singleFile?.type?.startsWith("audio") 
+                            ? getDynamicFileUrl("icons/MP3.svg") : singleFile?.type?.startsWith("text/csv") 
+                            ? getDynamicFileUrl("icons/CSV.svg") : singleFile?.type?.startsWith("application/x-zip-compressed") ?
+                             getDynamicFileUrl("icons/ZIP.svg") : singleFile?.type?.startsWith("text/html") ?
+                             getDynamicFileUrl("icons/HTML.svg") : singleFile?.type?.startsWith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ?
+                             getDynamicFileUrl("icons/XSL.svg"): getDynamicFileUrl("icons/UNKNOWN.svg")}/> }
               </PreviewImageContainer>
               <PreviewIconHolder>
               {!singleFile?.type?.startsWith("video") &&  <ImageIcons>

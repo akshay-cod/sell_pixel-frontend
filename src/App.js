@@ -10,20 +10,22 @@ import Layout from './HOC/Layout';
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-toastify/dist/ReactToastify.css';
 import Toastholder from './components/common/toast/Toastholder';
+import ScrollToTop from './HOC/ScrollToTop';
 function App() {
   const dispatch = useDispatch();
 
-  const [visible, setLoginVisible] = useState(false)
+  const [visible, setLoginVisible] = useState(false);
+  const [nameModal, setNameModal] = useState(false);
   useEffect(()=>{
     document.body.style.zoom = '95%';
     dispatch(checkUserLoggedIn())
   },[])
 
-  
 
   return (
    <Router>
-    <Layout visible={visible} setVisible={setLoginVisible}>
+     <ScrollToTop/>
+    <Layout visible={visible} setVisible={setLoginVisible} nameModal={nameModal} setNameModal={setNameModal}>
     <Routes>
     {
       allRoutes.map((route,index) => {
@@ -52,6 +54,7 @@ function App() {
     </Routes>
     </Layout>  
     <Toastholder/>
+    
    </Router>
   );
 }

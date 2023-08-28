@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Toastholder from "../../components/common/toast/Toastholder";
 import SimpleLoader from "../../components/common/loaders/SimpleLoader";
 import SwitchButton from "../../components/common/switchButton/SwitchButton";
-
+import { BsTelephone } from "react-icons/bs"
 import { isValidEmail, isnoSpecialCharAndSpace } from "../../helpers/validations";
 import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 const validationSchema =  {
@@ -64,6 +64,8 @@ const Profile = () => {
     const [banImg, setBannerImg] = useState("")
     const [profilePicture, setProfilePicture] = useState([]);
     const [price, setPrice] = useState(0)
+
+    const [phoneNumber, setPhoneNumber] = useState("")
 
     const [click,setClick] = useState(false);
     const onSubmit = async () => {
@@ -149,6 +151,7 @@ const Profile = () => {
             setBannerImg(userDetails?.user?.banner_image ? [{url:userDetails?.user?.banner_image}] : "")
             setPriceToggle(userDetails?.user?.set_profile_price)
             setPrice(userDetails?.user?.price)
+            setPhoneNumber(userDetails?.user?.phone_number)
         }
     },[userDetails])
 
@@ -172,6 +175,11 @@ const Profile = () => {
     return(
         <>
         <ProfileWrapper>
+            <div style={{textAlign:"center",marginBottom:15, display:"flex", justifyContent:"center"}}>
+                <div style={{width:200,background:"rgb(43, 43, 43)", padding:8, borderRadius:10}}>
+                <BsTelephone style={{transform:"translate(0px,2px)"}}/>  {phoneNumber}
+                </div>
+            </div>
             <ProfileImageWrapper onClick={()=>{
                 if(!fileLoading){  setClick(true)}}
               

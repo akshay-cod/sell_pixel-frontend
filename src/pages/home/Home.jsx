@@ -1,14 +1,7 @@
 import { useSelector } from "react-redux";
-import { Header, Footer } from "../../components";
-import GameListCard from "../../components/game-list-card/GameListCard";
 import { colors } from "../../configs/theme/color";
-import Catogary from "./catogory-lists/Catogary";
-import GameList from "./game-list/GameList";
-import InlineBanners from "./in-line-banners/InlineBanners";
-import { selectCount } from "../../store/feature/sample";
 import Modal from "../../components/common/modal/Modal";
 import { useEffect, useState } from "react";
-import Login from "./login/Login";
 import BannerWithImage from "./profile/BannerWithImage";
 import Posts from "./post/Posts";
 import { user } from "../../store/feature/auth";
@@ -26,7 +19,6 @@ import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
 import { isMobile } from "react-device-detect";
 import { BsFillEyeFill } from "react-icons/bs";
-import { AiFillBackward } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 
 

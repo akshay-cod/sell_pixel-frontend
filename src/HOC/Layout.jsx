@@ -4,8 +4,9 @@ import { useEffect, useState } from "react"
 import { Footer, Header } from "../components"
 import Modal from "../components/common/modal/Modal"
 import Login from "../pages/home/login/Login"
+import NameInputModal from "../pages/home/nameInput/NameInputModal"
 
-const Layout = ({visible,setVisible, children}) => {
+const Layout = ({visible,setVisible, children, nameModal, setNameModal}) => {
     const userDetails = useSelector(user)
     
     useEffect(()=>{
@@ -17,6 +18,12 @@ const Layout = ({visible,setVisible, children}) => {
           setVisible(false)
         }
       },[userDetails])
+
+      useEffect(()=>{
+        if( userDetails.auth && !userDetails?.user?.first_name){
+          setNameModal(true)
+        }
+      },[userDetails])
     return(
         <>
         <Header setVisible={setVisible}/>
@@ -25,6 +32,7 @@ const Layout = ({visible,setVisible, children}) => {
         }
         <Footer/>
         <Modal isVisible={visible} setVisible={setVisible} component={<Login setVisible={setVisible}/>} auth={userDetails?.auth}/>
+        <Modal isVisible={nameModal} setVisible={setNameModal} component={<NameInputModal setModal={setNameModal}/>} auth={false}/>
         </>
     )
 }

@@ -1,9 +1,8 @@
 
-import { colorsV2 } from "../../../../configs/theme/color";
+
 import { AvatarHolder, AvatorContainer, BannerWrapper, BioHeading, BioWrapper, ButtonWrapper, DesName, DescText, HeadingWrapper, ImageAvatar, Name, PremiumIcon, Seperator, TextHeading, TextNameHolder } from "./banner.profile.styles";
 import VerifiedIcon from "../../../../assets/icons/verified.svg"
 import PreIcon from "../../../../assets/icons/premium.svg"
-import OverView from "../overview/OverView";
 import { BsInstagram, BsFacebook, BsYoutube, BsDiscord, BsGlobe, BsTwitter} from "react-icons/bs";
 import LazyImage from "../../../../components/lazy-image/LazyImage";
 import { getDynamicFileUrl } from "../../../../helpers/get-dynamic-file-url";

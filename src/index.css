@@ -3,19 +3,19 @@
 
 @font-face {
   font-family: "GraphikRegular";
-  src: url("./assets/fonts/GraphikRegular.otf") format("opentype");
+  src: url("https://assets-of-website.s3.ap-south-1.amazonaws.com/fonts/GraphikRegular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "GraphikSemiBold";
-  src: url("./assets/fonts/GraphikSemibold.otf") format("opentype");
+  src: url("https://assets-of-website.s3.ap-south-1.amazonaws.com/fonts/GraphikSemibold.otf") format("opentype");
   font-weight: 600;
 }
 
 @font-face {
   font-family: "GraphikBold";
-  src: url("./assets/fonts/GraphikBold.otf") format("opentype");
+  src: url("https://assets-of-website.s3.ap-south-1.amazonaws.com/fonts/GraphikBold.otf") format("opentype");
   font-weight: 800;
 }
 
