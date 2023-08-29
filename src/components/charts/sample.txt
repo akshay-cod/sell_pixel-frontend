@@ -1,0 +1,86 @@
+
+import { ThemeProvider, createTheme } from '@mui/material';
+import { colorsV2 } from "../../configs/theme/color";
+import { LineChart, Line, ChartsXAxis, ChartsYAxis } from '@mui/x-charts';
+
+const data = [
+  { month: 'January', value: 12 },
+  { month: 'February', value: 19 },
+  { month: 'March', value: 3 },
+  { month: 'April', value: 5 },
+  // Add data for other months
+];
+const CustomLineChart = () => {
+  const theme = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#22222'
+      },
+      secondary: {
+        main: '#22222'
+      },
+     
+    },
+    typography: {
+        fontFamily:"GraphikRegular",
+      }
+  });
+    return(
+      <ThemeProvider theme={theme}>
+      
+<LineChart height={300}
+tickNumber={12}
+xAxis={[{ data: [1,2,3,4,5,6,7,8,9,10,11,16] }]}
+series={[
+    {
+    data: [1,2,3,4,5,6,7,8,9,10,11,12],
+    }
+]} 
+sx={{
+  '& .MuiChartsAxis-line':{
+    stroke:colorsV2.text.placeholder,
+    display:"none"
+  },
+  '& .MuiChartsAxis-root':{
+    stroke:colorsV2.text.placeholder,
+    
+  },
+  "& .MuiChartsAxis-tickLabel":{
+    fontSize:8
+  }
+  ,
+  '& .MuiChartsAxis-tick':{
+    stroke:colorsV2.text.placeholder,
+    display:"none"
+  },
+  '& .MuiLineElement-root': {
+    strokeWidth: 2,
+    stroke:"rgb(66, 184, 126)"
+  },
+  '& .MuiMarkElement-root': {
+    display:"none"
+  },
+  '& .MuiAreaElement-series-Germany': {
+    color: "pink",
+  },
+}}    
+>
+        
+       {/* <ChartsXAxis dataKey="month" tickNumber={12} />   */}
+        {/* <ChartsYAxis /> */}
+        {/* <Line type="monotone" dataKey="value" stroke="#8884d8" /> */}
+      </LineChart>
+</ThemeProvider>
+    )
+}
+
+export default CustomLineChart;
+
+{/* <LineChart
+xAxis={[{ data: [1,2,3,4,5,6,7,8,9,10,11,12] }]}
+series={[
+    {
+    data: [1,2,3,4,5,6,7,8,9,10,11,1322],
+    }
+]} */}

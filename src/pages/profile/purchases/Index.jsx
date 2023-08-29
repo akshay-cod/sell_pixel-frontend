@@ -4,7 +4,7 @@ import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai"
 import Sellings from "./Sellings.jsx";
 import Withdrawals from "./Withdrawals.jsx";
 
-const Index = () => {
+const Index = ({margin}) => {
 
     const [title, setTitle] = useState("Purchases")
 
@@ -34,7 +34,9 @@ const Index = () => {
 
     return(
         <>
-            <div style={{textAlign:"center",margin:"20px 10px 10px 10px",fontSize:20, fontWeight:"bold"}}>
+            <div style={{textAlign:"center",margin:"20px 10px 10px 10px",fontSize:20, 
+            fontWeight:"bold",position:"sticky",top:0,background: "#222222",
+            padding: 10}}>
               <AiFillCaretLeft
               style={{marginRight:20}}
                 onClick={onLeftArrowClick}
@@ -43,9 +45,12 @@ const Index = () => {
                 onClick={onRightArrowClick}
               />
             </div>
-              {
-                title == "Purchases" ? <Purchases /> : title == "Withdrawal" ? <Withdrawals/>: <Sellings/>
+            <div>
+            {
+                title == "Purchases" ? <Purchases margin={margin}/> : title == "Withdrawal" ? <Withdrawals margin={margin}/>: <Sellings margin={margin}/>
               }  
+            </div>
+             
         </>
     )
 }

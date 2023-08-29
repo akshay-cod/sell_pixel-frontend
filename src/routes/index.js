@@ -3,7 +3,7 @@ import { PrivateRoutes } from "./Private";
 import { SemiRoutes } from "./SemiPublic";
 
 export const allRoutes = [
-  //  ...PublicRoutes,
+    ...PublicRoutes,
     ...PrivateRoutes,
     ...SemiRoutes
 ]

@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { getAnUserPurchases, getAnUserPurchasesPaginated } from "../../../api/auth/auth-request";
-import { PriceContainer, ButtonWrapper, TitleContainer, TitlePriceWrapper,CardWrapper, CreatorPurchaseTimeWrapper, PurchasesWrapper, CreatorName, TimeWrapper, PreviwBtn, LoadMoreWrapper, LoadMoreBtn } from "./purchases.styles";
-
+import { PriceContainer, ButtonWrapper, TitleContainer, TitlePriceWrapper,CardWrapper, CreatorPurchaseTimeWrapper, PurchasesWrapper, CreatorName, TimeWrapper, PreviwBtn, LoadMoreWrapper, LoadMoreBtn, StatusImageWrapper, TextWrap, CardLeftWrapper, CardRightWrapper, ImageStatus, PurchasedItemTitle, PurchasedItemTime, PriceHolder } from "./purchases.styles";
+import {MdWorkspacePremium} from "react-icons/md";
 import { useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-
-const Purchases = ({heading}) => {
+import { priceFormat } from "../../../helpers/formatting";
+import {LiaSuperpowers} from 'react-icons/lia'
+const Purchases = ({margin}) => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState(0);
     const [haseMore, setHasMore] = useState(true);
@@ -47,7 +48,8 @@ const Purchases = ({heading}) => {
     }
 
     const navigateToProfile = (id) => {
-        navigate(`/${id}`)
+        window.open( 
+            `/${id}`, "_blank"); 
     }
 
     const onLoadMore = () => {
@@ -56,17 +58,17 @@ const Purchases = ({heading}) => {
 
       if(loading){
         return(
-            <PurchasesWrapper>
+            <PurchasesWrapper margin={margin}>
             <SkeletonTheme baseColor="#202020" highlightColor="#444">  
-            <Skeleton  height={160} width={"100%"} borderRadius={10}/>
-            <Skeleton  height={160} width={"100%"} borderRadius={10} style={{margin:"15px 0px"}}/>
-            <Skeleton  height={160} width={"100%"} borderRadius={10}/>
+            <Skeleton  height={80} width={"100%"} borderRadius={10}/>
+            <Skeleton  height={80} width={"100%"} borderRadius={10} style={{margin:"15px 0px"}}/>
+            <Skeleton  height={80} width={"100%"} borderRadius={10}/>
             </SkeletonTheme>
             </PurchasesWrapper>
         )
       }
     return(
-        <PurchasesWrapper>
+        <PurchasesWrapper margin={margin}>
            {
             !loading && purchases.length == 0 ?
             <div style={{textAlign:"center"}}>
@@ -76,8 +78,39 @@ const Purchases = ({heading}) => {
             {!loading &&
                 purchases.length > 0 && purchases.map((item,index)=>{
                     return(
-                        <CardWrapper>
-                        <TitlePriceWrapper>
+                        <CardWrapper onClick={()=>{
+                            if(item.product){
+                                navigateToProfile(`creations/${item?.product?._id}`)
+                            }
+                            else{
+                                navigateToProfile(item?.profile?._id)
+                            }
+                            }}>
+                            <CardLeftWrapper>
+                                  <StatusImageWrapper>
+                                     <ImageStatus>
+                                        {
+                                            item.product ? <LiaSuperpowers fontSize={25}/> :  <MdWorkspacePremium fontSize={25}/>
+                                        }
+                                      
+                                     </ImageStatus>
+                                     <TextWrap>
+                                     {
+                                           item.product ?  <PurchasedItemTitle>{ `${item?.product?.title}`}</PurchasedItemTitle>
+                                             : <PurchasedItemTitle>{ `Profile of ${item?.profile?.first_name || item?.profile?.user_name}`}</PurchasedItemTitle>
+                                     }
+                                        <PurchasedItemTime>
+                                        {moment(item?.createdAt).format('LLL')}
+                                        </PurchasedItemTime>
+                                     </TextWrap>
+                                  </StatusImageWrapper>
+                            </CardLeftWrapper>
+                            <CardRightWrapper>
+                                    <PriceHolder>
+                                        {priceFormat(item?.price)}
+                                    </PriceHolder>
+                            </CardRightWrapper>
+                        {/* <TitlePriceWrapper>
                             {
                                 item.product ?  <TitleContainer>{ `${item?.product?.title}`}</TitleContainer>
                                 : <TitleContainer>{ `Profile of ${item?.profile?.first_name || item?.profile?.user_name}`}</TitleContainer>
@@ -98,8 +131,8 @@ const Purchases = ({heading}) => {
                                 <TimeWrapper>
                                     {moment(item?.createdAt).format('LLL')}
                                 </TimeWrapper>
-                         </CreatorPurchaseTimeWrapper>  
-                         <ButtonWrapper>
+                         </CreatorPurchaseTimeWrapper>   */}
+                         {/* <ButtonWrapper>
                             <PreviwBtn onClick={()=>{
                                 if(item.product){
                                     navigateToProfile(`creations/${item?.product?._id}`)
@@ -112,7 +145,7 @@ const Purchases = ({heading}) => {
                                 >
                                {item.product ? "view creation" : "View User"}  
                             </PreviwBtn>
-                         </ButtonWrapper>
+                         </ButtonWrapper> */}
                     </CardWrapper>
                     )
                 })

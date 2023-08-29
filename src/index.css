@@ -51,3 +51,16 @@ body::-webkit-scrollbar-thumb {
   border-radius: 20px;       /* roundness of the scroll thumb */
     /* creates padding around scroll thumb */
 }
+
+.customScroll::-webkit-scrollbar {
+  width: 4px;               /* width of the entire scrollbar */
+}
+
+.customScroll::-webkit-scrollbar-track {
+  background: rgb(59, 59, 59);        /* color of the tracking area */
+}
+.customScroll::-webkit-scrollbar-thumb {
+  background-color: rgb(43, 43, 43) ;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+    /* creates padding around scroll thumb */
+}

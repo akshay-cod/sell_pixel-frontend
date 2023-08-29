@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { colorsV2 } from "../../../configs/theme/color";
+import { typography } from "../../../configs/theme/typography";
 
 export const PurchasesWrapper = styled.div`
 display:flex;
 justify-content:flex-start;
-margin:20px 30%;
+margin:${(props)=> props.margin ? props.margin : "20px 30%"};
 flex-direction:column;
 @media (max-width: 700px) {
   margin:10%
@@ -16,15 +18,71 @@ min-height:80vh;
 
 
 export const CardWrapper = styled.div`
-  border-radius:10px;
-  padding:34px;
-  background:rgb(43, 43, 43);
-  margin-bottom:15px;
+border-radius:10px;
+padding:14px;
+margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+align-items: center;
+&:hover{
+  background:${colorsV2.block.dark};
+}
 `
+
+export const CardLeftWrapper = styled.div``
+
+export const CardRightWrapper = styled.div``
+
+export const StatusImageWrapper = styled.div`
+display:flex;
+align-items:center;
+`
+export const PurchasedItemTitle = styled.div`
+font-size:${typography.title.fxs.fontSize}px;
+margin-bottom:6px;
+`
+
+export const PurchasedItemTime = styled.div`
+font-size:${typography.sub.fxs.fontSize}px;
+color:${colorsV2.text.placeholder};
+`
+
+export const ImageStatus = styled.div`
+padding:10px;
+border:1px solid ${colorsV2.text.placeholder};
+border-radius:10px;
+margin-right:10px;
+`
+
+export const TextWrap = styled.div``
+
+export const PriceHolder = styled.div`
+font-size:${typography.title.fs.fontSize}px;
+font-family:GraphikSemiBold;
+`
+
 
 export const TitlePriceWrapper = styled.div`
  display:flex;
  justify-content:space-between;
+`
+export const StatusSuccess = styled.div`
+font-size:14px;
+margin-top:4px;
+border:1px solid green;
+padding:6px;
+text-align:center;
+border-radius:10px;
+`
+
+export const StatusProcessing = styled.div`
+font-size:14px;
+margin-top:4px;
+border:1px solid orange;
+padding:6px;
+text-align:center;
+border-radius:10px;
 `
 
 export const TitleContainer = styled.div`
