@@ -79,7 +79,6 @@ margin-left:20px;
 export const CardWithDrawalWrapper = styled.div`
 background:${colorsV2.block.medium};
 border-radius:10px;
-height:200px;
 width:100%;
 `
 export const ListingTransactions = styled.div`

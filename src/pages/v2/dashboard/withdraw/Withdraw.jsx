@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { raiseAwithdrawRequest } from "../../../../api/withdraw/withdraw-request";
-import { ButtonWithDraw, Label, TextInput, WithDrawWrapper } from "./withdraw.styles";
+import { ButtonWithDraw, ButtonsHolder, Label, TextInput, WithDrawWrapper } from "./withdraw.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserLoggedIn, user } from "../../../../store/feature/auth";
 import { useState } from "react";
@@ -138,14 +138,14 @@ const WithDrawUi = ({openBankModal, openWithDrawModal}) =>{
                                }
                             ]}
                               />:""}</div>
-   <div style={{display:"flex"}}>
+   <ButtonsHolder >
    <ButtonWithDraw style={{flexBasis:"48%"}} onClick={()=>{withDrawCheck()}}>
         Withdraw Money
     </ButtonWithDraw>
     <ButtonWithDraw  onClick={()=>{openBankModal()}} style={{background:"rgb(66, 184, 126)",flexBasis:"48%"}}>
         Add Bank Details
     </ButtonWithDraw>
-   </div>
+   </ButtonsHolder>
    
  </WithDrawWrapper>
     )

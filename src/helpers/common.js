@@ -55,3 +55,7 @@ export const generateVideoThumbnail = (file) => {
         return 'Good Evening'
         }
   }
+
+  export const capitalizeFirstLetter =(string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

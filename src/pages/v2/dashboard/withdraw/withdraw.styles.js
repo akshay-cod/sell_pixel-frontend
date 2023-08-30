@@ -9,6 +9,13 @@ export const WithDrawWrapper = styled.div`
     
 `;
 
+export const ButtonsHolder = styled.div`
+display:flex;
+@media (max-width: 700px) {
+	flex-direction:column;
+  }
+`
+
 export const ButtonWithDraw = styled.div`
 cursor:pointer;
  background:hsl(43.09deg 100% 64.51%);

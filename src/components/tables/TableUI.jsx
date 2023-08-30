@@ -2,6 +2,8 @@ import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { colorsV2 } from '../../configs/theme/color';
+import moment from 'moment';
+import { capitalizeFirstLetter } from '../../helpers/common';
 
 
 
@@ -38,6 +40,10 @@ const TableUI = ({sellingsData}) => {
             header: 'Email',
           },
           {
+            accessorKey: 'type', 
+            header: 'Type',
+          },
+          {
            // accessorFn: (row) => row.price, //alternate way
             //id: 'price', //id required if you use accessorFn instead of accessorKey
             accessorKey: 'price',
@@ -49,12 +55,20 @@ const TableUI = ({sellingsData}) => {
             header: 'Commission Amount',
           },
           {
+            accessorKey: 'earnings', 
+            header: 'Earned Amount',
+          },
+          {
             accessorKey: 'transaction_id', 
             header: 'Transaction Id',
           },
           {
-            accessorKey: 'type', 
-            header: 'Type',
+            accessorKey: 'mode_of_payment', 
+            header: 'Mode Of Payment',
+          },
+          {
+            accessorKey: 'date', 
+            header: 'Date',
           }
         ],
         [sellingsData],
@@ -63,13 +77,16 @@ const TableUI = ({sellingsData}) => {
       const rowData = useMemo(()=>{
         const newData = sellingsData?.map((row)=>{
           return {
-            name:row?.purchased_user?.first_name ? row?.purchased_user?.first_name : "unknown",
+            name:row?.purchased_user?.first_name ? capitalizeFirstLetter(row?.purchased_user?.first_name) : "unknown",
             price:row.price,
             number:row?.purchased_user?.phone_number,
             email:row?.purchased_user?.email ? row?.purchased_user?.email : "not found",
             commision_amount:row?.commisson?.commission_share,
             transaction_id:row?.purchase_history?.transaction_history[0]?.bank_ref_num,
-            type:row?.profile ? "profile" : "creations"
+            type:row?.profile ? "profile" : "creations",
+            earnings:row?.commisson?.user_wallet_share,
+            date:moment(row?.createdAt).format('lll'),
+            mode_of_payment:row?.purchase_history?.transaction_history[0]?.mode
           }
         }) || []
         return newData
