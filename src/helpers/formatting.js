@@ -1,3 +1,3 @@
 export const priceFormat = (price) => {
-   return "₹"+parseFloat(price).toLocaleString()
+   return "₹"+parseFloat(price)?.toLocaleString()
 }

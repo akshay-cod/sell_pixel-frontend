@@ -12,6 +12,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import { priceFormat } from '../../helpers/formatting';
 import { isMobile } from 'react-device-detect';
+import { useMemo } from 'react';
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +37,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Sellings over-view',
+      text: 'overview',
     },
     tooltip: {
       enabled: true, // Enable tooltips
@@ -53,34 +54,85 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'sellings',
-      data: [1,33,44,555,666,777,777,77],
-      borderColor: 'rgb(66, 184, 126)',
-      backgroundColor: 'rgb(66, 184, 126)',
-      tension: 0.4,
-      pointRadius: 0
-    },
-    {
-      label: 'purchases',
-      data: [21,323,424,555,666,222,777,77],
-      borderColor: 'rgb(193, 127, 209)',
-      backgroundColor: 'rgb(193, 127, 209)',
-      tension: 0.4,
-      pointRadius: 0
-    }
-  ],
-};
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 
 
-const CustomLineChart = () => {
+
+
+const CustomLineChart = (
+  {
+    sellingsData, purchaseData
+  }
+) => {
  
+  const seriesSellings = useMemo(()=>{
+  let dates = sellingsData?.length > 0 ?  Object.values(sellingsData?.reduce((r, o) => {
+      const date = `${o.createdAt.substr(0,7)}-01`;
+      r[date] ||= {[date]: []};
+      r[date][date].push(o);
+      return r;
+    }, [])) : []
+
+       const sellingsSeries = dates?.length > 0 ? dates?.map((d)=>{
+      let result = d[Object.keys(d)[0]]?.reduce(function(sum, current) {
+          return sum + current.price;
+        }, 0);
+        let final = {
+          data:result,
+          key:Object.keys(d)[0]
+        }
+        return final
+      }) : []
+      const sorted = sellingsSeries?.sort(function (a, b) {
+        var dateA = new Date(a.key), dateB = new Date(b.key)
+        return dateA - dateB
+      });
+      console.log(sorted)
+
+      let series = [0,0,0,0,0,0,0,0,0,0,0,0]
+      let month = (new Date()).getMonth()+1
+      series =  series.splice(0, month);
+      sorted.map((data)=>{
+        let month = parseInt(data.key.slice(5,7))
+        series[month] = data.data
+      })
+     return series
+  },[sellingsData])
+
+  const seriesPurchases = useMemo(()=>{
+    let dates = purchaseData?.length > 0 ?  Object.values(purchaseData?.reduce((r, o) => {
+        const date = `${o.createdAt.substr(0,7)}-01`;
+        r[date] ||= {[date]: []};
+        r[date][date].push(o);
+        return r;
+      }, [])) : []
+  
+         const purchasesSeries = dates?.length > 0 ? dates?.map((d)=>{
+        let result = d[Object.keys(d)[0]]?.reduce(function(sum, current) {
+            return sum + current.price;
+          }, 0);
+          let final = {
+            data:result,
+            key:Object.keys(d)[0]
+          }
+          return final
+        }) : []
+        const sorted = purchasesSeries?.sort(function (a, b) {
+          var dateA = new Date(a.key), dateB = new Date(b.key)
+          return dateA - dateB
+        });
+  
+        let series = [0,0,0,0,0,0,0,0,0,0,0,0]
+        let month = (new Date()).getMonth()+1
+        series =  series.splice(0, month);
+        sorted.map((data)=>{
+          let month = parseInt(data.key.slice(5,7))
+          series[month] = data.data
+        })
+       return series
+    },[purchaseData])
+
   const props = {
     
   }
@@ -89,6 +141,28 @@ const CustomLineChart = () => {
     props.height = "300px";
     props.width = "250px";
   }
+
+ const data = {
+    labels,
+    datasets: [
+      {
+        label: 'sellings',
+        data: seriesSellings,
+        borderColor: 'rgb(66, 184, 126)',
+        backgroundColor: 'rgb(66, 184, 126)',
+        tension: 0.4,
+        pointRadius: 0
+      },
+      {
+        label: 'purchases',
+        data: seriesPurchases,
+        borderColor: 'rgb(193, 127, 209)',
+        backgroundColor: 'rgb(193, 127, 209)',
+        tension: 0.4,
+        pointRadius: 0
+      }
+    ],
+  };
 
   return <Line {...props}  options={options} data={data} />;
 }

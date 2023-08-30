@@ -61,3 +61,7 @@ export const SOLD = "user/sold"
 export const WITHDRAW = "withdrawal/raise";
 
 export const WITHDRAW_LIST = "withdrawal"
+
+//dashboard
+
+export const DASHBOARD = "dashboard";

@@ -34,7 +34,7 @@ const Header = ({setVisible}) => {
     const onClick = () => setIsActive(!isActive);
 
     const navigateToPurchses = () => {
-      navigate('profile/purchases');
+      navigate('user/dashboard');
       setIsActive(false)
     }
 
@@ -108,9 +108,9 @@ const Header = ({setVisible}) => {
                     <a >Dashboard</a>
                   </li>
 
-                  <li onClick={navigateToWallet}>
+                  {/* <li onClick={navigateToWallet}>
                     <a >Wallet</a>
-                  </li>
+                  </li> */}
                  
                   <li onClick={logOutUser}>
                     <a href="#">

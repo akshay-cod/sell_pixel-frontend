@@ -92,3 +92,9 @@ min-height:350px;
 height:810px;
 overflow-y:scroll;
 `
+export const TableHolder = styled.div`
+width:60vw;
+@media (max-width: 700px) {
+	width:83vw;
+  }
+`

@@ -3,74 +3,9 @@ import { MaterialReactTable } from 'material-react-table';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { colorsV2 } from '../../configs/theme/color';
 
-const data = [
-    {
-      name: 'John',
-      age: 30,
-    },
-    {
-      name: 'Sara',
-      age: 25,
-    },
-    {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-      {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-      {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-      {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-      {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-      {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-      {
-        name: 'John',
-        age: 30,
-      },
-      {
-        name: 'Sara',
-        age: 25,
-      },
-  ]
 
-const TableUI = () => {
+
+const TableUI = ({sellingsData}) => {
     const theme = createTheme({
         palette: {
           mode: 'dark',
@@ -92,17 +27,53 @@ const TableUI = () => {
             accessorKey: 'name', //simple recommended way to define a column
             header: 'Name',
             // muiTableHeadCellProps: { sx: { color: 'green' } }, //optional custom props
-            Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+           // Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
           },
           {
-            accessorFn: (row) => row.age, //alternate way
-            id: 'age', //id required if you use accessorFn instead of accessorKey
-            header: 'Age',
-            Header: () => <i>Age</i>, //optional custom header render
+            accessorKey: 'number', 
+            header: 'Number',
           },
+          {
+            accessorKey: 'email', 
+            header: 'Email',
+          },
+          {
+           // accessorFn: (row) => row.price, //alternate way
+            //id: 'price', //id required if you use accessorFn instead of accessorKey
+            accessorKey: 'price',
+            header: 'Price',
+          //  Header: () => <i>price</i>, //optional custom header render
+          },
+          {
+            accessorKey: 'commision_amount', 
+            header: 'Commission Amount',
+          },
+          {
+            accessorKey: 'transaction_id', 
+            header: 'Transaction Id',
+          },
+          {
+            accessorKey: 'type', 
+            header: 'Type',
+          }
         ],
-        [],
+        [sellingsData],
       );
+
+      const rowData = useMemo(()=>{
+        const newData = sellingsData?.map((row)=>{
+          return {
+            name:row?.purchased_user?.first_name ? row?.purchased_user?.first_name : "unknown",
+            price:row.price,
+            number:row?.purchased_user?.phone_number,
+            email:row?.purchased_user?.email ? row?.purchased_user?.email : "not found",
+            commision_amount:row?.commisson?.commission_share,
+            transaction_id:row?.purchase_history?.transaction_history[0]?.bank_ref_num,
+            type:row?.profile ? "profile" : "creations"
+          }
+        }) || []
+        return newData
+      },[sellingsData])
     
       //optionally, you can manage any/all of the table state yourself
       const [rowSelection, setRowSelection] = useState({});
@@ -121,6 +92,7 @@ const TableUI = () => {
       return (
         <ThemeProvider theme={theme}>
         <MaterialReactTable
+           
            enableToolbarInternalActions={true}
            enableColumnActions={false}
            enableColumnResizing={true}
@@ -169,7 +141,7 @@ const TableUI = () => {
               }
           }
           columns={columns} 
-          data={data} 
+          data={rowData} 
           //enableColumnOrdering //enable some features
          // enableRowSelection 
          initialState={{ pagination: { pageSize: 5, pageIndex: 0 } }}
@@ -179,12 +151,12 @@ const TableUI = () => {
         showFirstButton: false,
         showLastButton: false,
         SelectProps: { native: true },
-        labelRowsPerPage: 'Number of rows visible',
+        labelRowsPerPage: 'data per page',
         }}
           enablePagination={true} //disable a default feature
          // onRowSelectionChange={setRowSelection} //hoist internal state to your own state (optional)
         //  state={{ rowSelection }} //manage your own state, pass it back to the table (optional)
-          tableInstanceRef={tableInstanceRef} //get a reference to the underlying table instance (optional)
+          //tableInstanceRef={tableInstanceRef} //get a reference to the underlying table instance (optional)
         />
         </ThemeProvider>
       );

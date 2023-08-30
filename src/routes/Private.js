@@ -6,6 +6,7 @@ import Profile from "../pages/profile/Profile"
 import Index from "../pages/profile/purchases/Index"
 import PaymentStaus from "../pages/payment/PaymentStaus.jsx"
 import Wallet from "../pages/wallet/Wallet"
+import Dashboard from "../pages/v2/dashboard/Dashboard"
 
 const config = {
     type:routeTypes.PRIVATE
@@ -31,8 +32,8 @@ export const PrivateRoutes = [
         ...config
     },
     {
-        path:"/profile/purchases",
-        component:Index,
+        path:"/user/dashboard",
+        component:Dashboard,
         order:5,
         ...config
     },

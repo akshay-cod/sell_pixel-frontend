@@ -4,14 +4,31 @@ import { ButtonWithDraw, Label, TextInput, WithDrawWrapper } from "./withdraw.st
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserLoggedIn, user } from "../../../../store/feature/auth";
 import { useState } from "react";
+import Select  from "react-select";
+import { getKycDetails } from "../../../../api/kyc/kyc-requests";
+import { useEffect } from "react";
+import { getBankDetails } from "../../../../api/bank/bank-requests";
 
-const WithDrawUi = () =>{
+const WithDrawUi = ({openBankModal, openWithDrawModal}) =>{
     const [withdrawalLoading, setWithdrawalLoading] = useState(false);
     const [bankDetails, setBankDetails] = useState("")
     const [selectedOption, setSelectedOption] = useState({value: 'bank', label: 'bank'});
     const [amount, setAmount] = useState("")
+    
     const dispatch = useDispatch()
+    const [loading, setLoading] = useState(true);
     const userFromRedux = useSelector(user)
+
+    const withDrawCheck = () => {
+        if(!userFromRedux?.user?.is_verified_user){
+            openWithDrawModal()
+            toast.error("Withdrawal process starts after Finscre approves. Please contact support@finscre.com for assistance")
+            return;
+        }
+        else{
+            submitWithdrawRequest()
+        }
+    }
 
     const submitWithdrawRequest = async () => {
         if(withdrawalLoading) return;
@@ -42,6 +59,33 @@ const WithDrawUi = () =>{
         
     }
 
+    const handleSelect = (selectedOption) => {
+        setSelectedOption(selectedOption)
+    }
+
+    useEffect(()=>{
+      
+            fetchBankdetails();
+         
+    },[])
+
+    const fetchBankdetails = async () => {
+        try{
+            setLoading(true)
+            const res = await getBankDetails()
+            if(res?.bankDetails)
+            {
+               setBankDetails(res.bankDetails)
+               setLoading(false)
+            }
+            setLoading(false)
+        }
+        catch(err){
+            setLoading(false)
+        }
+    }
+
+
     return(
  <WithDrawWrapper>
      <Label>
@@ -52,9 +96,57 @@ const WithDrawUi = () =>{
            value={amount}
             onChange={(e)=>{setAmount(e.target.value)}}
         ></TextInput>
-    <ButtonWithDraw>
+         <div style={{margin:10}}>{bankDetails ?
+                                <Select
+                                styles={{
+                                    color: 'hsl(10, 40%, 40%)',
+                                    menuList: styles => ({
+                                        ...styles,
+                                        background: 'rgb(43, 43, 43)',
+                                        color:"black"
+                                      }),
+                                      option: (styles, { isFocused, isSelected, isDisabled }) => ({
+                                        ...styles,
+                                        background: isFocused
+                                          ? '#3B3B3B'
+                                          : isSelected
+                                            ? '#3B3B3B'
+                                            : undefined,
+                                        zIndex: 1,
+                                        color: isDisabled
+                                        ? '#ccc'
+                                        : isSelected ? 'white'
+                                          : 'white'
+                                      }),
+                                    control: (baseStyles, state) => ({
+                                      ...baseStyles,
+                                      background:"#3B3B3B",
+                                      color:"#3B3B3B",
+                                      borderColor: state.isFocused ? 'grey' : 'grey',
+                                    }),
+                                    singleValue: (styles, { data }) => ({ ...styles, color:"white" })
+                                  }}
+                                value={selectedOption}
+                                onChange={handleSelect}
+                                options={[{
+                                    value:"bank",
+                                    label:"bank"
+                               },
+                               {
+                                value:"upi",
+                                label:"upi"
+                               }
+                            ]}
+                              />:""}</div>
+   <div style={{display:"flex"}}>
+   <ButtonWithDraw style={{flexBasis:"48%"}} onClick={()=>{withDrawCheck()}}>
         Withdraw Money
     </ButtonWithDraw>
+    <ButtonWithDraw  onClick={()=>{openBankModal()}} style={{background:"rgb(66, 184, 126)",flexBasis:"48%"}}>
+        Add Bank Details
+    </ButtonWithDraw>
+   </div>
+   
  </WithDrawWrapper>
     )
 }
