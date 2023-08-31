@@ -70,9 +70,18 @@ const FlexibleCards = ({setLoginVisible}) => {
     }
     
     const acceptTerms = async () =>{
-           setAcceptedTerms(true);
-           setTermsAndConditionModal(false)
-         await  OnPurchase()
+   
+      if(creator?.set_profile_price == false){
+        setAcceptedTerms(true);
+          setTermsAndConditionModal(false)
+          setDonateModal(true)
+          return;
+      }
+      else{
+        setAcceptedTerms(true);
+        setTermsAndConditionModal(false)
+        await OnPurchase()
+      }   
     }
 
     const rejectTerms = () => {
@@ -105,12 +114,6 @@ const FlexibleCards = ({setLoginVisible}) => {
             return;
           }
           
-          if(creator?.set_profile_price == false){
-              if(fromDonate == false){
-                setDonateModal(true)
-                return;
-              }
-          }
           if(creator?.terms_and_condition?.status == true && acceptedTerms == false){
             setTermsAndConditionModal(true)
             return;
