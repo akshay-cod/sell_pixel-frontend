@@ -16,7 +16,7 @@ export const ModalInsideWrapper = styled.div`
   left:50%;
   transform:translate(-50%,-50%);
   width:400px;
-  background:white;
+  background:${(props)=> props.color ? props.color : "white"};
   border-radius:10px;
   @media (max-width: 700px) {
     width:350px;

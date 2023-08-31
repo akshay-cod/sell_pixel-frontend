@@ -4,15 +4,18 @@ import { allRoutes } from './routes';
 import { routeTypes } from './configs/routes/routeConfigs';
 import PrivateRoute from './HOC/PrivateRouter';
 import { Fragment, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { checkUserLoggedIn } from './store/feature/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkUserLoggedIn, user } from './store/feature/auth';
 import Layout from './HOC/Layout';
 import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-toastify/dist/ReactToastify.css';
 import Toastholder from './components/common/toast/Toastholder';
 import ScrollToTop from './HOC/ScrollToTop';
+//import { addNotification } from './notification-worker/notification';
+
 function App() {
   const dispatch = useDispatch();
+  const userFromRedux = useSelector(user)
 
   const [visible, setLoginVisible] = useState(false);
   const [nameModal, setNameModal] = useState(false);
@@ -20,6 +23,13 @@ function App() {
     document.body.style.zoom = '95%';
     dispatch(checkUserLoggedIn())
   },[])
+
+  useEffect(()=>{
+    if(userFromRedux.auth == true){
+     // addNotification()
+    }
+  },[userFromRedux.auth])
+
 
 
   return (

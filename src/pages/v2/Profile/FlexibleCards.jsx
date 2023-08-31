@@ -1,5 +1,5 @@
 import StackGrid from "react-stack-grid";
-import { AvatarHolder, AvatorContainer, BannerImage, BannerImageWrapper, CardWrapper ,DesName,GreenBtn,ImageAvatar, Name, ProfileImage, PurchaseName, PurchaseWrapper, TextNameHolder} from "../Profile/flexible.cards.styles";
+import { AvatarHolder, AvatorContainer, BannerImage, BannerImageWrapper, CardWrapper ,DesName,DesNew,GreenBtn,ImageAvatar, Name, NewBannerImage, NewProfileImage, NewUIName, ProfileImage, PurchaseName, PurchaseNewLeftWrapper, PurchaseNewRightWrapper, PurchaseNewUI, PurchaseWrapper, TextNameHolder} from "../Profile/flexible.cards.styles";
 import { useEffect, useState } from "react";
 import { colorsV2 } from "../../../configs/theme/color";
 import BannerProfile from "./Banner/BannerProfile";
@@ -28,6 +28,7 @@ import ShareCompo from "../../home/profile/share/ShareCompo";
 import {HiOutlineShare} from 'react-icons/hi';
 import { useRef } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import { capitalizeFirstLetter } from "../../../helpers/common";
 const FlexibleCards = ({setLoginVisible}) => {
   
     const grid = useRef(null);
@@ -266,6 +267,7 @@ const FlexibleCards = ({setLoginVisible}) => {
              console.log(res)
              if(skip == 0){ 
                let userProfile = res?.user;
+             //  userProfile[0].is_user_purchased_profile = false
                if(res.user_creations.length < 9){
                  setHasMore(false)
                }
@@ -470,9 +472,45 @@ const FlexibleCards = ({setLoginVisible}) => {
   </ResponsiveMasonry>}
   </div>
   </div>
-  <Modal isVisible={visible} setVisible={setVisible} component={
+  <Modal color={"none"} isVisible={visible} setVisible={setVisible} component={
           <PurchaseWrapper style={{paddingLeft:20}}>
-             <ProfileImage src={creator?.profile_picture} >
+              <div style={{position:"relative"}}>
+              <NewBannerImage
+                  src={creator?.banner_image} >
+                  </NewBannerImage>
+                  <NewProfileImage 
+                  src={creator?.profile_picture} >
+                  </NewProfileImage>
+              </div>
+                     <PurchaseNewUI>
+             
+                  <PurchaseNewLeftWrapper>
+                     <NewUIName>
+                     {capitalizeFirstLetter(creator?.first_name || "unknown")+ " " + (creator?.last_name ? creator?.last_name : "") }
+                     </NewUIName>
+                  </PurchaseNewLeftWrapper>
+                  <PurchaseNewRightWrapper>
+                    <DesNew>
+                       {creator?.bio || "not found"}
+                    </DesNew>
+
+                  </PurchaseNewRightWrapper>
+                  <div style={{display:"flex"}}>
+             <GreenBtn onClick={()=>{
+              OnPurchase(false)
+              //setLoading(false)
+             }}>
+                Purchase {creator?.set_profile_price == true ? `₹${creator?.price.toLocaleString()}` : ""}
+              </GreenBtn> 
+              {creator?.is_user_purchased_profile &&  <GreenBtn
+               onClick={() => onViewClick()}
+              style={{marginLeft:10,padding:"13px 10px 5px 10px"}}>
+                <BsFillEyeFill/>
+              </GreenBtn>}
+              </div>
+              </PurchaseNewUI>
+
+             {/* <ProfileImage src={creator?.profile_picture} >
 
              </ProfileImage>
              <PurchaseName>
@@ -490,12 +528,12 @@ const FlexibleCards = ({setLoginVisible}) => {
               style={{marginLeft:10,padding:"13px 10px 5px 10px"}}>
                 <BsFillEyeFill/>
               </GreenBtn>}
-              </div>
+              </div> */}
           </PurchaseWrapper>
            
         } auth={false}/> 
          <Modal isVisible={donateModal} setVisible={setDonateModal} component={
-          <PurchaseWrapper style={{paddingLeft:20,position:"relative"}}>
+          <PurchaseWrapper style={{paddingLeft:20, background:"white",position:"relative"}}>
             <div style={{color:"black", position:"absolute", top:5, left:10}} >
               <BiArrowBack fontSize="20px" onClick={()=>{backPayClick()}}/>
             </div>

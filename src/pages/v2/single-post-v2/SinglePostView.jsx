@@ -5,7 +5,7 @@ import { PremiumIcon } from "../Profile/Banner/banner.profile.styles";
 import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai"
 import { useState } from "react";
 import {isMobile} from "react-device-detect";
-import { downloadURI, formatBytes, generateVideoThumbnail } from "../../../helpers/common";
+import { capitalizeFirstLetter, downloadURI, formatBytes, generateVideoThumbnail } from "../../../helpers/common";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/feature/auth";
@@ -22,12 +22,13 @@ import ImageViewer from 'react-simple-image-viewer';
 import { useCallback } from "react";
 import PdfViewer from "../../../components/pdf-viewer/PdfViewer";
 import {BsPlayCircle} from "react-icons/bs";
-import { GreenBtn, Name, ProfileImage, PurchaseWrapper } from "../Profile/flexible.cards.styles";
+import { DesNew, GreenBtn, Name, NewBannerImage, NewProfileImage, NewUIName, ProfileImage, PurchaseNewLeftWrapper, PurchaseNewRightWrapper, PurchaseNewUI, PurchaseWrapper } from "../Profile/flexible.cards.styles";
 import Modal from "../../../components/common/modal/Modal";
 import VideoPlayer from "../../../players/VideoPlayer";
 import { useRef } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import { getDynamicFileUrl } from "../../../helpers/get-dynamic-file-url";
+import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
 
 const SinglePostView = ({setLoginVisible}) => {
   const imgurl = "https://source.unsplash.com/user/c_v_r/1000x100"
@@ -185,6 +186,19 @@ const onClickVideoPlayClose = (url) => {
   setIsVideoModal(false)
 }
 
+if(loading){
+  return<div
+  style={{height:"100vh"}}
+  ><div style={{
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+     
+  }}>  <SimpleLoader/></div>
+     
+  </div>
+}
 
     return(
   <>
@@ -450,9 +464,40 @@ const onClickVideoPlayClose = (url) => {
           </FullScreenPlayerWrapper>
       }
 
-{post?.is_purchased == false &&  <Modal isVisible={visible} setVisible={setVisible} component={
-          <PurchaseWrapper style={{paddingLeft:20}}>
-             <ProfileImage src={post?.created_by?.profile_picture}>
+{(post?.is_purchased == false) &&  <Modal color={"none"} isVisible={visible} setVisible={setVisible} component={
+          <PurchaseWrapper  style={{paddingLeft:20}}>
+               <div style={{position:"relative"}}>
+              <NewBannerImage
+                  src={post?.banner_img} >
+                  </NewBannerImage>
+                  <NewProfileImage 
+                  src={post?.created_by?.profile_picture} >
+                  </NewProfileImage>
+              </div>
+                     <PurchaseNewUI>
+             
+                  <PurchaseNewLeftWrapper>
+                     <NewUIName>
+                     {capitalizeFirstLetter(post?.title || "") }
+                     </NewUIName>
+                  </PurchaseNewLeftWrapper>
+                  <PurchaseNewRightWrapper>
+                    <DesNew>
+                       {post?.description || "not found"}
+                    </DesNew>
+
+                  </PurchaseNewRightWrapper>
+                  <div style={{display:"flex"}}>
+            
+                  <GreenBtn onClick={()=>{
+                      OnPurchase()
+                      }}>
+                Purchase ₹{post?.price?.toLocaleString()}
+              </GreenBtn>
+              </div>
+              </PurchaseNewUI>
+            
+             {/* <ProfileImage src={post?.created_by?.profile_picture}>
 
              </ProfileImage>
              <Name style={{textAlign:"center"}}>
@@ -474,7 +519,7 @@ const onClickVideoPlayClose = (url) => {
              OnPurchase()
              }}>
                 Purchase ₹{post?.price.toLocaleString()}
-              </GreenBtn> 
+              </GreenBtn>  */}
           </PurchaseWrapper>
            
         } auth={false}/> }

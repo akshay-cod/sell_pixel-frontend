@@ -6,7 +6,8 @@ const Modal = ({
     isVisible,
     component,
     setVisible,
-    auth
+    auth,
+    color
 }) => {
 
     useEffect(()=>{
@@ -22,8 +23,8 @@ const Modal = ({
        <>
         {
             isVisible ? 
-            <ModalWrapper>
-                <ModalInsideWrapper>
+            <ModalWrapper color={color}>
+                <ModalInsideWrapper color={color}>
                     <div
                      style={{padding:10,float:"right",cursor:"pointer",display:auth ?"visible" : "none"}}
                     onClick={()=>{if(auth) setVisible(false)}}><AiOutlineClose color="black"/></div>
