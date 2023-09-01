@@ -31,7 +31,7 @@ async function send() {
 
   // Send Push Notification
   console.log("Sending Push...");
-  let res = await axiosInstance.post("http://localhost:5000/web-push/subscribe", 
+  let res = await axiosInstance.post("https://notifications.finscre-app.com/web-push/subscribe", 
    {
         from:"web",
         subscription

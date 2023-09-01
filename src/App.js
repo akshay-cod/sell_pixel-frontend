@@ -11,7 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-toastify/dist/ReactToastify.css';
 import Toastholder from './components/common/toast/Toastholder';
 import ScrollToTop from './HOC/ScrollToTop';
-//import { addNotification } from './notification-worker/notification';
+import { addNotification } from './notification-worker/notification';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(()=>{
     if(userFromRedux.auth == true){
-     // addNotification()
+      addNotification()
     }
   },[userFromRedux.auth])
 
