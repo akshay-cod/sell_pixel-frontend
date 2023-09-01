@@ -48,7 +48,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rimraf ./build && react-scripts build && rimraf ./build/**/*.map && npm run copy-file",
-    "copy-file": "copy service-worker.js build\\service-worker.js",
+    "copy-file": "cp service-worker.js build\\service-worker.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
