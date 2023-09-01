@@ -79,7 +79,7 @@ const SinglePostView = ({setLoginVisible}) => {
         access_key: res.data.access_key, // access key received via Initiate Payment
         onResponse: async (response) => {
           if(response.status === "success"){
-           navigate("/status/payment/success",{state:{link:"/creations/"+params.id, type:"success", name:post?.created_by?.first_name + post?.created_by?.last_name + " "+ "creations"}})
+           navigate("/status/payment/success",{state:{link:"/creations/"+params.id, type:"success", name:post?.created_by?.first_name + (post?.created_by?.last_name ? post?.created_by?.last_name : "") + " "+ "creations"}})
          
             setPurchaseLoading(false)
             document.body.style.overflow = "scroll"
@@ -468,10 +468,10 @@ if(loading){
           <PurchaseWrapper  style={{paddingLeft:20}}>
                <div style={{position:"relative"}}>
               <NewBannerImage
-                  src={post?.banner_img} >
+                  src={post?.banner_img ?  post?.banner_img : getDynamicFileUrl("ban-default.png")} >
                   </NewBannerImage>
                   <NewProfileImage 
-                  src={post?.created_by?.profile_picture} >
+                  src={post?.created_by?.profile_picture ? post?.created_by?.profile_picture : getDynamicFileUrl("avatar.svg")} >
                   </NewProfileImage>
               </div>
                      <PurchaseNewUI>

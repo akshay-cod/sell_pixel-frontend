@@ -16,12 +16,14 @@ import BankDetails from "../../../components/bank/BankDetails";
 import WithDraw from "../../../components/withdraw/Withdraw";
 import { toast } from "react-toastify";
 import SimpleLoader from "../../../components/common/loaders/SimpleLoader";
+import SwitchButton from "../../../components/common/switchButton/SwitchButton";
 
 const Dashboard = () => {
 const userRedux = useSelector(user);
 const [dashboardDetails, setDashboardDetails] = useState({})
 const [loading, setLoading] = useState(true);
-
+const [earningsToggle, setEarningsToggle] = useState(false)
+const [earningsTotalToggle,setEarningsTotalToggle] = useState(false);
 useEffect(() => {
     getDashBoardDetailsFromApi();
 },[])
@@ -90,9 +92,22 @@ return(
                                      Earnings
                                 </BalanceTitle>
                                 <BalnceMoney>
-                                {priceFormat(userRedux?.user?.wallet?.wallet_balance)}
+                                    {
+                                        earningsToggle ?
+                                        <div>
+                                             {priceFormat(userRedux?.user?.wallet?.wallet_balance)}
+                                        </div>
+                                        :
+                                        <div>₹XXXX</div>
+                                    }
+                               
                                 </BalnceMoney>
+                               
                             </BalanceDetailsInsideRight>
+                            <div style={{marginLeft:15}}>
+                            <SwitchButton checked={earningsToggle} setChecked={setEarningsToggle}/>
+                            </div>
+                           
                   </BalanceDetailsInsideWrapper>
 
                    <BalanceDetailsInsideWrapper style={{background:"hsl(288.29deg 47.13% 65.88%)"}}>
@@ -106,9 +121,20 @@ return(
                                     Total Earnings
                                 </BalanceTitle>
                                 <BalnceMoney>
-                                     {priceFormat(dashboardDetails?.total_earnings[0]?.sum ? dashboardDetails?.total_earnings[0]?.sum : 0)}
+                                {
+                                        earningsTotalToggle ?
+                                        <div>
+                                             {priceFormat(dashboardDetails?.total_earnings[0]?.sum ? dashboardDetails?.total_earnings[0]?.sum : 0)}
+                                        </div>
+                                        :
+                                        <div>₹XXXX</div>
+                                    }
+                                    
                                 </BalnceMoney>
                             </BalanceDetailsInsideRight>
+                            <div style={{marginLeft:15}}>
+                            <SwitchButton checked={earningsTotalToggle} setChecked={setEarningsTotalToggle}/>
+                            </div>
                      </BalanceDetailsInsideWrapper>
 
                    

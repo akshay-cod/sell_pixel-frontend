@@ -90,7 +90,10 @@ border-radius:50%;
 object-fit:cover;
 position:absolute;
 bottom: -33px;
-left: 39%;
+left: 40%;
+@media only screen and (max-width: 600px){
+	left: 37%;
+}
 `
 
 export const NewUIName = styled.div`

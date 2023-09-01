@@ -10,6 +10,7 @@ import { getDynamicFileUrl } from "../../helpers/get-dynamic-file-url";
 import { useEffect } from "react";
 import { colorsV2 } from "../../configs/theme/color";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { capitalizeFirstLetter } from "../../helpers/common";
 
 const Header = ({setVisible}) => {
     const userFromRedux = useSelector(user);
@@ -79,7 +80,7 @@ const Header = ({setVisible}) => {
             <div className="container" ref={dropdownRef}>
             <div className="menu-container">
               <button onClick={()=> {onClick()}} style={{background:colorsV2.block.medium}} className="menu-trigger">
-                <span>{userFromRedux?.user?.first_name || userFromRedux?.user?.phone_number}</span>
+                <span>{ capitalizeFirstLetter(userFromRedux?.user?.first_name || userFromRedux?.user?.phone_number)}</span>
                 <img
                   className="profileImage"
                   src={userFromRedux?.user?.profile_picture ? userFromRedux?.user?.profile_picture : getDynamicFileUrl("avatar.svg")}

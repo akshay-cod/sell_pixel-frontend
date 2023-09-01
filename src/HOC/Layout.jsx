@@ -23,6 +23,9 @@ const Layout = ({visible,setVisible, children, nameModal, setNameModal}) => {
         if( userDetails.auth && !userDetails?.user?.first_name){
           setNameModal(true)
         }
+        else{
+          setNameModal(false)
+        }
       },[userDetails])
     return(
         <>

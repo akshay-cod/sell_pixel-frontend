@@ -152,7 +152,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                // console.log(response,"res")
               if(response.status === "success"){
                 setPurchaseLoading(false)
-                navigate("/status/payment/success",{state:{link:"/"+params.user, type:"success", name:creator?.first_name + creator?.last_name}})
+                navigate("/status/payment/success",{state:{link:"/"+params.user, type:"success", name:creator?.first_name + (creator?.last_name ? creator?.last_name : "")}})
                
               }
               else{
@@ -373,10 +373,16 @@ const FlexibleCards = ({setLoginVisible}) => {
     <div style={{margin:20,padding:"0% 7%"}}>
    
    <div style={{minHeight:300}}>
+   {
+      post.length == 0 && !loading ? <div style={{textAlign:"center",margin:10}}>
+      no creations yet
+    </div> : ""
+    }
    {!loading && <ResponsiveMasonry 
    
    columnsCountBreakPoints={{300: 1, 750: 2, 900: 4}}
    >
+
    <Masonry gutter="15px">
    {
     post.length > 0 && post.map((creation,i)=>{
@@ -401,7 +407,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                     {/* <ImageAvatar src="https://source.unsplash.com/user/c_v_r/100x100"/> */}
                 </AvatarHolder>
                 <TextNameHolder>
-                    <Name>{creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }</Name>
+                    <Name>{creator?.first_name ? (capitalizeFirstLetter(creator?.first_name) +" "+ (creator?.last_name ? creator?.last_name : "") ): creator?.user_name }</Name>
                     <DesName>{`${creator?.is_verified_user ? "Trusted" : "Unverified" } creator from FinsCRE`} </DesName>
                 </TextNameHolder>
             </AvatorContainer>
@@ -476,10 +482,10 @@ const FlexibleCards = ({setLoginVisible}) => {
           <PurchaseWrapper style={{paddingLeft:20}}>
               <div style={{position:"relative"}}>
               <NewBannerImage
-                  src={creator?.banner_image} >
+                  src={creator?.banner_image ?  creator?.banner_image : getDynamicFileUrl("ban-default.png")} >
                   </NewBannerImage>
                   <NewProfileImage 
-                  src={creator?.profile_picture} >
+                  src={creator?.profile_picture ? creator?.profile_picture : getDynamicFileUrl("avatar.svg")} >
                   </NewProfileImage>
               </div>
                      <PurchaseNewUI>

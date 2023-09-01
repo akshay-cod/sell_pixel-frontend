@@ -33,8 +33,9 @@ const NameInputModal = ({setModal}) => {
         }
         const res = await updateAnUserDetails({firstName:name,email:email})
         if(res){
-            toast.success("thank you !! updated successfully")
             setModal(false)
+            toast.success("thank you !! updated successfully")
+            setLoading(false)  
             dispatch(checkUserLoggedIn())
         }
         setLoading(false)  

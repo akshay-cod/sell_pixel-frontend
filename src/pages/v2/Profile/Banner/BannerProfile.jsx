@@ -12,7 +12,7 @@ import { HiOutlineShare } from "react-icons/hi"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Modal from "../../../../components/common/modal/Modal";
 import ShareCompo from "../../../home/profile/share/ShareCompo";
-import { GetWishesFromCurrentTime } from "../../../../helpers/common";
+import { GetWishesFromCurrentTime, capitalizeFirstLetter } from "../../../../helpers/common";
 
 const BannerProfile = ({creator,loading}) => {
     //loading = true
@@ -33,7 +33,7 @@ const BannerProfile = ({creator,loading}) => {
      <TextHeading>
         { loading ? <><Skeleton width={350}/><Skeleton width={250}/></> :
              
-             (creator?.is_owner ? <> Hello, <b>{creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }</b> <br/>
+             (creator?.is_owner ? <> Hello, <b>{creator?.first_name ? (capitalizeFirstLetter(creator?.first_name) +" "+ (creator?.last_name ? creator?.last_name : "")  ): creator?.user_name }</b> <br/>
               {GetWishesFromCurrentTime()}!!</> : "")
               
               }
@@ -56,7 +56,7 @@ const BannerProfile = ({creator,loading}) => {
                     {/* <ImageAvatar /> */}
                 </AvatarHolder>
                 <TextNameHolder>
-                    <Name> {loading ? <><Skeleton width={150} height={12}/> </>:  creator?.first_name ? (creator?.first_name +" "+ creator?.last_name ): creator?.user_name }
+                    <Name> {loading ? <><Skeleton width={150} height={12}/> </>:  creator?.first_name ? (capitalizeFirstLetter(creator?.first_name) +" "+ (creator?.last_name ? creator?.last_name : "" ) ): creator?.user_name }
                     {loading ? "" : (creator?.is_verified_user && <img src={VerifiedIcon} style={{transform:"translate(2px,3px)"}} />)} 
                    
                      </Name> 

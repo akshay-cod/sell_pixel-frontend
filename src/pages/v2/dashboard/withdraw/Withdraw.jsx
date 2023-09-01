@@ -92,7 +92,7 @@ const WithDrawUi = ({openBankModal, openWithDrawModal}) =>{
                           Enter Amount
     </Label>
       <TextInput
-           placeholder="XXXXXXX"
+           placeholder="Enter amount XXXXXXX"
            value={amount}
             onChange={(e)=>{setAmount(e.target.value)}}
         ></TextInput>

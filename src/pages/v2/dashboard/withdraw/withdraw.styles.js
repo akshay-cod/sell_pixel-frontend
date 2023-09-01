@@ -51,7 +51,7 @@ transition: background 0s ease-out 0s;
 color: ${colorsV2.text.medium};
 min-height: 35px;
 display: initial;
-font-size:30px;
+font-size:25px;
 width: 94%;
 outline: none;
 padding:10px;

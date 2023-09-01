@@ -148,16 +148,16 @@ const CustomLineChart = (
       {
         label: 'sellings',
         data: seriesSellings,
-        borderColor: 'rgb(66, 184, 126)',
-        backgroundColor: 'rgb(66, 184, 126)',
+        borderColor: '#539165',
+        backgroundColor: '#539165',
         tension: 0.4,
         pointRadius: 0
       },
       {
         label: 'purchases',
         data: seriesPurchases,
-        borderColor: 'rgb(193, 127, 209)',
-        backgroundColor: 'rgb(193, 127, 209)',
+        borderColor: '#ED7B7B',
+        backgroundColor: '#ED7B7B',
         tension: 0.4,
         pointRadius: 0
       }

@@ -20,6 +20,7 @@ import Cookies from "universal-cookie";
 import { isMobile } from "react-device-detect";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
+import { capitalizeFirstLetter } from "../../helpers/common";
 
 
 const Home = ({setLoginVisible}) => {
@@ -274,7 +275,7 @@ const Home = ({setLoginVisible}) => {
 
              </ProfileImage>
              <Name>
-             {creator?.first_name}
+             {capitalizeFirstLetter(creator?.first_name)}
              </Name>
              <div style={{display:"flex"}}>
              <GreenBtn onClick={()=>{

@@ -104,7 +104,7 @@ const SinglePost = ({setLoginVisible}) => {
               // }
               // )
              // console.log(verify)
-             navigate("/status/payment/success",{state:{link:"/creations/"+params.id, type:"success", name:post?.created_by?.first_name + post?.created_by?.last_name + " "+ "creations"}})
+             navigate("/status/payment/success",{state:{link:"/creations/"+params.id, type:"success", name:post?.created_by?.first_name + (post?.created_by?.last_name ? post?.created_by?.last_name : "") + " "+ "creations"}})
             //  await fetchPostDetails()
               setPurchaseLoading(false)
               document.body.style.overflow = "scroll"
