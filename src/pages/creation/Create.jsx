@@ -63,6 +63,7 @@ const Create = () => {
             title:title,
             description:desc,
             bannerImg:banImg[0]?.url,
+            bannerImgUrls:banImg[0],
             price:selectedOptionType.value == "free"|| selectedOptionType.value == "select" ? 0 : parseInt(price),
             type:selectedOption.value,
             files:url
