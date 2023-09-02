@@ -7,7 +7,22 @@ const publicVapidKey =
 export const addNotification = async() => {
    
             if ("serviceWorker" in navigator) {
-                send().catch(err => console.error(err));
+              if ("Notification" in window) {
+                Notification.requestPermission()
+                  .then(function (permission) {
+                    if (permission === "granted") {
+                      send().catch(err => console.error(err));
+                    } else if (permission === "denied") {
+                      console.log("Notification permission denied by user.");
+                    } else if (permission === "default") {
+                      console.log("Notification permission dismissed by user.");
+                    }
+                  })
+                  .catch(function (error) {
+                    console.error("Error requesting notification permission:", error);
+                  });
+              }
+               
               }
 }
 
