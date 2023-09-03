@@ -53,6 +53,8 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
       let temp_url = url
       setUrl([ { ...res.data }, ...temp_url]);
       setSingleFile([])
+      const input = document.getElementById(id ? id : "inputref");
+      input.value = "";
     }
     setLoading(false);
     if(setFileLoading){
@@ -77,11 +79,13 @@ const UploadBlock = ({ url, setUrl, label, click, setClick, accept, setFileLoadi
       if(limit && e.target.files[0].size/(1024*1024) > limit){
         setLoading(false);
         toast.error("file should be less than "+ limit + "mb")
+       // e.target.value = "";
         return;
       }
       // Printing the log realted to the file
       // Setting the state to show single file attributes
       setSingleFile(e.target.files);
+     // e.target.value = "";
       // await uploadImage()
     } catch (err) {
       setSingleFile(null);

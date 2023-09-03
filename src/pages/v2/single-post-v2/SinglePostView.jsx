@@ -202,9 +202,9 @@ if(loading){
 
     return(
   <>
-    <FilesWrapper>
+    <FilesWrapper style={{display:isPdfOpen ? "none" : ""}}>
       <WrapperNonSticky >
-        <BannerHolder link={post?.banner_img}>
+        <BannerHolder link={post?.banner_img ? (post?.banner_img_urls ? post?.banner_img_urls?.url_object.preview : post?.banner_img) : ""}>
           
           <MainTitleWrapper>
           <TagWrapper style={{margin:0}}>
@@ -224,7 +224,7 @@ if(loading){
          
          <AbsoluteImageHolder>
           <AiFillCaretLeft onClick={handleLeftArrow} fontSize={"14px"} style={{cursor:"pointer",background:"white", transform:"translate(0px,0px)",padding:2,border:"1px solid rgba(229, 138, 61)", borderRadius:"50%"}} color="rgba(229, 138, 61)"/>
-            <AbsluteImage src={post?.banner_img}/>
+            <AbsluteImage src={post?.banner_img ? (post?.banner_img_urls ? post?.banner_img_urls?.url_object.thumb : post?.banner_img) : ""}/>
             
           <AiFillCaretRight onClick={handleRightArrow} fontSize={"14px"} style={{cursor:"pointer",background:"white", transform:"translate(6px,0px)",padding:2,border:"1px solid rgba(229, 138, 61)", borderRadius:"50%"}} color="rgba(229, 138, 61)"/>
          </AbsoluteImageHolder>
@@ -277,8 +277,8 @@ if(loading){
                           <FileImage src={getDynamicFileUrl("icons/SVG.svg")}/> 
                           :
                           <LazyImage
-                          onClick={() => openImageViewer(index,file.url)}
-                          src={file?.url}
+                          onClick={() => openImageViewer(index,file?.url_object?.preview ? file?.url_object?.preview : file.url)}
+                          src={file?.url ? (file?.url_object?.thumb ? file.url_object?.thumb : file.url ) : ""}
                           width="100%"
                           height={200}
                           style={
@@ -297,7 +297,7 @@ if(loading){
                         setTimeout(()=>{
                           setSingleFile(file)
                         },200)
-                        console.log(file)
+                       // console.log(file)
                    
                         
                         }}>{file?.url?.split('/')[3]}</FileName>
@@ -309,7 +309,7 @@ if(loading){
                             {(isMobile && !file?.type?.startsWith("video")) ?
                    <PiDownloadFill style={{transform:"translate(0px, 0px)",paddingBottom:"5px", float:"right"}} onClick={()=>{
                       if(!file?.type?.startsWith("video"))
-                      downloadURI(file?.url)
+                      downloadURI(file?.url_object ? file?.url_object?.original : file.url)
                       }} fontSize={21}/>
                       : ""
                  }
@@ -337,8 +337,8 @@ if(loading){
                       (<ImageWrapper src={getDynamicFileUrl("icons/SVG.svg")}/>) :
                       singleFile?.type?.startsWith("image") ?
                       (<LazyImage
-                        onClick={() => openImageViewer("",singleFile.url)}
-                        src={singleFile?.url}
+                        onClick={() => openImageViewer("",singleFile?.url ? (singleFile?.url_object?.thumb ? singleFile.url_object?.preview : singleFile.url ) : "")}
+                        src={singleFile?.url ? (singleFile?.url_object?.thumb ? singleFile.url_object?.thumb : singleFile.url ) : ""}
                         width="100%"
                         height={200}
                         style={
@@ -359,7 +359,7 @@ if(loading){
               {!singleFile?.type?.startsWith("video") &&  <ImageIcons>
                    <PiDownloadFill onClick={()=>{
                       if(!singleFile?.type?.startsWith("video"))
-                      downloadURI(singleFile?.url)
+                      downloadURI(singleFile?.url_object?.thumb ? singleFile?.url_object?.original : singleFile.url)
                       }} fontSize={21}/>
                   </ImageIcons>}
                   <ImageIcons >
@@ -384,7 +384,7 @@ if(loading){
                 </DescTitle>
                 <Desctext>
                   {
-                    singleFile.desc || "file description not added"
+                    singleFile?.desc || "file description not added"
                   }
                 </Desctext>
               </PreviewDescHolder>
@@ -468,7 +468,7 @@ if(loading){
           <PurchaseWrapper  style={{paddingLeft:20}}>
                <div style={{position:"relative"}}>
               <NewBannerImage
-                  src={post?.banner_img ?  post?.banner_img : getDynamicFileUrl("ban-default.png")} >
+                  src={post?.banner_img ?  (post?.banner_img_urls ? post?.banner_img_urls?.url_object.preview : post?.banner_img) : getDynamicFileUrl("ban-default.png")} >
                   </NewBannerImage>
                   <NewProfileImage 
                   src={post?.created_by?.profile_picture ? post?.created_by?.profile_picture : getDynamicFileUrl("avatar.svg")} >

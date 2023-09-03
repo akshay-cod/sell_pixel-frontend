@@ -403,7 +403,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                     }}
                     height={48}
                     width={48}
-                    src={creator?.profile_picture ? creator?.profile_picture : getDynamicFileUrl("avatar.svg")}/>
+                    src={creator?.profile_picture ? (creator?.profile_picture_urls ? creator?.profile_picture_urls?.url_object?.avatar : creator?.profile_picture)  : getDynamicFileUrl("avatar.svg")}/>
                     {/* <ImageAvatar src="https://source.unsplash.com/user/c_v_r/100x100"/> */}
                 </AvatarHolder>
                 <TextNameHolder>
@@ -421,7 +421,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                     }}
                     height={200}
                     width={"100%"}
-                    src={creation?.banner_img}/>
+                    src={creation?.banner_img ? (creation?.banner_img_urls ? creation?.banner_img_urls?.url_object?.thumb : creation?.banner_img) : ""}/>
             {/* <BannerImage /> */}
            </BannerImageWrapper>
            <TextNameHolder>
@@ -485,7 +485,7 @@ const FlexibleCards = ({setLoginVisible}) => {
                   src={creator?.banner_image ?  creator?.banner_image : getDynamicFileUrl("ban-default.png")} >
                   </NewBannerImage>
                   <NewProfileImage 
-                  src={creator?.profile_picture ? creator?.profile_picture : getDynamicFileUrl("avatar.svg")} >
+                  src={creator?.profile_picture ? (creator?.profile_picture_urls ? creator?.profile_picture_urls?.url_object?.avatar : creator?.profile_picture)  : getDynamicFileUrl("avatar.svg")} >
                   </NewProfileImage>
               </div>
                      <PurchaseNewUI>

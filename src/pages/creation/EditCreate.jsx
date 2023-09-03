@@ -162,6 +162,7 @@ const EditCreation = () => {
                                  setUrl={setBannerImg}
                                  accept="image/jpeg"
                                  label="Banner Image"
+                                 limit={5}
                                 /> }
 
 <div style={{marginTop:20}}>
@@ -219,6 +220,7 @@ const EditCreation = () => {
                                  url={url}
                                  setUrl={setUrl}
                                  id="files"
+                                 limit={1024}
                                 />}
                                 </div>
 

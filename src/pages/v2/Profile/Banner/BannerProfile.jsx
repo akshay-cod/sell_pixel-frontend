@@ -25,7 +25,7 @@ const BannerProfile = ({creator,loading}) => {
 
     return(<>
     <SkeletonTheme baseColor="#202020" highlightColor="#444">   
-    <BannerWrapper link={creator?.banner_image || ""}>
+    <BannerWrapper link={ creator?.banner_image  ? (creator?.banner_image_urls ? creator?.banner_image_urls?.url_object?.preview : creator?.profile_picture)  : "" || ""}>
     
     <HeadingWrapper>
     <div >
@@ -52,7 +52,7 @@ const BannerProfile = ({creator,loading}) => {
                 }}
                     height={64}
                     width={64}
-                    src={creator?.profile_picture ? creator?.profile_picture : getDynamicFileUrl("avatar.svg")}/>}
+                    src={creator?.profile_picture ? (creator?.profile_picture_urls ? creator?.profile_picture_urls?.url_object?.avatar : creator?.profile_picture)  : getDynamicFileUrl("avatar.svg")}/>}
                     {/* <ImageAvatar /> */}
                 </AvatarHolder>
                 <TextNameHolder>

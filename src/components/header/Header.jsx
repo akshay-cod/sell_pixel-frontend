@@ -83,7 +83,7 @@ const Header = ({setVisible}) => {
                 <span>{ capitalizeFirstLetter(userFromRedux?.user?.first_name || userFromRedux?.user?.phone_number)}</span>
                 <img
                   className="profileImage"
-                  src={userFromRedux?.user?.profile_picture ? userFromRedux?.user?.profile_picture : getDynamicFileUrl("avatar.svg")}
+                  src={userFromRedux?.user?.profile_picture ?  (userFromRedux?.user?.profile_picture_urls ? userFromRedux?.user?.profile_picture_urls?.url_object?.avatar : userFromRedux?.user?.profile_picture) : getDynamicFileUrl("avatar.svg")}
                   alt="User avatar"
                 />
               </button>

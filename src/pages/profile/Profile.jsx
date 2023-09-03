@@ -87,6 +87,12 @@ const Profile = () => {
             setProfilePrice:priceToggle,
             price:priceToggle ? price : 0
         }
+        if(profilePicture[0]?.url_object){
+           dataTosend.profilePictureUrls = profilePicture[0]
+        }
+        if(banImg[0]?.url_object){
+            dataTosend.bannerImageUrls = banImg[0]
+         }
         if(userName !== userDetails.user?.user_name){
            dataTosend.userName = userName 
         }
@@ -132,7 +138,7 @@ const Profile = () => {
         }
         setButtonLoading(false)
      }
-
+      console.log(profilePicture,banImg,"ban")
      //console.log(profilePicture[0]?.url)
 
     useEffect(()=>{
@@ -142,13 +148,13 @@ const Profile = () => {
             setEmail(userDetails.user?.email)
             setBio(userDetails.user?.bio)
             setuserName(userDetails.user?.user_name)
-            setProfilePicture(userDetails?.user?.profile_picture ? [{url:userDetails?.user?.profile_picture}] : [])
+            setProfilePicture(userDetails?.user?.profile_picture ? [{url:userDetails?.user?.profile_picture,...userDetails?.user?.profile_picture_urls}] : [])
             setWebsite(userDetails?.user?.links?.website)
             setInstagram(userDetails?.user?.links?.instagram)
             setFacebook(userDetails?.user?.links?.facebook)
             setTwitter(userDetails?.user?.links?.twitter)
             setPurchasableToggle(userDetails?.user?.is_purchasable_profile)
-            setBannerImg(userDetails?.user?.banner_image ? [{url:userDetails?.user?.banner_image}] : "")
+            setBannerImg(userDetails?.user?.banner_image ? [{url:userDetails?.user?.banner_image,...userDetails?.user?.banner_image_urls}] : "")
             setPriceToggle(userDetails?.user?.set_profile_price)
             setPrice(userDetails?.user?.price)
             setPhoneNumber(userDetails?.user?.phone_number)
@@ -184,7 +190,7 @@ const Profile = () => {
                 if(!fileLoading){  setClick(true)}}
               
                 }>
-            <ProfileImage src={profilePicture[0]?.url ? profilePicture[0]?.url : getDynamicFileUrl("avatar.svg")} 
+            <ProfileImage src={profilePicture[0]?.url ? (profilePicture[0]?.url_object ? profilePicture[0]?.url_object.avatar : profilePicture[0]?.url) : getDynamicFileUrl("avatar.svg")} 
              
             />
             <ChangeProfilePicText>
@@ -227,12 +233,13 @@ const Profile = () => {
            <Label style={{marginBottom:10}}>
             Banner Image
            </Label>
+           {/* profilePicture[0]?.url ? (profilePicture[0]?.url_object ? profilePicture[0]?.url_object.avatar : profilePicture[0]?.url) : getDynamicFileUrl("avatar.svg") */}
            {banImg ? 
                             <div>
                               <span style={{float:"right", cursor:"pointer"}} onClick={removeBannerImage}>X</span>  
                                  <img
                                 style={{width:"100%",height:200,objectFit:"cover"}}
-                                src={banImg[0]?.url}
+                                src={banImg[0]?.url_object ? banImg[0].url_object?.thumb : banImg[0]?.url}
                              />
                              </div>
                             : <UploadBlock
