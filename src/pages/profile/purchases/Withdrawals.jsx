@@ -11,7 +11,7 @@ import { listWithdrawalsOfUser, listWithdrawalsOfUserPaginated } from "../../../
 import { LiaSuperpowers } from "react-icons/lia";
 import { MdWorkspacePremium } from "react-icons/md";
 import { priceFormat } from "../../../helpers/formatting";
-import {BiMoney} from "react-icons/bi"
+import {BiMoney, BiTransferAlt} from "react-icons/bi"
 const Withdrawals = ({margin}) => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState(0);
@@ -90,7 +90,9 @@ const Withdrawals = ({margin}) => {
                                         <PurchasedItemTime>
                                         {moment(item?.createdAt).format('LLL')}
                                         </PurchasedItemTime>
-                                     
+                                        {item?.bank_ref && <PurchasedItemTime>
+                                            <BiTransferAlt style={{transform:"translate(0px,4px)"}} fontSize={18}/> {item?.bank_ref}
+                                        </PurchasedItemTime>}
                                      </TextWrap>
                                   </StatusImageWrapper>
                              </CardLeftWrapper>
