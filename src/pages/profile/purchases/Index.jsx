@@ -3,6 +3,7 @@ import Purchases from "./Purchases.jsx";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai"
 import Sellings from "./Sellings.jsx";
 import Withdrawals from "./Withdrawals.jsx";
+import TransactionsUi from "./Transactions.jsx";
 
 const Index = ({margin}) => {
 
@@ -15,6 +16,9 @@ const Index = ({margin}) => {
         else if(title =="Sellings"){
             setTitle("Withdrawal")
         }
+        else if(title =="Withdrawal"){
+          setTitle("Transactions")
+        }
         else{
           setTitle("Purchases")
         }
@@ -22,13 +26,16 @@ const Index = ({margin}) => {
 
     const onLeftArrowClick = () => {
       if(title == "Purchases"){
-        setTitle("Withdrawal")
+        setTitle("Transactions")
     }
     else if(title =="Withdrawal"){
         setTitle("Sellings")
     }
-    else{
+    else if(title =="Sellings"){
       setTitle("Purchases")
+    }
+    else{
+      setTitle("Withdrawal")
     }
     }
 
@@ -47,7 +54,7 @@ const Index = ({margin}) => {
             </div>
             <div>
             {
-                title == "Purchases" ? <Purchases margin={margin}/> : title == "Withdrawal" ? <Withdrawals margin={margin}/>: <Sellings margin={margin}/>
+                title == "Purchases" ? <Purchases margin={margin}/> : title == "Withdrawal" ? <Withdrawals margin={margin}/> : title =="Transactions" ? <TransactionsUi margin={margin}/> : <Sellings margin={margin}/>
               }  
             </div>
              

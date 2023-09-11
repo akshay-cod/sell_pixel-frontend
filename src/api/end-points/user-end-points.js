@@ -65,3 +65,7 @@ export const WITHDRAW_LIST = "withdrawal"
 //dashboard
 
 export const DASHBOARD = "dashboard";
+
+//trans
+
+export const TRANSACTIONS = "payment/transactions"
