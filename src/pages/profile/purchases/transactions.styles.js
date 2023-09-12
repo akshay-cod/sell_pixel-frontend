@@ -71,7 +71,7 @@ export const StatusSuccess = styled.div`
 font-size:14px;
 margin-top:4px;
 border:1px solid green;
-padding:8px 20px;
+padding:4px 10px;
 text-align:center;
 border-radius:10px;
 `
@@ -80,7 +80,7 @@ export const StatusProcessing = styled.div`
 font-size:14px;
 margin-top:4px;
 border:1px solid orange;
-padding:8px 20px;
+padding:4px 10px;
 text-align:center;
 border-radius:10px;
 `
@@ -89,7 +89,7 @@ export const StatusFailure = styled.div`
 font-size:14px;
 margin-top:4px;
 border:1px solid red;
-padding:8px 20px;
+padding:4px 10px;
 text-align:center;
 border-radius:10px;
 `

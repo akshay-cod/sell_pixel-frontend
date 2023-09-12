@@ -86,10 +86,10 @@ const TransactionsUi = ({margin}) => {
                                      </ImageStatus>
                                      <TextWrap>
                                     
-                                         <PurchasedItemTitle style={{fontSize:17}}>{ `Transaction of ₹${item?.price.toLocaleString()}`}</PurchasedItemTitle>
+                                         <PurchasedItemTitle style={{fontSize:17}}>{item?.created_by?.first_name} - {item?.created_by?.phone_number}</PurchasedItemTitle>
                                      
                                         <PurchasedItemTime>
-                                        {moment(item?.createdAt).format('LLL')}
+                                        {moment(item?.createdAt).format('lll')}
                                         </PurchasedItemTime>
                                         {item?.transaction_history[0] && <PurchasedItemTime style={{marginTop:2}}>
                                             {item?.transaction_history[0].error_Message}

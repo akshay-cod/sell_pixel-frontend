@@ -68,4 +68,4 @@ export const DASHBOARD = "dashboard";
 
 //trans
 
-export const TRANSACTIONS = "payment/transactions"
+export const TRANSACTIONS = "user/transactions"
