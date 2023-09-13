@@ -12,6 +12,7 @@ import { LiaSuperpowers } from "react-icons/lia";
 import { MdWorkspacePremium } from "react-icons/md";
 import { priceFormat } from "../../../helpers/formatting";
 import {BiMoney, BiTransferAlt} from "react-icons/bi"
+import { capitalizeFirstLetter } from "../../../helpers/common";
 const TransactionsUi = ({margin}) => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState(0);
@@ -86,9 +87,10 @@ const TransactionsUi = ({margin}) => {
                                      </ImageStatus>
                                      <TextWrap>
                                     
-                                         <PurchasedItemTitle style={{fontSize:17}}>{item?.created_by?.first_name} - {item?.created_by?.phone_number}</PurchasedItemTitle>
+                                         <PurchasedItemTitle style={{fontSize:17}}>{item?.created_by?.first_name ? capitalizeFirstLetter(item?.created_by?.first_name) : "not-found"} </PurchasedItemTitle>
                                      
                                         <PurchasedItemTime>
+                                         Contact: {item?.created_by?.phone_number} <br/>
                                         {moment(item?.createdAt).format('lll')}
                                         </PurchasedItemTime>
                                         {item?.transaction_history[0] && <PurchasedItemTime style={{marginTop:2}}>

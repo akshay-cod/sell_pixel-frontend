@@ -283,10 +283,8 @@ export const VideWrapper = styled.div`
    left:50%;
    z-index:999;
    width:60%;
-   padding:20px;
    border-radius:10px;
    @media only screen and (max-width: 800px){
     width:85%;
-    padding:8px;
 }
 `

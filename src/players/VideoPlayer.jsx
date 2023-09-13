@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useScript } from "../hooks/UseScript";
+import VideoJS from "./VideoJs";
 
 const VideoPlayer = ({url, thumbnail, height, width, id}) => {
     useEffect(()=>{
@@ -12,9 +13,36 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
             });
         });
     },[])
-    const script = useScript("https://unpkg.com/video.js@8.3.0/dist/video.min.js")
+
+    const playerRef = React.useRef(null);
+
+  const videoJsOptions = {
+    autoplay: false,
+    controls: true,
+    responsive: true,
+     fluid: true,
+    sources: [{
+      src: url,
+      type: 'video/mp4'
+    }]
+  };
+
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    // player.on('waiting', () => {
+    //   videojs.log('player is waiting');
+    // });
+
+    // player.on('dispose', () => {
+    //   videojs.log('player will dispose');
+    // });
+  };
+
+  //  const script = useScript("https://unpkg.com/video.js@8.3.0/dist/video.min.js")
        return(<div style={{width:width}}>
-                  <video
+                  {/* <video
                     id="my-player"
                      className="video-js vjs-theme-sea vjs-16-9"
                     controls
@@ -32,7 +60,8 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
                     <a href="https://videojs.com/html5-video-support/" target="_blank"
                         >supports HTML5 video</a>
                     </p>
-                </video>
+                </video> */}
+                <VideoJS options={videoJsOptions} onReady={handlePlayerReady}/>
         </div>
     )
 }

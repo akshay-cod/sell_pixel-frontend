@@ -1,4 +1,4 @@
-export let __ENV = "prod";
+export let __ENV = "dev";
 let URL = "https://finscre-app.com"
 
 if(__ENV == "dev"){
