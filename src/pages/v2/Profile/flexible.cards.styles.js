@@ -60,7 +60,7 @@ export const PurchaseWrapper = styled.div`
     padding-left:40px;
     padding-top:20px;
     padding-bottom:20px;
-    background:${colorsV2.block.dark};
+    background:${colorsV2.text.light};
     border-radius:10px;
     
 `
@@ -97,7 +97,7 @@ left: 40%;
 `
 
 export const NewUIName = styled.div`
-color:${colorsV2.text.light};
+color:${colorsV2.block.dark};
 font-size:20px;
 font-family:GraphikBold;
 margin-top:5px;
@@ -114,7 +114,7 @@ font-size:13px;
 `
 
 export const PurchaseNewLeftWrapper = styled.div`
-background:${colorsV2.block.dark}
+background:${colorsV2.text.light}
 `
 export const PurchaseNewRightWrapper = styled.div`
  
