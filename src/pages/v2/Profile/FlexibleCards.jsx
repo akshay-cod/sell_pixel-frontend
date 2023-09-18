@@ -311,7 +311,7 @@ const FlexibleCards = ({setLoginVisible}) => {
         const scrollHeight = document.documentElement.scrollHeight
         const clientHeight = document.documentElement.clientHeight
      
-        if (scrollTop + clientHeight >= scrollHeight) {
+        if (scrollTop + clientHeight+20 >= scrollHeight) {
          onLoadMore()
         }
       }

@@ -88,14 +88,15 @@ const CustomLineChart = (
         var dateA = new Date(a.key), dateB = new Date(b.key)
         return dateA - dateB
       });
-      console.log(sorted)
+     // console.log(sorted)
 
       let series = [0,0,0,0,0,0,0,0,0,0,0,0]
       let month = (new Date()).getMonth()+1
+     // console.log(month)
       series =  series.splice(0, month);
       sorted.map((data)=>{
         let month = parseInt(data.key.slice(5,7))
-        series[month] = data.data
+        series[month-1] = data.data
       })
      return series
   },[sellingsData])
@@ -122,14 +123,15 @@ const CustomLineChart = (
           var dateA = new Date(a.key), dateB = new Date(b.key)
           return dateA - dateB
         });
-  
+        //console.log(sorted)
         let series = [0,0,0,0,0,0,0,0,0,0,0,0]
         let month = (new Date()).getMonth()+1
         series =  series.splice(0, month);
         sorted.map((data)=>{
           let month = parseInt(data.key.slice(5,7))
-          series[month] = data.data
+          series[month-1] = data.data
         })
+       // console.log(series)
        return series
     },[purchaseData])
 
