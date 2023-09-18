@@ -65,7 +65,7 @@ top: 0;
  justify-content:space-between;
  align-items:center;
  border-bottom:0.1px solid rgb(43, 43, 43);
- padding:10px 55px;
+ padding:0px 55px;
  @media (max-width: 700px) {
   padding-left:10%;
   padding-right:10%;
@@ -81,7 +81,7 @@ display:flex;
 `
 export const MenuItem = styled.div`
 color:white;
-padding: 5px 6px;
+padding: 4px 6px;
 margin:10px;
 font-size:12px;
 font-weight:bold;

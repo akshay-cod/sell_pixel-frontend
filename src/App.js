@@ -13,6 +13,8 @@ import Toastholder from './components/common/toast/Toastholder';
 import ScrollToTop from './HOC/ScrollToTop';
 import { addNotification } from './notification-worker/notification';
 
+
+
 function App() {
   const dispatch = useDispatch();
   const userFromRedux = useSelector(user)
@@ -20,7 +22,7 @@ function App() {
   const [visible, setLoginVisible] = useState(false);
   const [nameModal, setNameModal] = useState(false);
   useEffect(()=>{
-    document.body.style.zoom = '95%';
+   // document.body.style.zoom = '95%';
     dispatch(checkUserLoggedIn())
   },[])
 

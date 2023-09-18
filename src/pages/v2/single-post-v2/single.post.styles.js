@@ -262,8 +262,8 @@ display: -webkit-box;
 
 export const FullScreenPlayerWrapper = styled.div`
 background:rgba(51, 51, 51,0.7);
- min-height:106vh;
- min-width:106vw;
+ min-height:100vh;
+ min-width:100vw;
  position:fixed;
  top:0;
  z-index:999;

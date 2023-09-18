@@ -26,6 +26,8 @@ cursor:pointer;
  font-size:13px;
  font-family:GraphikBold;
  border-radius:10px;
+ white-space: nowrap;
+ word-break: keep-all;
 `
 export const Label = styled.div`
 font-size:14px;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useScript } from "../hooks/UseScript";
-import VideoJS from "./VideoJs";
+// import VideoJS from "./VideoJs";
 
 const VideoPlayer = ({url, thumbnail, height, width, id}) => {
     useEffect(()=>{
@@ -40,28 +40,28 @@ const VideoPlayer = ({url, thumbnail, height, width, id}) => {
     // });
   };
 
-  //  const script = useScript("https://unpkg.com/video.js@8.3.0/dist/video.min.js")
+   const script = useScript("https://vjs.zencdn.net/7.17.0/video.min.js")
        return(<div style={{width:width}}>
-                  {/* <video
-                    id="my-player"
-                     className="video-js vjs-theme-sea vjs-16-9"
+                  <video
+                    id="my-video"
+                     className="video-js vjs-default-skin vjs-big-play-centered"
                     controls
                     preload="auto"
                    
-                    data-setup='{"fluid" : true }'
+                    data-setup='{"fluid" : true ,"playbackRates": [0.25, 0.5, 1, 1.5, 2]}'
                     aspectRatio="16:9"
                 >
                     <source src={url} type="video/mp4" />
                     <source src={url} type="video/webm" />
-                    <source src={url} type="video/ogg"></source>
+                    <source src={url} type="video/ogg"/>
                     <p className="vjs-no-js">
                     To view this video please enable JavaScript, and consider upgrading to a
                     web browser that
                     <a href="https://videojs.com/html5-video-support/" target="_blank"
                         >supports HTML5 video</a>
                     </p>
-                </video> */}
-                <VideoJS options={videoJsOptions} onReady={handlePlayerReady}/>
+                </video>
+                {/* <VideoJS options={videoJsOptions} onReady={handlePlayerReady}/> */}
         </div>
     )
 }

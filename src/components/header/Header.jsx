@@ -66,7 +66,16 @@ const Header = ({setVisible}) => {
     <WrapperStickyHeader>
         <StickyHeaderLeft>
                 <MenuItem onClick={()=>{window.location.replace("http://finscreindia.com");}}>
-                   FinsCre
+                 <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <div>
+                    <img src={getDynamicFileUrl("logo_v2-min.png")} width="34px"/> 
+                 
+                    </div>
+                    <div style={{fontSize:16}}>
+                    FinsCre
+                    </div>
+                 </div>
+                
                 </MenuItem>
                 {/* <MenuItem>
                     Home
