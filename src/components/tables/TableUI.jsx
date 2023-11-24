@@ -164,7 +164,7 @@ const TableUI = ({sellingsData}) => {
          initialState={{ pagination: { pageSize: 5, pageIndex: 0 } }}
         muiTablePaginationProps={{
         sx:{color:colorsV2.text.placeholder},
-        rowsPerPageOptions: [5, 10, 20],
+        rowsPerPageOptions: [5, 10, 20, 40, 80, 100],
         showFirstButton: false,
         showLastButton: false,
         SelectProps: { native: true },
